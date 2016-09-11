@@ -1,5 +1,8 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Modelo Livro
  *
@@ -11,8 +14,36 @@ package model;
  */
 public class Livro {
 
-    String titulo;
-    String autor;
-//    Lista de exemplares
+    private String titulo;
+    private String autor;
+    private List<Exemplar> exemplares;
+
+    public Livro() {
+        this.exemplares = new ArrayList<Exemplar>();
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    public List<Exemplar> getExemplares() {
+        return exemplares;
+    }
+
+    public void setExemplares(List<Exemplar> exemplares) {
+        this.exemplares = exemplares;
+    }
 
 }
