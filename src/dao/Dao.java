@@ -1,6 +1,5 @@
 package dao;
 
-
 /**
  * Classe Dao
  *
@@ -15,13 +14,13 @@ public abstract class Dao implements InterfaceDao {
     protected final String conn;
 
     public Dao() {
-        this.conn = "Inicializa a conexão;";
+        this.conn = "Pega a conexão ativa;";
     }
-        
+
     public String getConn() {
         return conn;
-    }    
-            
+    }
+
     public void insert(Object obj) {
         System.out.println("SQL Insert");
     }

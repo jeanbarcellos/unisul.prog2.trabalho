@@ -6,7 +6,7 @@ package dao;
  * @author Jean Barcellos <jeanbarcellos@hotmail.com>
  */
 public interface InterfaceDao {
-    
+
     public abstract void insert(Object obj);
 
     public abstract void update(Object objeto);

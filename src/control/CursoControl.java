@@ -2,7 +2,6 @@ package control;
 
 import model.Curso;
 import arq.CursoArq;
-import dao.CursoDao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +15,7 @@ import java.util.List;
  * @package control
  *
  */
-public class CursoControl {
+public class CursoControl extends Control {
 
     private final List<Curso> cursos = new ArrayList<>();
     private final CursoArq arquivo = new CursoArq();
@@ -44,12 +43,11 @@ public class CursoControl {
 
         // Procura na lista
         Curso objeto = new Curso();
-        
+
         // Apaga na lista
-        
         // Persistencia
         this.arquivo.update(objeto);
-        
+
         return true;
     }
 
@@ -57,12 +55,11 @@ public class CursoControl {
 
         // Procura na lista
         Curso objeto = new Curso();
-        
+
         // Apaga na lista
-        
         // Persistencia
         this.arquivo.delete(objeto);
-        
+
         return true;
     }
 

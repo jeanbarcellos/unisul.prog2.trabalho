@@ -3,10 +3,6 @@ package test;
 import control.CursoControl;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Jean Barcellos <jeanbarcellos@hotmail.com>
- */
 public class CursoTeste01 {
 
     public void CursoCRUD() {
@@ -56,9 +52,7 @@ public class CursoTeste01 {
     }
 
     public static void main(String[] args) {
-
         new CursoTeste01().CursoCRUD();
-
     }
 
 }

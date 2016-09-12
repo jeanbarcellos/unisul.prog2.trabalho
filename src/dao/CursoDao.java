@@ -11,8 +11,8 @@ import model.Curso;
  * @package dao
  *
  */
-public class CursoDao extends Dao implements InterfaceDao {
-    
+public class CursoDao extends Dao {
+
     public void insert(Curso obj) {
 
         String sql;

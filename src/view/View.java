@@ -14,9 +14,7 @@ import javax.swing.JOptionPane;
 public class View {
 
     public void menu() {
-
-        JOptionPane.showMessageDialog(null, "Aqui vai o menu de navegação");
-
+        JOptionPane.showMessageDialog(null, "Aplicação");
     }
 
 }
