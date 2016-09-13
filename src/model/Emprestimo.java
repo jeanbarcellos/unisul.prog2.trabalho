@@ -1,6 +1,8 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Modelo Emprestimo
@@ -13,10 +15,54 @@ import java.util.Date;
  */
 public class Emprestimo {
 
-//    Aluno ou professor
-    public Exemplar exemplar;
-    public Date dataEmprestimo;
-    public Date dataDevolucaoPrevista;
-    public Date dataDevolucao;
+    private Usuario usuario;
+    private List<Exemplar> exemplares;
+    private Date dataEmprestimo;
+    private Date dataDevolucaoPrevista;
+    private Date dataDevolucao;
+
+    public Emprestimo() {
+        this.exemplares = new ArrayList<Exemplar>();
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public List<Exemplar> getExemplares() {
+        return exemplares;
+    }
+
+    public void setExemplares(List<Exemplar> exemplares) {
+        this.exemplares = exemplares;
+    }
+
+    public Date getDataEmprestimo() {
+        return dataEmprestimo;
+    }
+
+    public void setDataEmprestimo(Date dataEmprestimo) {
+        this.dataEmprestimo = dataEmprestimo;
+    }
+
+    public Date getDataDevolucaoPrevista() {
+        return dataDevolucaoPrevista;
+    }
+
+    public void setDataDevolucaoPrevista(Date dataDevolucaoPrevista) {
+        this.dataDevolucaoPrevista = dataDevolucaoPrevista;
+    }
+
+    public Date getDataDevolucao() {
+        return dataDevolucao;
+    }
+
+    public void setDataDevolucao(Date dataDevolucao) {
+        this.dataDevolucao = dataDevolucao;
+    }
 
 }

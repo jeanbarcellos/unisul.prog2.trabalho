@@ -1,4 +1,3 @@
-
 package arq;
 
 import model.Curso;
@@ -13,19 +12,19 @@ import model.Curso;
  *
  */
 public class CursoArq {
-    
+
     private final String src = "conteudo/Curso.bin";
 
-    public void insert(Curso obj){
+    public void insert(Curso obj) {
         System.out.println("Insert | arquivo " + src);
     }
-    
-    public void update(Curso obj){
+
+    public void update(Curso obj) {
         System.out.println("Update | arquivo " + src);
     }
-    
-    public void delete(Curso obj){
+
+    public void delete(Curso obj) {
         System.out.println("Delete | arquivo " + src);
     }
-    
+
 }
