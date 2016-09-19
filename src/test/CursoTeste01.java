@@ -31,20 +31,26 @@ public class CursoTeste01 {
                 case 1:
                     // Inserir curso
                     curso = JOptionPane.showInputDialog("Informe o nome do curso a ser inserido:");
+                    
                     cursoControl.inserirCurso(curso);
+                    
                     break;
 
                 case 2:
                     // Alterar curso
                     id = Integer.parseInt(JOptionPane.showInputDialog("Informe o código do curso a ser alterado:"));
                     curso = JOptionPane.showInputDialog("Informe o novo nome do curso:");
+                    
                     cursoControl.alterarCurso(id, curso);
+                    
                     break;
 
                 case 3:
                     // Apagar curso
                     id = Integer.parseInt(JOptionPane.showInputDialog("Informe o código:"));
+                    
                     cursoControl.excluirCurso(id);
+                    
                     break;
 
             }
