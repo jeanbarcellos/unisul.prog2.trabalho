@@ -21,13 +21,14 @@ public class CursoControl extends Control {
     private final CursoArq arquivo = new CursoArq();
 
     public List<Curso> getCursos() {
-        return cursos;
+        return this.cursos;
     }
 
-    public boolean inserirCurso(String nome) {
+    public boolean inserir(int id, String nome) {
 
         // Cria o objeto Curso
         Curso objeto = new Curso();
+        objeto.setId(id);
         objeto.setNome(nome);
 
         // Inserir na lista
@@ -39,19 +40,22 @@ public class CursoControl extends Control {
         return true;
     }
 
-    public boolean alterarCurso(int id, String nome) {
+    public boolean alterar(int id, String nome) {
 
         // Procura na lista
         Curso objeto = new Curso();
+        objeto.setNome(nome);
+        
 
         // Apaga na lista
+        
         // Persistencia
         this.arquivo.update(objeto);
 
         return true;
     }
 
-    public boolean excluirCurso(int id) {
+    public boolean excluir(int id) {
 
         // Procura na lista
         Curso objeto = new Curso();
@@ -63,4 +67,7 @@ public class CursoControl extends Control {
         return true;
     }
 
+    public List<Curso> listar(){
+        return this.cursos;
+    }
 }
