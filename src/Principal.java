@@ -1,4 +1,3 @@
-package init;
 
 import view.View;
 

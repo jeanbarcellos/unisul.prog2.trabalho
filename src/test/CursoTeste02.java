@@ -36,7 +36,7 @@ public class CursoTeste02 {
                     curso = JOptionPane.showInputDialog("Informe o nome do curso a ser inserido:");
 
                     // Envia os dados ao Controlador
-                    cursoControl.inserir(id, curso);
+                    cursoControl.inserir(curso);
 
                     break;
 

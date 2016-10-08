@@ -16,7 +16,6 @@ public class Usuario {
 
     private int matricula;
     private String nome;
-    private Curso curso;
     private List<Exemplar> exemplares;
 
     public Usuario() {
@@ -37,14 +36,6 @@ public class Usuario {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public Curso getCurso() {
-        return curso;
-    }
-
-    public void setCurso(Curso curso) {
-        this.curso = curso;
     }
 
     public List<Exemplar> getExemplares() {

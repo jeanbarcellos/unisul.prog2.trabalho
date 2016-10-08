@@ -1,7 +1,6 @@
 package control;
 
 import model.Curso;
-import arq.CursoArq;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,24 +17,22 @@ import java.util.List;
 public class CursoControl extends Control {
 
     private final List<Curso> cursos = new ArrayList<>();
-    private final CursoArq arquivo = new CursoArq();
 
     public List<Curso> getCursos() {
         return this.cursos;
     }
 
-    public boolean inserir(int id, String nome) {
+    public boolean inserir(String nome) {
 
         // Cria o objeto Curso
         Curso objeto = new Curso();
-        objeto.setId(id);
         objeto.setNome(nome);
 
         // Inserir na lista
         this.cursos.add(objeto);
 
         // Persistencia
-        this.arquivo.insert(objeto);
+        
 
         return true;
     }
@@ -45,12 +42,10 @@ public class CursoControl extends Control {
         // Procura na lista
         Curso objeto = new Curso();
         objeto.setNome(nome);
-        
 
         // Apaga na lista
         
-        // Persistencia
-        this.arquivo.update(objeto);
+        // Persistencia        
 
         return true;
     }
@@ -61,13 +56,13 @@ public class CursoControl extends Control {
         Curso objeto = new Curso();
 
         // Apaga na lista
+        
         // Persistencia
-        this.arquivo.delete(objeto);
 
         return true;
     }
 
-    public List<Curso> listar(){
+    public List<Curso> listar() {
         return this.cursos;
     }
 }

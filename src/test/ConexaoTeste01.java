@@ -1,6 +1,6 @@
 package test;
 
-import api.Conexao;
+import model.dao.Conexao;
 
 public class ConexaoTeste01 {
 
