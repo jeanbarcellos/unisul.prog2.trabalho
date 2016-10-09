@@ -19,15 +19,16 @@ public class CadastroView {
 
         while (opcao > 0 && opcao < 5) {
 
-            opcao = Integer.parseInt(JOptionPane.showInputDialog(
-                    "Cadastros \n"
+            opcao = Integer.parseInt(JOptionPane.showInputDialog(null, 
+                    "Selecione uma das opção abaixo: \n"
                     + "\n"
                     + "1 - Curso \n"
                     + "2 - Aluno \n"
                     + "3 - Professor \n"
                     + "4 - Livro \n"
                     + "5 - Exemplar \n"
-                    + "6 - SAIR\n\n"
+                    + "0 - Voltar ao Menu Principal\n\n"
+                    , "CADASTROS", JOptionPane.QUESTION_MESSAGE
             ));
 
             switch (opcao) {

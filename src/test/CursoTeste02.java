@@ -36,7 +36,7 @@ public class CursoTeste02 {
                     curso = JOptionPane.showInputDialog("Informe o nome do curso a ser inserido:");
 
                     // Envia os dados ao Controlador
-                    cursoControl.inserir(curso);
+//                    cursoControl.inserir(curso);
 
                     break;
 
@@ -46,7 +46,7 @@ public class CursoTeste02 {
                     curso = JOptionPane.showInputDialog("Informe o novo nome do curso:");
 
                     // Envia os dados ao Controlador
-                    cursoControl.alterar(id, curso);
+//                    cursoControl.alterar(id, curso);
 
                     break;
 

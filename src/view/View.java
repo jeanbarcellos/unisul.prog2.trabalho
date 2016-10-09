@@ -19,21 +19,21 @@ public class View {
 
         while (opcao > 0 && opcao < 5) {
 
-            opcao = Integer.parseInt(JOptionPane.showInputDialog(
-                    "BIBLIOTECA UNIVERSITÁRIA \n"
+            opcao = Integer.parseInt(JOptionPane.showInputDialog(null, 
+                     "MENU \n"
                     + "\n"
-                    + "MENU \n"
-                    + "Selecione as baixo: \n"
                     + "1 - Cadastros \n"
                     + "2 - Consultas \n"
                     + "3 - Relatorios \n"
-                    + "4 - Procedimentos \n"
-                    + "5 - SAIR\n\n"
+                    + "4 - Procedimentos \n\n"
+                    + "0 - Sair do Sistema\n"
+                    , "BIBLIOTECA UNIVERSITÁRIA", JOptionPane.QUESTION_MESSAGE
             ));
 
             switch (opcao) {
 
                 case 1:
+                    // Chama a view de Cadastros
                     new CadastroView().show();
                     break;
                 case 2:

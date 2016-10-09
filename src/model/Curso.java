@@ -1,5 +1,7 @@
 package model;
 
+import java.io.Serializable;
+
 /**
  * Modelo Curso
  *
@@ -9,10 +11,24 @@ package model;
  * @package model
  *
  */
-public class Curso {
+public class Curso implements Serializable {
+
+    private static final long serialVersionUID = 1234567890123456789L;
 
     private int id;
     private String nome;
+
+    public Curso() {
+    }
+
+    public Curso(String nome) {
+        this.nome = nome;
+    }
+
+    public Curso(int id, String nome) {
+        this.id = id;
+        this.nome = nome;
+    }
 
     public int getId() {
         return id;

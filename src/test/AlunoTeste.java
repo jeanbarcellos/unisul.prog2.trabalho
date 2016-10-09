@@ -6,7 +6,7 @@ import model.Aluno;
  *
  * @author Jean Barcellos <jeanbarcellos@hotmail.com>
  */
-public class AluteTeste01 {
+public class AlunoTeste {
 
     public static void main(String[] args) {
         

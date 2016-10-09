@@ -22,47 +22,62 @@ public class CursoControl extends Control {
         return this.cursos;
     }
 
-    public boolean inserir(String nome) {
+    /**
+     * Inserir curso
+     * 
+     * @param curso Objeto a ser cadastrado
+     * @return void
+     */
+    public boolean inserir(Curso curso) {
 
-        // Cria o objeto Curso
-        Curso objeto = new Curso();
-        objeto.setNome(nome);
+        // Gerar automaticamente o ID
+        curso.setId(autoId());
 
-        // Inserir na lista
-        this.cursos.add(objeto);
+        // Inserir em memória
+        this.cursos.add(curso);
 
-        // Persistencia
+        // Persistir
         
-
+        
         return true;
     }
 
-    public boolean alterar(int id, String nome) {
-
-        // Procura na lista
-        Curso objeto = new Curso();
-        objeto.setNome(nome);
-
-        // Apaga na lista
-        
-        // Persistencia        
+    public boolean alterar(int id, Curso curso) {
 
         return true;
     }
 
     public boolean excluir(int id) {
 
-        // Procura na lista
-        Curso objeto = new Curso();
-
-        // Apaga na lista
-        
-        // Persistencia
-
         return true;
     }
 
     public List<Curso> listar() {
         return this.cursos;
+    }
+
+    /**
+     * Pega o último ID
+     *
+     * @return
+     */
+    private int ultimoId() {
+        int size = cursos.size();
+        int resultado = 0;
+
+        if (size > 0) {
+            resultado = cursos.get(size - 1).getId();
+        }
+
+        return resultado;
+    }
+
+    /**
+     * Gera o póximo ID a ser inserido
+     *
+     * @return
+     */
+    private int autoId() {
+        return this.ultimoId() + 1;
     }
 }
