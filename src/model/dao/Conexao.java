@@ -44,16 +44,6 @@ public class Conexao {
             System.err.println("Mensagem: " + ex.getMessage()); // SQLException
             System.err.println("Status: " + ex.getSQLState()); // SQLState
             System.err.println("Código: " + ex.getErrorCode()); // VendorError            
-        } finally {
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    System.err.println("Mensagem: " + ex.getMessage()); // SQLException
-                    System.err.println("Status: " + ex.getSQLState()); // SQLState
-                    System.err.println("Código: " + ex.getErrorCode()); // VendorError  
-                }
-            }
         }
 
         return conn;

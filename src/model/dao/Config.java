@@ -19,20 +19,20 @@ public class Config {
 
     public static Properties getConfig() {
 
+        InputStream leitorByte = null;
         Properties props = new Properties();
-        InputStream file = null;
 
         try {
-            file = new FileInputStream("config/db-default.properties");
-            props.load(file);
+            leitorByte = new FileInputStream("config/db-default.properties");
+            props.load(leitorByte);
         } catch (FileNotFoundException ex) {
             System.out.println(ex);
         } catch (IOException e) {
             System.out.println(e);
         } finally {
             try {
-                if (file != null) {
-                    file.close();
+                if (leitorByte != null) {
+                    leitorByte.close();
                 }
             } catch (Exception e) {
                 System.out.println(e);

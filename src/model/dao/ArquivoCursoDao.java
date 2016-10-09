@@ -1,4 +1,3 @@
-
 package model.dao;
 
 import model.Curso;
@@ -13,9 +12,6 @@ import model.Curso;
  *
  */
 class ArquivoCursoDao implements CursoDao {
-
-    public ArquivoCursoDao() {
-    }
 
     @Override
     public boolean insert(Curso curso) {
@@ -38,7 +34,7 @@ class ArquivoCursoDao implements CursoDao {
     }
 
     @Override
-    public void listar() {        
+    public void listar() {
     }
 
 }
