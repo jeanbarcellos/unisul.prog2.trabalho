@@ -1,5 +1,6 @@
 package model.dao;
 
+import api.Log;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -41,10 +42,11 @@ public class Conexao {
             }
 
         } catch (SQLException ex) {
-            System.err.println("Mensagem: " + ex.getMessage()); // SQLException
-            System.err.println("Status: " + ex.getSQLState()); // SQLState
-            System.err.println("Código: " + ex.getErrorCode()); // VendorError            
-        }
+            System.err.println(ex);
+//            System.err.println("Mensagem: " + ex.getMessage()); // SQLException
+//            System.err.println("Status: " + ex.getSQLState()); // SQLState
+//            System.err.println("Código: " + ex.getErrorCode()); // VendorError            
+        } 
 
         return conn;
     }

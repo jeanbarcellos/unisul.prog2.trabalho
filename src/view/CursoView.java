@@ -1,5 +1,7 @@
 package view;
 
+import control.CursoControl;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -11,7 +13,7 @@ import javax.swing.JOptionPane;
  * @package view
  *
  */
-public class CursoView {
+public class CursoView {        
 
     public void show() {
 
@@ -20,16 +22,14 @@ public class CursoView {
         while (opcao > 0 && opcao < 5) {
 
             opcao = Integer.parseInt(JOptionPane.showInputDialog(null,
-                    "Gerenciar Curso \n"
-                    + "\n"
-                    + "O que desejas fazer? \n"
+                    "O que desejas fazer? \n"
                     + "\n"
                     + "1 - Cadastrar \n"
                     + "2 - Alterar \n"
                     + "3 - Apagar \n"
                     + "4 - Listar \n"
-                    + "5 - Voltar ao menu de cadastros \n",
-                    "CADASTROS", JOptionPane.QUESTION_MESSAGE
+                    + "0 - Voltar ao menu de cadastros \n\n",
+                    "GERENCIAR CURSO", JOptionPane.QUESTION_MESSAGE
             ));
 
             switch (opcao) {

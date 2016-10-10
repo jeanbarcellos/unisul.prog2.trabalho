@@ -1,5 +1,6 @@
 package model.dao;
 
+import java.util.List;
 import model.Curso;
 
 /**
@@ -24,7 +25,7 @@ public interface CursoDao {
      * @param curso Objeto a ser alterado
      * @return
      */
-    public boolean update(String id, Curso curso);
+    public boolean update(int id, Curso curso);
 
     /**
      * Apagar livro da base de dados
@@ -36,12 +37,19 @@ public interface CursoDao {
 
     /**
      * Recupera (retorna) um objeto da base de dados
-     *
+     * através de seu ID e instancia ele na memória
+     * 
      * @param id ID do objeto
-     * @return
+     * @return Objeto Curso
      */
     public Curso load(int id);
 
-    public void listar();
+    /**
+     * Recupera todos os registros da base de dados
+     * 
+     * @return 
+     */
+    public List<Curso> all();    
+    
 
 }

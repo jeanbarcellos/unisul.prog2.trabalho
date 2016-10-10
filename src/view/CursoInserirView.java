@@ -1,5 +1,7 @@
 package view;
 
+import model.Curso;
+import control.CursoControl;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,12 +17,26 @@ public class CursoInserirView {
 
     public void show() {
 
-        String curso;
+        String nome;
 
         // Colher informação do usuário
-        curso = JOptionPane.showInputDialog("Informe o nome do curso a ser inserido:");
+        nome = JOptionPane.showInputDialog("Informe o nome do curso a ser inserido:");
 
-        // Executar a inserção
+        // Objeto de Transição
+        Curso curso = new Curso();
+        curso.setNome(nome);
+
+        // Envia o objeto criado para o controlador               
+//        boolean retorno = this.cursoControl.inserir(curso);
+//        
+//        if (retorno) {
+//            JOptionPane.showMessageDialog(null, "Curso Cadastrado com Sucesso");
+//        } else {
+//            JOptionPane.showMessageDialog(null, "Erro ao Tentar cadastrar Curso");
+//        }
+
+        // Persistir
+
     }
 
 }

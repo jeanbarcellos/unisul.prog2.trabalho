@@ -1,5 +1,6 @@
 package view;
 
+import control.CursoControl;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,8 +13,8 @@ import javax.swing.JOptionPane;
  *
  */
 public class View {
-
-    public void menu() {
+        
+    public void menu() {        
 
         int opcao = 1;
 
@@ -25,8 +26,8 @@ public class View {
                     + "1 - Cadastros \n"
                     + "2 - Consultas \n"
                     + "3 - Relatorios \n"
-                    + "4 - Procedimentos \n\n"
-                    + "0 - Sair do Sistema\n"
+                    + "4 - Procedimentos \n"
+                    + "0 - Sair do Sistema\n\n"
                     , "BIBLIOTECA UNIVERSITÁRIA", JOptionPane.QUESTION_MESSAGE
             ));
 

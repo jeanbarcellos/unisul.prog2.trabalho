@@ -1,5 +1,8 @@
 package view;
 
+import control.CursoControl;
+import model.Curso;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -11,23 +14,27 @@ import javax.swing.JOptionPane;
  * @package view
  *
  */
-public class CursoListarView {
+public class CursoListarView {    
 
+    /**
+     * Exibe os cursos cadastrados
+     */
     public void show() {
 
-        JOptionPane.showMessageDialog(null, "Exibindo listagem");
+        String texto = "Crusos Cadastrados:\n";
 
-    }
-
-}
-
-//        String texto = "Crusos Cadastrados:\n";
 //        for (int i = 0; i < cursoControl.listar().size(); i++) {
 //            Curso cursoExt = cursoControl.listar().get(i);
 //            texto += "ID: " + cursoExt.getId() + " - ";
 //            texto += "Nome: " + cursoExt.getNome() + "\n";
 //        }
-////                    for(Curso cursoExt : cursoControl.listar()){
-////                        texto += cursoExt.getNome() + "\n";
-////                    }                                        
-//        JOptionPane.showMessageDialog(null, texto);
+////        for (Curso cursoExt : cursoControl.listar()) {
+////            texto += "ID: " + cursoExt.getId() + " - ";
+////            texto += "Nome: " + cursoExt.getNome() + "\n";
+////        }
+
+        JOptionPane.showMessageDialog(null, texto);
+
+    }
+
+}

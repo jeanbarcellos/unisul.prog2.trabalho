@@ -13,7 +13,7 @@ import java.io.Serializable;
  */
 public class Curso implements Serializable {
 
-    private static final long serialVersionUID = 1234567890123456789L;
+    private static final long serialVersionUID = 6161029930731563853L;
 
     private int id;
     private String nome;
