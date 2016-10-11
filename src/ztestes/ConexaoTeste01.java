@@ -1,6 +1,6 @@
-package test;
+package ztestes;
 
-import model.dao.Conexao;
+import utils.Conexao;
 
 public class ConexaoTeste01 {
 

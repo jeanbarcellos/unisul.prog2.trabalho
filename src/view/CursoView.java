@@ -1,7 +1,5 @@
 package view;
 
-import control.CursoControl;
-
 import javax.swing.JOptionPane;
 
 /**
@@ -13,7 +11,7 @@ import javax.swing.JOptionPane;
  * @package view
  *
  */
-public class CursoView {        
+public class CursoView {
 
     public void show() {
 

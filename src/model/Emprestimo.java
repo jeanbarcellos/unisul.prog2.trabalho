@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,7 +14,9 @@ import java.util.List;
  * @package model
  *
  */
-public class Emprestimo {
+public class Emprestimo implements Serializable {
+
+    private static final long serialVersionUID = -7024870883200731696L;
 
     private Usuario usuario;
     private List<Exemplar> exemplares;

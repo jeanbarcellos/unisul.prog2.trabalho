@@ -3,23 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package test;
+package ztestes;
 
-import api.Log;
-
+import control.CursoControl;
+import view.CursoView;
 
 /**
  *
  * @author Jean Barcellos <jeanbarcellos@hotmail.com>
  */
-public class TesteLog01 {
-
-    /**
-     * @param args the command line arguments
-     */
+public class CursoTeste04 {
+    
+    static CursoControl cursoControl;
+    
     public static void main(String[] args) {
-
-        Log.gravar("Gravando Log de Erro");
+        
+        new CursoView().show();
+        
     }
-
+    
 }

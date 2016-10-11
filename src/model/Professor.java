@@ -14,7 +14,9 @@ import java.util.List;
  */
 public class Professor extends Usuario {
 
-    private List<Curso> cursos;    
+    private static final long serialVersionUID = -4753435542710781157L;
+
+    private List<Curso> cursos;
 
     public Professor() {
         this.cursos = new ArrayList<Curso>();
@@ -28,6 +30,4 @@ public class Professor extends Usuario {
         this.cursos = cursos;
     }
 
-    
-    
 }

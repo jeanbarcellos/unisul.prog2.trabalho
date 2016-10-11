@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,9 @@ import java.util.List;
  * @package model
  *
  */
-public class Livro {
+public class Livro implements Serializable {
+
+    private static final long serialVersionUID = -1436215841880774188L;
 
     private String titulo;
     private String autor;

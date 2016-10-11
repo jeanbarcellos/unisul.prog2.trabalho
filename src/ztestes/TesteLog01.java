@@ -3,26 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package test;
+package ztestes;
 
-import model.dao.CursoDao;
+import utils.Log;
 
 
 /**
  *
  * @author Jean Barcellos <jeanbarcellos@hotmail.com>
  */
-public class TesteSerializar01 {
+public class TesteLog01 {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        
-        
 
-
+        Log.gravar("Gravando Log de Erro");
     }
-    
+
 }

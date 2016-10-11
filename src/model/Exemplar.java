@@ -1,5 +1,7 @@
 package model;
 
+import java.io.Serializable;
+
 /**
  * Modelo Exemplar
  *
@@ -9,7 +11,9 @@ package model;
  * @package model
  *
  */
-public class Exemplar {
+public class Exemplar implements Serializable {
+
+    private static final long serialVersionUID = 1053690196859830776L;
 
     private int codigo;
     private String localizacao;

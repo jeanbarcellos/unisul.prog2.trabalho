@@ -1,6 +1,6 @@
-package model.dao;
+package utils;
 
-import api.Log;
+import utils.Log;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;

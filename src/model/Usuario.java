@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,9 @@ import java.util.List;
  * @package model
  *
  */
-public class Usuario {
+public class Usuario implements Serializable {
+
+    private static final long serialVersionUID = -6636364308558449883L;
 
     private int matricula;
     private String nome;

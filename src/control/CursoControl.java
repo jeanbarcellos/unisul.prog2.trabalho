@@ -2,10 +2,11 @@ package control;
 
 import model.Curso;
 
-import java.util.ArrayList;
-import java.util.List;
 import model.dao.CursoDao;
 import model.dao.DaoFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Classe CursoControl
@@ -25,9 +26,11 @@ public final class CursoControl {
      */
     public CursoControl() {
         this.cursos = new ArrayList<Curso>();
+        
+        // Carrega os cursos vindos da base de dados
         this.setCursos(this.carregarLista());
     }
-    
+
     public List<Curso> getCursos() {
         return this.cursos;
     }
@@ -35,13 +38,12 @@ public final class CursoControl {
     private void setCursos(List<Curso> cursos) {
         this.cursos = cursos;
     }
-    
-    
+
     /**
      * Inserir objeto
-     * 
+     *
      * @param curso
-     * @return 
+     * @return Booleano
      */
     public boolean inserir(Curso curso) {
 
@@ -60,64 +62,57 @@ public final class CursoControl {
 
     /**
      * Alterar objeto
-     * 
+     *
      * @param id ID do Objeto a ser alterado
      * @param curso Objeto Curso já modificado
-     * @return Boleando com o sucesso ou falha
+     * @return Booleando
      */
     public boolean alterar(int id, Curso curso) {
- 
-        // Carrega o Objeto a ser alterado na memória
+
+        // Referencia o Objeto a ser alterado na memória
         Curso cursoLista = this.getCurso(id);
-        
+
+        // Verifica se o objeto existe
         if (cursoLista != null) {
-            
+
             // Altera somente o nome
             cursoLista.setNome(curso.getNome());
 
             // Persiste a ateração
             DaoFactory dao = DaoFactory.getDaoFactory();
             CursoDao cursoDao = dao.getCursoDao();
-                        
             boolean retorno = cursoDao.update(id, curso);
 
-            if (retorno) {
-                return true;
-            } else {
-                return false;
-            }            
+            return retorno;
         } else {
             return false;
         }
-        
+
     }
 
     /**
      * Excluir um objeto da base de dados
+     *
      * @param id ID do Objeto a ser excluido
      * @return true ou false
      */
     public boolean excluir(int id) {
-        
+
         // Carrega o Objeto
         Curso cursoLista = this.getCurso(id);
-                
-        if (cursoLista != null) {            
-            
+
+        if (cursoLista != null) {
+
             // Remove da listas
             this.cursos.remove(cursoLista);
 
-            // Persistir
+            // Persiste a exclusão
             DaoFactory dao = DaoFactory.getDaoFactory();
             CursoDao cursoDao = dao.getCursoDao();
-            
+
             boolean retorno = cursoDao.delete(id);
 
-            if (retorno) {
-                return true;
-            } else {
-                return false;
-            }            
+            return retorno;
         } else {
             return false;
         }
@@ -125,7 +120,7 @@ public final class CursoControl {
 
     /**
      * Recupera (retorna) um objeto da lista através de seu ID
-     * 
+     *
      * @param id ID do Curso
      * @return Objeto Curso
      */
@@ -139,21 +134,21 @@ public final class CursoControl {
         return retorno;
     }
 
-    
     /**
      * Carega a lista do controlador
-     * @return 
+     *
+     * @return Lista com todos os Cursos
      */
     private List<Curso> carregarLista() {
         DaoFactory dao = DaoFactory.getDaoFactory();
         CursoDao cursoDao = dao.getCursoDao();
         return cursoDao.all();
     }
-    
+
     /**
      * Pega o último ID
      *
-     * @return
+     * @return Último ID cadastrado
      */
     private int ultimoId() {
         int size = cursos.size();

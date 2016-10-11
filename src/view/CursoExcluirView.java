@@ -1,6 +1,8 @@
 package view;
 
+import control.CursoControl;
 import javax.swing.JOptionPane;
+import model.Curso;
 
 /**
  * Classe CursoExcluirView
@@ -13,10 +15,32 @@ import javax.swing.JOptionPane;
  */
 public class CursoExcluirView {
 
+    CursoControl cursoControl;
+
+    public CursoExcluirView() {
+        this.cursoControl = new CursoControl();
+    }
+    
     public void show() {
 
-        int id;
+        int id_excluir = Integer.parseInt(JOptionPane.showInputDialog("Informe o código do curso a ser excluído:"));
 
-        id = Integer.parseInt(JOptionPane.showInputDialog("Informe o código:"));
+        // Carrega o objeto a ser alterado
+        Curso cursoSelecionado2 = cursoControl.getCurso(id_excluir);
+
+        if (cursoSelecionado2 != null) {
+
+            // Envia os dados ao Controlador                        
+            boolean retorno = cursoControl.excluir(id_excluir);
+
+            if (retorno) {
+                JOptionPane.showMessageDialog(null, "Curso excluído com sucesso.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro ao excluír o curso.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "O código informado não existe");
+        }
+
     }
 }

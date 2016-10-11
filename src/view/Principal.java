@@ -1,15 +1,14 @@
-
-import view.View;
+package view;
 
 /**
- * View principal do Software
+ * MenuPrincipalView principal do Software
  *
  * @author Jean Barcellos <jeanbarcellos@hotmail.com>
  */
 public class Principal {
 
     public static void main(String[] args) {
-        new View().menu();
+        new MenuPrincipalView().show();
     }
 
 }

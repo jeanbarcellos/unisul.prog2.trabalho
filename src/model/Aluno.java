@@ -1,5 +1,7 @@
 package model;
 
+import java.io.Serializable;
+
 /**
  * Modelo Aluno
  *
@@ -9,7 +11,9 @@ package model;
  * @package model
  *
  */
-public class Aluno extends Usuario {
+public class Aluno extends Usuario implements Serializable {
+
+    private static final long serialVersionUID = 9159168048922608852L;
 
     private Curso curso;
 

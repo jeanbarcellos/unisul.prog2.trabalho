@@ -1,6 +1,8 @@
 package view;
 
+import control.CursoControl;
 import javax.swing.JOptionPane;
+import model.Curso;
 
 /**
  * Classe CursoEditarView
@@ -13,13 +15,38 @@ import javax.swing.JOptionPane;
  */
 public class CursoEditarView {
 
+    CursoControl cursoControl;
+
+    public CursoEditarView() {
+        this.cursoControl = new CursoControl();
+    }
+
     public void show() {
 
-        int id;
-        String curso;
+        int id_alterar = Integer.parseInt(JOptionPane.showInputDialog("Informe o código do curso a ser alterado:"));
 
-        id = Integer.parseInt(JOptionPane.showInputDialog("Informe o código do curso a ser alterado:"));
-        curso = JOptionPane.showInputDialog("Informe o novo nome do curso:");
+        // Carrega o objeto a ser alterado
+        Curso cursoSelecionado = cursoControl.getCurso(id_alterar);
+
+        if (cursoSelecionado != null) {
+
+            String nome_novo = JOptionPane.showInputDialog("Informe o novo nome do curso:");
+
+            // Altera o objeto selecionado                        
+            cursoSelecionado.setNome(nome_novo);
+
+            // Executa a alteração no controlador
+            boolean retorno = cursoControl.alterar(cursoSelecionado.getId(), cursoSelecionado);
+
+            if (retorno) {
+                JOptionPane.showMessageDialog(null, "Curso alterado com sucesso.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro ao tentar alterar o curso.");
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "O código informado não existe");
+        }
 
     }
 

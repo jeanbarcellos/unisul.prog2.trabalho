@@ -1,4 +1,4 @@
-package test;
+package ztestes;
 
 import control.CursoControl;
 import java.util.List;
@@ -13,6 +13,7 @@ public class CursoTeste02 {
 
         String nome;
         int opcao = 1;
+        boolean retorno;
 
         while (opcao > 0 && opcao < 5) {
 
@@ -25,7 +26,7 @@ public class CursoTeste02 {
                     + "2 - Alterar \n"
                     + "3 - Apagar \n"
                     + "4 - Listar \n"
-                    + "5 - SAIR\n\n"
+                    + "0 - SAIR\n\n"
             ));
 
             switch (opcao) {
@@ -34,8 +35,14 @@ public class CursoTeste02 {
 
                     nome = JOptionPane.showInputDialog("Informe o nome do curso a ser inserido:");
 
-                    // Envia os dados ao Controlador
-                    cursoControl.inserir(new Curso(nome));
+                    // Envia o objeto criado para o controlador               
+                    retorno = cursoControl.inserir(new Curso(nome));
+
+                    if (retorno) {
+                        JOptionPane.showMessageDialog(null, "Curso Cadastrado com Sucesso.");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Erro ao Tentar cadastrar Curso.");
+                    }
 
                     break;
 
@@ -54,7 +61,7 @@ public class CursoTeste02 {
                         cursoSelecionado.setNome(nome_novo);
 
                         // Executa a alteração no controlador
-                        boolean retorno = cursoControl.alterar(cursoSelecionado.getId(), cursoSelecionado);
+                        retorno = cursoControl.alterar(cursoSelecionado.getId(), cursoSelecionado);
 
                         if (retorno) {
                             JOptionPane.showMessageDialog(null, "Curso alterado com sucesso.");
@@ -78,7 +85,7 @@ public class CursoTeste02 {
                     if (cursoSelecionado2 != null) {
 
                         // Envia os dados ao Controlador                        
-                        boolean retorno = cursoControl.excluir(id_excluir);
+                        retorno = cursoControl.excluir(id_excluir);
 
                         if (retorno) {
                             JOptionPane.showMessageDialog(null, "Curso excluído com sucesso.");

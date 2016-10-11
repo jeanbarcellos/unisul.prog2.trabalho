@@ -17,26 +17,7 @@ import java.util.Properties;
 public class PostgresDaoFactory extends DaoFactory {
 
     public static Connection openConnection() {
-
-        Connection conn = null;
-        Properties config = Config.getConfig();
-        
-        String server = config.getProperty("server");
-        String host = config.getProperty("host");
-        String port = config.getProperty("port");
-        String user = config.getProperty("user");
-        String password = config.getProperty("password");
-        String database = config.getProperty("database");
-
-        try {
-            conn = DriverManager.getConnection("jdbc:" + server + "://" + host + ":" + port + "/" + database, user, password);
-        } catch (SQLException ex) {
-            System.err.println("Mensagem: " + ex.getMessage());
-            System.err.println("Status: " + ex.getSQLState());
-            System.err.println("Código: " + ex.getErrorCode());
-        }
-
-        return conn;
+        return PostgresConnection.open();
     }
 
     @Override
