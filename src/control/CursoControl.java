@@ -19,22 +19,42 @@ import java.util.List;
  */
 public final class CursoControl {
 
+    /**
+     * Lista com todos os cursos sincronizados com a base de dados
+     */
     private List<Curso> cursos;
 
     /**
+     * Instância do DaoFactory de Cursos
+     */
+    private final CursoDao cursoDao = DaoFactory.getDaoFactory().getCursoDao();
+
+    /**
      * Construtor
+     * 
+     * Carrega a lista de cursos armazanados na base de dados
      */
     public CursoControl() {
         this.cursos = new ArrayList<Curso>();
-        
+
         // Carrega os cursos vindos da base de dados
         this.setCursos(this.carregarLista());
     }
 
+    /**
+     * Retona a lista de Cursos do controlador
+     * @return Lista de Cursos
+     */
     public List<Curso> getCursos() {
         return this.cursos;
     }
 
+    /**
+     * Seta a Lista de cursos do controlador
+     * Declaramos seCursos() como privado 
+     * pois ninguem além do próprio controlador pode gerenciar a lista.
+     * @param cursos Cursos a serem setados na lista.
+     */
     private void setCursos(List<Curso> cursos) {
         this.cursos = cursos;
     }
@@ -54,9 +74,6 @@ public final class CursoControl {
         this.cursos.add(curso);
 
         // Persistir
-        DaoFactory dao = DaoFactory.getDaoFactory();
-        CursoDao cursoDao = dao.getCursoDao();
-
         return cursoDao.insert(curso);
     }
 
@@ -78,9 +95,6 @@ public final class CursoControl {
             // Altera somente o nome
             cursoLista.setNome(curso.getNome());
 
-            // Persiste a ateração
-            DaoFactory dao = DaoFactory.getDaoFactory();
-            CursoDao cursoDao = dao.getCursoDao();
             boolean retorno = cursoDao.update(id, curso);
 
             return retorno;
@@ -105,10 +119,6 @@ public final class CursoControl {
 
             // Remove da listas
             this.cursos.remove(cursoLista);
-
-            // Persiste a exclusão
-            DaoFactory dao = DaoFactory.getDaoFactory();
-            CursoDao cursoDao = dao.getCursoDao();
 
             boolean retorno = cursoDao.delete(id);
 
@@ -140,8 +150,6 @@ public final class CursoControl {
      * @return Lista com todos os Cursos
      */
     private List<Curso> carregarLista() {
-        DaoFactory dao = DaoFactory.getDaoFactory();
-        CursoDao cursoDao = dao.getCursoDao();
         return cursoDao.all();
     }
 

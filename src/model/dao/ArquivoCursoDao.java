@@ -49,7 +49,7 @@ final class ArquivoCursoDao implements CursoDao {
         Curso cursoRef = this.load(id);
 
         if (cursoRef != null) {
-            
+
             // Altera somente o nome
             cursoRef.setNome(curso.getNome());
 
@@ -68,7 +68,7 @@ final class ArquivoCursoDao implements CursoDao {
         Curso cursoRef = this.load(id);
 
         if (cursoRef != null) {
-            
+
             // Remover a lista
             this.cursos.remove(cursoRef);
 
