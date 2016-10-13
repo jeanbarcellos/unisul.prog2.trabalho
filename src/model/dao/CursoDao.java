@@ -11,7 +11,7 @@ import model.Curso;
 public interface CursoDao {
 
     /**
-     * Inserir Livroda base de dados
+     * Inserir Livro na base de dados
      *
      * @param curso
      * @return Resultado da insersão
@@ -19,7 +19,7 @@ public interface CursoDao {
     public boolean insert(Curso curso);
 
     /**
-     * Alterar curso da base de dados
+     * Alterar curso na base de dados
      *
      * @param id ID do Curso
      * @param curso Objeto a ser alterado
@@ -36,9 +36,9 @@ public interface CursoDao {
     public boolean delete(int id);
 
     /**
-     * Recupera (retorna) um objeto da base de dados
-     * através de seu ID e instancia ele na memória
-     * 
+     * Recupera um objeto da base de dados através de seu ID informado e
+     * instancia-o na memória
+     *
      * @param id ID do objeto
      * @return Objeto Curso
      */
@@ -46,10 +46,9 @@ public interface CursoDao {
 
     /**
      * Recupera todos os registros da base de dados
-     * 
-     * @return 
+     *
+     * @return Lista de todos os Cursos
      */
-    public List<Curso> all();    
-    
+    public List<Curso> all();
 
 }

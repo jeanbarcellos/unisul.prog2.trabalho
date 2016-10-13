@@ -31,7 +31,7 @@ public final class CursoControl {
 
     /**
      * Construtor
-     * 
+     *
      * Carrega a lista de cursos armazanados na base de dados
      */
     public CursoControl() {
@@ -43,6 +43,7 @@ public final class CursoControl {
 
     /**
      * Retona a lista de Cursos do controlador
+     *
      * @return Lista de Cursos
      */
     public List<Curso> getCursos() {
@@ -50,35 +51,44 @@ public final class CursoControl {
     }
 
     /**
-     * Seta a Lista de cursos do controlador
-     * Declaramos seCursos() como privado 
+     * Seta a Lista de cursos do controlador Declaramos seCursos() como privado
      * pois ninguem além do próprio controlador pode gerenciar a lista.
+     *
      * @param cursos Cursos a serem setados na lista.
      */
     private void setCursos(List<Curso> cursos) {
         this.cursos = cursos;
     }
-
+   
+    
     /**
-     * Inserir objeto
+     * Inserir um curso
      *
      * @param curso
      * @return Booleano
      */
     public boolean inserir(Curso curso) {
 
-        // Gerar automaticamente o ID
+        // Gerar automaticamente o ID e definir no novo Objeto
         curso.setId(autoId());
 
         // Inserir em memória
         this.cursos.add(curso);
 
         // Persistir
-        return cursoDao.insert(curso);
+        boolean db = cursoDao.insert(curso);
+
+        // Verifica o exito da persistência e mantêm sincronização local
+        if (db) {
+            return true;
+        } else {
+            this.cursos.remove(curso);
+            return false;
+        }
     }
 
     /**
-     * Alterar objeto
+     * Alterar um curso
      *
      * @param id ID do Objeto a ser alterado
      * @param curso Objeto Curso já modificado
@@ -87,13 +97,13 @@ public final class CursoControl {
     public boolean alterar(int id, Curso curso) {
 
         // Referencia o Objeto a ser alterado na memória
-        Curso cursoLista = this.getCurso(id);
+        Curso cursoRef = this.getCurso(id);
 
         // Verifica se o objeto existe
-        if (cursoLista != null) {
+        if (cursoRef != null) {
 
             // Altera somente o nome
-            cursoLista.setNome(curso.getNome());
+            cursoRef.setNome(curso.getNome());
 
             boolean retorno = cursoDao.update(id, curso);
 
@@ -113,12 +123,12 @@ public final class CursoControl {
     public boolean excluir(int id) {
 
         // Carrega o Objeto
-        Curso cursoLista = this.getCurso(id);
+        Curso cursoRef = this.getCurso(id);
 
-        if (cursoLista != null) {
+        if (cursoRef != null) {
 
             // Remove da listas
-            this.cursos.remove(cursoLista);
+            this.cursos.remove(cursoRef);
 
             boolean retorno = cursoDao.delete(id);
 
@@ -128,10 +138,12 @@ public final class CursoControl {
         }
     }
 
+    
     /**
-     * Recupera (retorna) um objeto da lista através de seu ID
+     * Retorna a referência de um objeto da lista através de seu ID. Caso não o
+     * encontre retorna NULL.
      *
-     * @param id ID do Curso
+     * @param id ID do Curso a ser buscado na lista
      * @return Objeto Curso
      */
     public Curso getCurso(int id) {
@@ -145,7 +157,7 @@ public final class CursoControl {
     }
 
     /**
-     * Carega a lista do controlador
+     * Carega a lista no controlador
      *
      * @return Lista com todos os Cursos
      */
