@@ -97,7 +97,7 @@ public final class CursoControl {
     public boolean alterar(int id, Curso curso) {
 
         // Referencia o Objeto a ser alterado na memória
-        Curso cursoRef = this.getCurso(id);
+        Curso cursoRef = this.getObjeto(id);
 
         // Verifica se o objeto existe
         if (cursoRef != null) {
@@ -123,7 +123,7 @@ public final class CursoControl {
     public boolean excluir(int id) {
 
         // Carrega o Objeto
-        Curso cursoRef = this.getCurso(id);
+        Curso cursoRef = this.getObjeto(id);
 
         if (cursoRef != null) {
 
@@ -146,7 +146,7 @@ public final class CursoControl {
      * @param id ID do Curso a ser buscado na lista
      * @return Objeto Curso
      */
-    public Curso getCurso(int id) {
+    public Curso getObjeto(int id) {
         Curso retorno = null;
         for (Curso cursoExt : this.getCursos()) {
             if (cursoExt.getId() == id) {

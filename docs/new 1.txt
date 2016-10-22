@@ -1,0 +1,37 @@
+    /**
+     * Armazena o objeto na base de dados e retorna
+     * o número de linhas afetadas pela instrução SQL (zero ou um)
+     */
+    public function store();
+    
+    
+    /**
+     * Recupera (retorna) um objeto da base de dados
+     * através de seu ID e instancia ele na memória
+     * @param int $id ID do objeto
+     */
+    public function load($id);
+    
+    /**
+     * Exclui um objeto da base de dados através de seu ID.
+     * @param int $id ID do objeto
+     */
+    public function delete($id = NULL);
+    
+    /**
+     * Retorna o último ID
+     */
+    private function getLast();
+    
+    /**
+     *
+     */
+    public static function all();
+    
+    /**
+     * Será utilizado para buscarmos um objeto a partir da base de dados.<br>
+     * Ele na verdade é só um atalho para o método load(), com a facilidade
+     * de ser executado estaticamente.
+     * @param $id = ID do objeto
+     */
+    public static function find($id);

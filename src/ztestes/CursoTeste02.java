@@ -51,7 +51,7 @@ public class CursoTeste02 {
                     int id_alterar = Integer.parseInt(JOptionPane.showInputDialog("Informe o código do curso a ser alterado:"));
 
                     // Carrega o objeto a ser alterado
-                    Curso cursoSelecionado = cursoControl.getCurso(id_alterar);
+                    Curso cursoSelecionado = cursoControl.getObjeto(id_alterar);
 
                     if (cursoSelecionado != null) {
 
@@ -80,7 +80,7 @@ public class CursoTeste02 {
                     int id_excluir = Integer.parseInt(JOptionPane.showInputDialog("Informe o código do curso a ser excluído:"));
 
                     // Carrega o objeto a ser alterado
-                    Curso cursoSelecionado2 = cursoControl.getCurso(id_excluir);
+                    Curso cursoSelecionado2 = cursoControl.getObjeto(id_excluir);
 
                     if (cursoSelecionado2 != null) {
 
