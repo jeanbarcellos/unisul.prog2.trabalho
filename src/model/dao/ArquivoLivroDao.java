@@ -1,11 +1,13 @@
 package model.dao;
 
-import model.Curso;
+import model.Livro;
 
 import java.util.List;
 import java.util.ArrayList;
 import utils.Log;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -16,33 +18,31 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 
 /**
- * Classe ArquivoCursoDao
+ * Classe ArquivoLivroDao
  *
  * @author Jean Barcellos <jeanbarcellos@hotmail.com>
- * @date 09/10/2016
+ * @date 23/10/2016
  *
  * @package model.dao
  *
  */
-final class ArquivoCursoDao implements CursoDao {
+final class ArquivoLivroDao implements LivroDao {
 
-    private List<Curso> cursos = new ArrayList<Curso>();
-    private final String filename = "conteudo/cursos.bin";
-    private final String sequencia = "conteudo/curso_seq";
+    private List<Livro> livros = new ArrayList<Livro>();
+    private final String filename = "conteudo/livros.bin";
+    private final String sequencia = "conteudo/livro_seq";
 
-    public ArquivoCursoDao() {
-        this.cursos = this.all();
+    public ArquivoLivroDao() {
+        this.livros = this.all();
     }
 
     @Override
-    public boolean insert(Curso curso) {
+    public boolean insert(Livro livro) {
 
         // Adicionar a lista temporária local
-        this.cursos.add(curso);
+        this.livros.add(livro);
 
         // Serializar arquivo
         serializar();
@@ -51,14 +51,15 @@ final class ArquivoCursoDao implements CursoDao {
     }
 
     @Override
-    public boolean update(int id, Curso curso) {
+    public boolean update(int id, Livro livro) {
 
-        Curso cursoRef = this.load(id);
+        Livro livroRef = this.load(id);
 
-        if (cursoRef != null) {
+        if (livroRef != null) {
 
             // Altera somente o nome
-            cursoRef.setNome(curso.getNome());
+            livroRef.setTitulo(livro.getTitulo());
+            livroRef.setAutor(livro.getAutor());
 
             // Persistir
             serializar();
@@ -72,12 +73,12 @@ final class ArquivoCursoDao implements CursoDao {
 
     @Override
     public boolean delete(int id) {
-        Curso cursoRef = this.load(id);
+        Livro livroRef = this.load(id);
 
-        if (cursoRef != null) {
+        if (livroRef != null) {
 
             // Remover a lista
-            this.cursos.remove(cursoRef);
+            this.livros.remove(livroRef);
 
             // Persistir
             serializar();
@@ -89,18 +90,18 @@ final class ArquivoCursoDao implements CursoDao {
     }
 
     @Override
-    public Curso load(int id) {
-        Curso retorno = null;
-        for (Curso cursoExt : cursos) {
-            if (cursoExt.getId() == id) {
-                retorno = cursoExt;
+    public Livro load(int id) {
+        Livro retorno = null;
+        for (Livro livroExt : livros) {
+            if (livroExt.getId() == id) {
+                retorno = livroExt;
             }
         }
         return retorno;
     }
 
     @Override
-    public List<Curso> all() {
+    public List<Livro> all() {
         return deserializar();
     }
 
@@ -142,7 +143,7 @@ final class ArquivoCursoDao implements CursoDao {
     }
 
     /**
-     * Serializa a lista de cursos
+     * Serializa a lista de livros
      *
      * @return resultado da serialização
      */
@@ -154,7 +155,7 @@ final class ArquivoCursoDao implements CursoDao {
             escritorByte = new FileOutputStream(filename);
             escritorObjeto = new ObjectOutputStream(escritorByte);
 
-            escritorObjeto.writeObject(this.cursos);
+            escritorObjeto.writeObject(this.livros);
             escritorObjeto.flush();
 
             this.sequenciar();
@@ -181,12 +182,12 @@ final class ArquivoCursoDao implements CursoDao {
     }
 
     /**
-     * Deserializa o arquivo contendo a lista de Cursos
+     * Deserializa o arquivo contendo a lista de Livros
      *
      * @return
      */
-    private List<Curso> deserializar() {
-        List<Curso> lista = null;
+    private List<Livro> deserializar() {
+        List<Livro> lista = null;
 
         InputStream leitorByte = null;
         ObjectInputStream leitorObjeto = null;
@@ -194,7 +195,7 @@ final class ArquivoCursoDao implements CursoDao {
         try {
             leitorByte = new FileInputStream(filename);
             leitorObjeto = new ObjectInputStream(leitorByte);
-            lista = (List<Curso>) leitorObjeto.readObject();
+            lista = (List<Livro>) leitorObjeto.readObject();
 
         } catch (FileNotFoundException e) {
             Log.write(e.getMessage());
@@ -263,4 +264,5 @@ final class ArquivoCursoDao implements CursoDao {
             }
         }
     }
+
 }

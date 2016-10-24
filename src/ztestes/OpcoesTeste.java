@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
  *
  * @author Jean Barcellos <jeanbarcellos@hotmail.com>
  */
-public class opcoes {
+public class OpcoesTeste {
 
     /**
      * @param args the command line arguments

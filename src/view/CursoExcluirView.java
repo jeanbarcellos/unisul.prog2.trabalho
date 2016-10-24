@@ -15,7 +15,7 @@ import model.Curso;
  */
 public class CursoExcluirView {
 
-    CursoControl cursoControl;
+    private final CursoControl cursoControl;
 
     public CursoExcluirView() {
         this.cursoControl = new CursoControl();
@@ -26,7 +26,7 @@ public class CursoExcluirView {
         int id_excluir = Integer.parseInt(JOptionPane.showInputDialog("Informe o código do curso a ser excluído:"));
 
         // Carrega o objeto a ser alterado
-        Curso cursoSelecionado2 = cursoControl.getObjeto(id_excluir);
+        Curso cursoSelecionado2 = cursoControl.getCurso(id_excluir);
 
         if (cursoSelecionado2 != null) {
 

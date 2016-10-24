@@ -15,7 +15,7 @@ import model.Curso;
  */
 public class CursoEditarView {
 
-    CursoControl cursoControl;
+    private final CursoControl cursoControl;
 
     public CursoEditarView() {
         this.cursoControl = new CursoControl();
@@ -26,7 +26,7 @@ public class CursoEditarView {
         int id_alterar = Integer.parseInt(JOptionPane.showInputDialog("Informe o código do curso a ser alterado:"));
 
         // Carrega o objeto a ser alterado
-        Curso cursoSelecionado = cursoControl.getObjeto(id_alterar);
+        Curso cursoSelecionado = cursoControl.getCurso(id_alterar);
 
         if (cursoSelecionado != null) {
 

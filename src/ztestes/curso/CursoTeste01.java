@@ -1,4 +1,4 @@
-package ztestes;
+package ztestes.curso;
 
 import view.CursoView;
 

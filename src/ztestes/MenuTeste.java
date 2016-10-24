@@ -14,7 +14,7 @@ import javax.swing.JFrame;
  *
  * @author Jean Barcellos <jeanbarcellos@hotmail.com>
  */
-public class TesteMenu {
+public class MenuTeste {
 
     /**
      * @param args the command line arguments

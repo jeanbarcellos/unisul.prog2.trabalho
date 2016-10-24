@@ -1,4 +1,4 @@
-package ztestes;
+package ztestes.curso;
 
 import model.Curso;
 import control.CursoControl;
@@ -40,7 +40,7 @@ public class CursoTeste03 {
         int id_alterar = Integer.parseInt(JOptionPane.showInputDialog("Informe o CÓDIGO."));
         
         // Carrega o objeto a ser alterado
-        Curso cursoSelecionado = cursoControl.getObjeto(id_alterar);
+        Curso cursoSelecionado = cursoControl.getCurso(id_alterar);
 
         // Altera o objeto selecionado
         String nome_novo = JOptionPane.showInputDialog("Informe o novo nome do curso:");

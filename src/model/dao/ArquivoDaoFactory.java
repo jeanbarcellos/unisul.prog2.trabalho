@@ -12,12 +12,14 @@ package model.dao;
  */
 class ArquivoDaoFactory extends DaoFactory {
 
-    public ArquivoDaoFactory() {
-    }
-
     @Override
     public CursoDao getCursoDao() {
         return new ArquivoCursoDao();
+    }
+    
+    @Override
+    public LivroDao getLivroDao() {
+        return new ArquivoLivroDao();
     }
 
 }

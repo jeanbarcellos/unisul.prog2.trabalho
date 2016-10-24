@@ -1,9 +1,9 @@
 package view;
 
 import control.CursoControl;
-import java.util.List;
 import model.Curso;
 
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  */
 public class CursoListarView {
 
-    CursoControl cursoControl;
+    private final CursoControl cursoControl;
 
     public CursoListarView() {
         this.cursoControl = new CursoControl();

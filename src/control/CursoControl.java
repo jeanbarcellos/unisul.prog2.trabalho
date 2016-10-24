@@ -2,8 +2,8 @@ package control;
 
 import model.Curso;
 
-import model.dao.CursoDao;
 import model.dao.DaoFactory;
+import model.dao.CursoDao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +41,7 @@ public final class CursoControl {
         this.setCursos(this.carregarLista());
     }
 
+    
     /**
      * Retona a lista de Cursos do controlador
      *
@@ -97,7 +98,7 @@ public final class CursoControl {
     public boolean alterar(int id, Curso curso) {
 
         // Referencia o Objeto a ser alterado na memória
-        Curso cursoRef = this.getObjeto(id);
+        Curso cursoRef = this.getCurso(id);
 
         // Verifica se o objeto existe
         if (cursoRef != null) {
@@ -123,7 +124,7 @@ public final class CursoControl {
     public boolean excluir(int id) {
 
         // Carrega o Objeto
-        Curso cursoRef = this.getObjeto(id);
+        Curso cursoRef = this.getCurso(id);
 
         if (cursoRef != null) {
 
@@ -146,7 +147,7 @@ public final class CursoControl {
      * @param id ID do Curso a ser buscado na lista
      * @return Objeto Curso
      */
-    public Curso getObjeto(int id) {
+    public Curso getCurso(int id) {
         Curso retorno = null;
         for (Curso cursoExt : this.getCursos()) {
             if (cursoExt.getId() == id) {
@@ -155,6 +156,7 @@ public final class CursoControl {
         }
         return retorno;
     }
+    
 
     /**
      * Carega a lista no controlador
@@ -171,14 +173,7 @@ public final class CursoControl {
      * @return Último ID cadastrado
      */
     private int ultimoId() {
-        int size = cursos.size();
-        int resultado = 0;
-
-        if (size > 0) {
-            resultado = cursos.get(size - 1).getId();
-        }
-
-        return resultado;
+        return cursoDao.lastId();
     }
 
     /**

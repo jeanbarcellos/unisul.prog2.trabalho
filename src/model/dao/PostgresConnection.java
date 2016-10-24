@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
+import utils.Log;
 
 /**
  * Classe Conexao
@@ -31,9 +32,7 @@ public class PostgresConnection {
         try {
             conn = DriverManager.getConnection("jdbc:" + server + "://" + host + ":" + port + "/" + database, user, password);
         } catch (SQLException ex) {
-            System.err.println("Mensagem: " + ex.getMessage());
-            System.err.println("Status: " + ex.getSQLState());
-            System.err.println("Código: " + ex.getErrorCode());
+            Log.write("Código: " + ex.getErrorCode() + "" + ex.getMessage());
         }
 
         return conn;

@@ -5,21 +5,25 @@
  */
 package ztestes;
 
-import control.CursoControl;
-import view.CursoView;
+import utils.Log;
 
 /**
  *
  * @author Jean Barcellos <jeanbarcellos@hotmail.com>
  */
-public class CursoTeste04 {
-    
-    static CursoControl cursoControl;
-    
+public class LogTeste01 {
+
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String[] args) {
-        
-        new CursoView().show();
-        
+
+        try {
+            throw new Exception("Testando");
+        } catch (Exception ex) {
+            Log.write(ex.getMessage());
+        }
+
     }
-    
+
 }

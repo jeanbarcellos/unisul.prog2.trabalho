@@ -5,21 +5,23 @@
  */
 package ztestes;
 
-import utils.Log;
-
+import java.sql.Time;
+import java.sql.Timestamp;
 
 /**
  *
  * @author Jean Barcellos <jeanbarcellos@hotmail.com>
  */
-public class TesteLog01 {
+public class TimestampTeste {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-
-        Log.gravar("Gravando Log de Erro");
+        
+         Timestamp dataDeHoje = new Timestamp(System.currentTimeMillis());
+//        Timestamp timestamp = new Timestamp());
+        System.err.println(dataDeHoje);
     }
-
+    
 }

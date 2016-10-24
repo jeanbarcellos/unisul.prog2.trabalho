@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  */
 public class CursoInserirView {
 
-    CursoControl cursoControl;
+    private final CursoControl cursoControl;
 
     public CursoInserirView() {
         this.cursoControl = new CursoControl();

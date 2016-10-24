@@ -18,23 +18,34 @@ import java.util.Date;
  * @package api
  *
  */
-public class Log {
+public final class Log {
 
-    public static void gravar(String mensagem) {
-
+    private Log() {
+//        String mensagem
+//        this.gravar(mensagem);
+    }    
+    
+    /**
+     * Grava a mensagem no arquivo
+     * 
+     * @param mensagem 
+     */
+    static public void write(String mensagem) {
+        String arquivo = "logs/log_error.txt";
+        
         OutputStream escritorByte = null;
         OutputStreamWriter escritorCaracter = null;
         BufferedWriter escritorPalavras = null;
 
         try {
-            escritorByte = new FileOutputStream("conteudo/log_error.txt", true);
+            escritorByte = new FileOutputStream(arquivo, true);
             escritorCaracter = new OutputStreamWriter(escritorByte);
             escritorPalavras = new BufferedWriter(escritorCaracter);
             
             Date data = new Date();            
             SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");            
             
-            String msg = formatador.format(data) + " :: " + mensagem;            
+            String msg = formatador.format(data) + " :: " + mensagem + "\n";            
             
             escritorPalavras.write(msg);
             escritorPalavras.newLine();

@@ -1,0 +1,188 @@
+package control;
+
+import model.Livro;
+
+import model.dao.DaoFactory;
+import model.dao.LivroDao;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Classe LivroControl
+ *
+ * @author Jean Barcellos <jeanbarcellos@hotmail.com>
+ * @date 22/10/2016
+ *
+ * @package control
+ *
+ */
+public class LivroControl {
+
+    /**
+     * Lista com todos os livros sincronizados com a base de dados
+     */
+    private List<Livro> livros;
+
+    /**
+     * Instância do DaoFactory de Livros
+     */
+    private final LivroDao livroDao = DaoFactory.getDaoFactory().getLivroDao();
+
+    /**
+     * Construtor
+     *
+     * Carrega a lista de livros armazanados na base de dados
+     */
+    public LivroControl() {
+        this.livros = new ArrayList<Livro>();
+
+        // Carrega os livros vindos da base de dados
+        this.setLivros(this.carregarLista());
+    }
+
+
+    /**
+     * Retorna a lista de Livros do controlador
+     *
+     * @return Lista de Livros
+     */
+    public List<Livro> getLivros() {
+        return livros;
+    }
+
+    /**
+     * Seta a Lista de livros do controlador. Declaramos setLivro() como privado
+     * pois ninguem, além do próprio controlador, pode gerenciar a lista.
+     *
+     * @param livros Livros a serem setados na lista.
+     */
+    private void setLivros(List<Livro> livros) {
+        this.livros = livros;
+    }
+
+
+    /**
+     * Inserir um livro
+     *
+     * @param livro
+     * @return Booleano
+     */
+    public boolean inserir(Livro livro) {
+
+        // Gerar automaticamente o ID e definir no novo Objeto
+        livro.setId(autoId());
+
+        // Inserir em memória
+        this.livros.add(livro);
+
+        // Persistir
+        boolean db = livroDao.insert(livro);
+
+        // Verifica o exito da persistência e mantêm sincronização local
+        if (db) {
+            return true;
+        } else {
+            this.livros.remove(livro);
+            return false;
+        }
+    }
+
+    /**
+     * Alterar um livro
+     *
+     * @param id ID do Objeto a ser alterado
+     * @param livro Objeto Livro já modificado
+     * @return Booleando
+     */
+    public boolean alterar(int id, Livro livro) {
+
+        // Referencia o Objeto a ser alterado na memória
+        Livro livroRef = this.getLivro(id);
+
+        // Verifica se o objeto existe
+        if (livroRef != null) {
+
+            // Altera somente o nome
+            livroRef.setTitulo(livro.getTitulo());
+
+            boolean retorno = livroDao.update(id, livro);
+
+            return retorno;
+        } else {
+            return false;
+        }
+
+    }
+
+    /**
+     * Excluir um objeto da base de dados
+     *
+     * @param id ID do Objeto a ser excluido
+     * @return true ou false
+     */
+    public boolean excluir(int id) {
+
+        // Carrega o Objeto
+        Livro livroRef = this.getLivro(id);
+
+        if (livroRef != null) {
+
+            // Remove da listas
+            this.livros.remove(livroRef);
+
+            boolean retorno = livroDao.delete(id);
+
+            return retorno;
+        } else {
+            return false;
+        }
+    }
+
+
+    /**
+     * Retorna a referência de um objeto da lista através de seu ID. Caso não o
+     * encontre retorna NULL.
+     *
+     * @param id ID do Livro a ser buscado na lista
+     * @return Objeto Livro
+     */
+    public Livro getLivro(int id) {
+        Livro retorno = null;
+        for (Livro livroExt : this.getLivros()) {
+            if (livroExt.getId() == id) {
+                retorno = livroExt;
+            }
+        }
+        return retorno;
+    }
+
+
+    /**
+     * Carega a lista no controlador
+     *
+     * @return Lista com todos os Livros
+     */
+    private List<Livro> carregarLista() {
+        return livroDao.all();
+    }
+
+    /**
+     * Pega o último ID
+     *
+     * @return Último ID cadastrado
+     */
+    private int ultimoId() {
+        return livroDao.lastId();
+    }
+
+    /**
+     * Gera o próximo ID a ser inserido
+     *
+     * @return
+     */
+    private int autoId() {
+        return this.ultimoId() + 1;
+    }
+
+}

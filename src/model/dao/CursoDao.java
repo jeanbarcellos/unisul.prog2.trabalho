@@ -1,7 +1,7 @@
 package model.dao;
 
-import java.util.List;
 import model.Curso;
+import java.util.List;
 
 /**
  * Interface CursoDao
@@ -11,10 +11,10 @@ import model.Curso;
 public interface CursoDao {
 
     /**
-     * Inserir Livro na base de dados
+     * Inserir curso na base de dados
      *
      * @param curso
-     * @return Resultado da insersão
+     * @return Resultado da inserção
      */
     public boolean insert(Curso curso);
 
@@ -50,5 +50,12 @@ public interface CursoDao {
      * @return Lista de todos os Cursos
      */
     public List<Curso> all();
+
+    /**
+     * Recupera o último ID cadastrado
+     *
+     * @return último ID cadastrado
+     */
+    public int lastId();
 
 }

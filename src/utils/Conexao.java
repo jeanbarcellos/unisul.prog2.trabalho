@@ -1,6 +1,5 @@
 package utils;
 
-import utils.Log;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -42,10 +41,7 @@ public class Conexao {
             }
 
         } catch (SQLException ex) {
-            System.err.println(ex);
-//            System.err.println("Mensagem: " + ex.getMessage()); // SQLException
-//            System.err.println("Status: " + ex.getSQLState()); // SQLState
-//            System.err.println("Código: " + ex.getErrorCode()); // VendorError            
+            Log.write("Código: " + ex.getErrorCode() + "" + ex.getMessage());
         } 
 
         return conn;
