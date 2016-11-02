@@ -15,24 +15,16 @@ public class Exemplar implements Serializable {
 
     private static final long serialVersionUID = 1053690196859830776L;
 
-    private int codigo;
-    private String localizacao;
+    private int id;
     private String edicao;
+    private String localizacao;
 
-    public int getCodigo() {
-        return codigo;
+    public int getId() {
+        return id;
     }
 
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
-
-    public String getLocalizacao() {
-        return localizacao;
-    }
-
-    public void setLocalizacao(String localizacao) {
-        this.localizacao = localizacao;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getEdicao() {
@@ -41,6 +33,14 @@ public class Exemplar implements Serializable {
 
     public void setEdicao(String edicao) {
         this.edicao = edicao;
+    }
+
+    public String getLocalizacao() {
+        return localizacao;
+    }
+
+    public void setLocalizacao(String localizacao) {
+        this.localizacao = localizacao;
     }
 
 }

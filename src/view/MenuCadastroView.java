@@ -53,7 +53,7 @@ public class MenuCadastroView {
                     break;
                 case 5:
                     // Chama View de Cadastro de Exemplar
-                    JOptionPane.showMessageDialog(null, "Cadastra Exemplar");
+                    new ExemplarView().show();
                     break;
             }
 

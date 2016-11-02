@@ -41,7 +41,6 @@ public class LivroControl {
         this.setLivros(this.carregarLista());
     }
 
-
     /**
      * Retorna a lista de Livros do controlador
      *
@@ -61,7 +60,6 @@ public class LivroControl {
         this.livros = livros;
     }
 
-
     /**
      * Inserir um livro
      *
@@ -70,16 +68,12 @@ public class LivroControl {
      */
     public boolean inserir(Livro livro) {
 
-        // Gerar automaticamente o ID e definir no novo Objeto
         livro.setId(autoId());
 
-        // Inserir em memória
         this.livros.add(livro);
 
-        // Persistir
         boolean db = livroDao.insert(livro);
 
-        // Verifica o exito da persistência e mantêm sincronização local
         if (db) {
             return true;
         } else {
@@ -97,13 +91,10 @@ public class LivroControl {
      */
     public boolean alterar(int id, Livro livro) {
 
-        // Referencia o Objeto a ser alterado na memória
         Livro livroRef = this.getLivro(id);
 
-        // Verifica se o objeto existe
         if (livroRef != null) {
 
-            // Altera somente o nome
             livroRef.setTitulo(livro.getTitulo());
 
             boolean retorno = livroDao.update(id, livro);
@@ -123,12 +114,9 @@ public class LivroControl {
      */
     public boolean excluir(int id) {
 
-        // Carrega o Objeto
         Livro livroRef = this.getLivro(id);
 
         if (livroRef != null) {
-
-            // Remove da listas
             this.livros.remove(livroRef);
 
             boolean retorno = livroDao.delete(id);
@@ -138,7 +126,6 @@ public class LivroControl {
             return false;
         }
     }
-
 
     /**
      * Retorna a referência de um objeto da lista através de seu ID. Caso não o
@@ -157,9 +144,8 @@ public class LivroControl {
         return retorno;
     }
 
-
     /**
-     * Carega a lista no controlador
+     * Carrega a lista no controlador
      *
      * @return Lista com todos os Livros
      */

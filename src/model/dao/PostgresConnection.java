@@ -17,6 +17,11 @@ import utils.Log;
  */
 public class PostgresConnection {
 
+    /**
+     * Abre conexão com o Banco de Dados
+     * 
+     * @return Instância de Conexão
+     */
     public static Connection open() {
 
         Connection conn = null;

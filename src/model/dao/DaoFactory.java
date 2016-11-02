@@ -13,6 +13,10 @@ import java.util.Properties;
  */
 public abstract class DaoFactory {
 
+    /**
+     * Retorna uma instância DaoFactory
+     * @return 
+     */
     public static DaoFactory getDaoFactory() {
 
         Properties config = Config.getConfig();

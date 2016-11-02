@@ -17,6 +17,11 @@ import java.util.Properties;
  */
 public class Config {
 
+    /**
+     * Retorna as configurações do sistema
+     * 
+     * @return Properties
+     */
     public static Properties getConfig() {
 
         InputStream leitorByte = null;
