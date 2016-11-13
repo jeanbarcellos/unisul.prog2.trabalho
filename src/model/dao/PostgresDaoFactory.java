@@ -20,7 +20,7 @@ public class PostgresDaoFactory extends DaoFactory {
     @Override
     public CursoDao getCursoDao() {
         return new PostgresCursoDao();
-    }      
+    }
 
     @Override
     public LivroDao getLivroDao() {

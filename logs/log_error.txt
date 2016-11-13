@@ -1,4 +1,0 @@
-2016-10-09 23:18:49 :: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
-
-The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
-2016-10-10 00:14:42 :: Gravando Log de Erro
