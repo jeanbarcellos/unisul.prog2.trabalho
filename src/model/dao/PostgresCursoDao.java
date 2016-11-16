@@ -38,7 +38,6 @@ public class PostgresCursoDao implements CursoDao {
             return retorno == 1;
 
         } catch (SQLException ex) {
-            // Gravar log
             Log.write(ex.getErrorCode() + " - " + ex.getMessage());
             return false;
         } finally {

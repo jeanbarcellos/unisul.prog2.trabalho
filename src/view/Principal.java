@@ -7,6 +7,10 @@ package view;
  */
 public class Principal {
 
+    public static void sair(){
+        System.exit(0);
+    }
+    
     public static void main(String[] args) {
         new MenuPrincipalView().show();
     }

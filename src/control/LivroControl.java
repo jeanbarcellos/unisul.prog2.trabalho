@@ -29,6 +29,7 @@ public class LivroControl {
      */
     private final LivroDao livroDao = DaoFactory.getDaoFactory().getLivroDao();
 
+    
     /**
      * Construtor
      *
@@ -41,6 +42,7 @@ public class LivroControl {
         this.setLivros(this.carregarLista());
     }
 
+    
     /**
      * Retorna a lista de Livros do controlador
      *
@@ -60,6 +62,7 @@ public class LivroControl {
         this.livros = livros;
     }
 
+    
     /**
      * Inserir um livro
      *
@@ -68,7 +71,7 @@ public class LivroControl {
      */
     public boolean inserir(Livro livro) {
 
-        livro.setId(autoId());
+        livro.setId(this.autoId());
 
         this.livros.add(livro);
 
@@ -127,6 +130,7 @@ public class LivroControl {
         }
     }
 
+    
     /**
      * Retorna a referência de um objeto da lista através de seu ID. Caso não o
      * encontre retorna NULL.
@@ -144,6 +148,8 @@ public class LivroControl {
         return retorno;
     }
 
+    
+    
     /**
      * Carrega a lista no controlador
      *

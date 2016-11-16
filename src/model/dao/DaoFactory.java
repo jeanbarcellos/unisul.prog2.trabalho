@@ -34,9 +34,13 @@ public abstract class DaoFactory {
     public abstract CursoDao getCursoDao();
     
     public abstract LivroDao getLivroDao();
-
+    
+    public abstract ExemplarDao getExemplarDao();
+    
 //    public abstract ProfessorDao getProfessorDao();
 
 //    public abstract AlunoDao getAlunoDao();
 
+//    public abstract EmprestimoDao getEmprestimoDao();
+    
 }

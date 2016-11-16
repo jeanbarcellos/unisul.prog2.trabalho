@@ -21,10 +21,15 @@ public class Livro implements Serializable {
     private int id;
     private String titulo;
     private String autor;
-    private List<Exemplar> exemplares;
+    private List<Exemplar> exemplares = new ArrayList<Exemplar>();
 
     public Livro() {
-        this.exemplares = new ArrayList<Exemplar>();
+    }
+
+    public Livro(int id, String titulo, String autor) {
+        this.id = id;
+        this.titulo = titulo;
+        this.autor = autor;
     }
 
     public int getId() {
@@ -34,7 +39,7 @@ public class Livro implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
-    
+
     public String getTitulo() {
         return titulo;
     }
@@ -57,6 +62,24 @@ public class Livro implements Serializable {
 
     public void setExemplares(List<Exemplar> exemplares) {
         this.exemplares = exemplares;
+    }
+
+    public void addExemplar(int id, String edicao, String localizacao) {
+        this.exemplares.add(new Exemplar(id, edicao, localizacao));
+    }
+
+    public boolean removeExemplar(Exemplar exemplar) {
+        return this.exemplares.remove(exemplar);
+    }
+
+    public Exemplar getExemplar(int exemplarId) {
+        Exemplar retorno = null;
+        for (Exemplar exemplarExt : this.getExemplares()) {
+            if (exemplarExt.getId() == exemplarId) {
+                retorno = exemplarExt;
+            }
+        }
+        return retorno;
     }
 
     @Override
@@ -82,6 +105,11 @@ public class Livro implements Serializable {
             return false;
         }
         return true;
-    }    
+    }
+
+    @Override
+    public String toString() {
+        return "Livro {" + "id=" + id + ", titulo=" + titulo + ", autor=" + autor + "}";
+    }
 
 }

@@ -27,4 +27,12 @@ public class PostgresDaoFactory extends DaoFactory {
         return new PostgresLivroDao();
     }
 
+    @Override
+    public ExemplarDao getExemplarDao() {
+        return new PostgresExemplarDao();
+    }
+
+    
+    
+
 }

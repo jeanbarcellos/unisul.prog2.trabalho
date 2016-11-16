@@ -22,4 +22,9 @@ class ArquivoDaoFactory extends DaoFactory {
         return new ArquivoLivroDao();
     }
 
+    @Override
+    public ExemplarDao getExemplarDao() {
+        return new ArquivoExemplarDao();
+    }
+
 }

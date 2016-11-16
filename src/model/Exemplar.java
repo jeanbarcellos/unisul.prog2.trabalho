@@ -16,8 +16,25 @@ public class Exemplar implements Serializable {
     private static final long serialVersionUID = 1053690196859830776L;
 
     private int id;
+    private int livroId;
     private String edicao;
     private String localizacao;
+
+    public Exemplar() {
+    }
+
+    public Exemplar(int id, String edicao, String localizacao) {
+        this.id = id;
+        this.edicao = edicao;
+        this.localizacao = localizacao;
+    }
+
+    public Exemplar(int id, int livroId, String edicao, String localizacao) {
+        this.id = id;
+        this.livroId = livroId;
+        this.edicao = edicao;
+        this.localizacao = localizacao;
+    }
 
     public int getId() {
         return id;
@@ -25,6 +42,14 @@ public class Exemplar implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getLivroId() {
+        return livroId;
+    }
+
+    public void setLivroId(int livroId) {
+        this.livroId = livroId;
     }
 
     public String getEdicao() {
@@ -41,6 +66,11 @@ public class Exemplar implements Serializable {
 
     public void setLocalizacao(String localizacao) {
         this.localizacao = localizacao;
+    }
+
+    @Override
+    public String toString() {
+        return "Exemplar{" + "id=" + id + ", livroId=" + livroId + ", edicao=" + edicao + ", localizacao=" + localizacao + "}";
     }
 
 }

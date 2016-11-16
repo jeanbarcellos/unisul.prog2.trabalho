@@ -13,16 +13,32 @@ import java.util.List;
  * @package model
  *
  */
-public class Usuario implements Serializable {
+public abstract class Usuario implements Serializable {
 
     private static final long serialVersionUID = -6636364308558449883L;
 
+    private int id;
     private int matricula;
     private String nome;
     private List<Exemplar> exemplares;
 
     public Usuario() {
         this.exemplares = new ArrayList<Exemplar>();
+    }
+
+    public Usuario(int id, int matricula, String nome) {
+        this.id = id;
+        this.matricula = matricula;
+        this.nome = nome;
+        this.exemplares = new ArrayList<Exemplar>();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getMatricula() {

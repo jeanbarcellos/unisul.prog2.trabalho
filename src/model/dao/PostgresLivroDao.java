@@ -129,7 +129,50 @@ class PostgresLivroDao implements LivroDao {
 
     @Override
     public Livro load(int id) {
-        return null;
+        Livro livro = null;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            conn = PostgresDaoFactory.openConnection();
+            String sql = "";
+
+            sql += "SELECT id, titulo, autor ";
+            sql += "FROM livro ";
+            sql += "WHERE id = ? ";
+            sql += "LIMIT 1";
+
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            rs = ps.executeQuery();
+            rs.next();
+
+            livro = new Livro();
+            livro.setId(rs.getInt("id"));
+            livro.setTitulo(rs.getString("titulo"));
+            livro.setAutor(rs.getString("autor"));
+
+        } catch (SQLException ex) {
+            Log.write(ex.getErrorCode() + " - " + ex.getMessage());
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception e) {
+
+            }
+        }
+
+        return livro;
     }
 
     @Override
@@ -142,14 +185,14 @@ class PostgresLivroDao implements LivroDao {
         try {
             conn = PostgresDaoFactory.openConnection();
             String sql = "";
-            
+
             sql += "SELECT id, titulo, autor ";
             sql += "FROM livro ";
             sql += "WHERE data_exclusao IS NULL ";
             sql += "ORDER BY id ASC";
-            
+
             ps = conn.prepareStatement(sql);
-            
+
             rs = ps.executeQuery();
 
             while (rs.next()) {

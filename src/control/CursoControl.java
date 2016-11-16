@@ -29,6 +29,7 @@ public final class CursoControl {
      */
     private final CursoDao cursoDao = DaoFactory.getDaoFactory().getCursoDao();
 
+    
     /**
      * Construtor
      *
@@ -158,6 +159,7 @@ public final class CursoControl {
     }
     
 
+    
     /**
      * Carega a lista no controlador
      *

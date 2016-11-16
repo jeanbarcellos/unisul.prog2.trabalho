@@ -18,6 +18,7 @@ public class Emprestimo implements Serializable {
 
     private static final long serialVersionUID = -7024870883200731696L;
 
+    private int id;
     private Usuario usuario;
     private List<Exemplar> exemplares;
     private Date dataEmprestimo;
@@ -26,6 +27,14 @@ public class Emprestimo implements Serializable {
 
     public Emprestimo() {
         this.exemplares = new ArrayList<Exemplar>();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Usuario getUsuario() {
