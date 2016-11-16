@@ -16,10 +16,10 @@ public class LivroDaoTeste01 {
          * 
          * return LivroDao livroDao = new PostgresLivroDao();
          */
-        LivroDao LivroDao = DaoFactory.getDaoFactory().getLivroDao();
+        LivroDao livroDao = DaoFactory.getDaoFactory().getLivroDao();
         
         // Pega todos os objetos do banco
-        List<Livro> livros = LivroDao.all();
+        List<Livro> livros = livroDao.all();
         
         String texto = "Livros Cadastrados:\n";
         for (int i = 0; i < livros.size(); i++) {
@@ -30,9 +30,13 @@ public class LivroDaoTeste01 {
         JOptionPane.showMessageDialog(null, texto);
 
         
-        int last_id = LivroDao.lastId();
+        int last_id = livroDao.lastId();
         
         JOptionPane.showMessageDialog(null, last_id);
+        
+        Livro livro = livroDao.load(1);
+
+        System.out.println(livro);
         
     }
 

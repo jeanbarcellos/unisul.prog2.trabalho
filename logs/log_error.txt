@@ -1,0 +1,69 @@
+2016-11-15 03:00:23 :: 0 - O índice da coluna está fora do intervalo: 6, número de colunas: 5.
+
+2016-11-15 03:05:15 :: 0 - O índice da coluna está fora do intervalo: 6, número de colunas: 5.
+
+2016-11-15 03:06:35 :: 0 - ERROR: column "localizacao" of relation "exemplar" does not exist
+  Posição: 37
+
+2016-11-15 03:15:38 :: 0 - ERROR: column "livro_id" does not exist
+  Posição: 43
+
+2016-11-15 03:15:51 :: 0 - ERROR: column "livro_id" does not exist
+  Posição: 43
+
+2016-11-15 03:16:09 :: 0 - ERROR: column "livro_id" does not exist
+  Posição: 43
+
+2016-11-15 03:17:09 :: 0 - ResultSet não está posicionado corretamente, talvez você precise chamar next.
+
+2016-11-15 03:17:42 :: 0 - ResultSet não está posicionado corretamente, talvez você precise chamar next.
+
+2016-11-15 03:18:26 :: 0 - ResultSet não está posicionado corretamente, talvez você precise chamar next.
+
+2016-11-15 04:26:25 :: 0 - A nome da coluna livro_id não foi encontrado neste ResultSet.
+
+2016-11-15 15:22:48 :: 0 - ERROR: insert or update on table "exemplar" violates foreign key constraint "livro_exemplar_livro_id_fpey"
+  Detalhe: Key (livro_id)=(0) is not present in table "livro".
+
+2016-11-15 20:14:25 :: 0 - ResultSet não está posicionado corretamente, talvez você precise chamar next.
+
+2016-11-15 20:14:37 :: 0 - ResultSet não está posicionado corretamente, talvez você precise chamar next.
+
+2016-11-15 20:14:42 :: 0 - ResultSet não está posicionado corretamente, talvez você precise chamar next.
+
+2016-11-15 20:16:43 :: 0 - ResultSet não está posicionado corretamente, talvez você precise chamar next.
+
+2016-11-15 20:18:02 :: 0 - ResultSet não está posicionado corretamente, talvez você precise chamar next.
+
+2016-11-15 21:12:50 :: 0 - ERROR: column "titulo" of relation "exemplar" does not exist
+  Posição: 21
+
+2016-11-15 21:34:15 :: 0 - ERROR: null value in column "localizacao" violates not-null constraint
+  Detalhe: Failing row contains (11, 1, null, null, 2016-11-15 21:34:15.589, null).
+
+2016-11-15 21:39:14 :: 0 - ERROR: null value in column "localizacao" violates not-null constraint
+  Detalhe: Failing row contains (11, 1, null, null, 2016-11-15 21:39:13.992, null).
+
+2016-11-15 21:41:25 :: 0 - ERROR: null value in column "localizacao" violates not-null constraint
+  Detalhe: Failing row contains (11, 1, null, null, 2016-11-15 21:41:25.687, null).
+
+2016-11-15 21:45:06 :: 0 - ERROR: null value in column "localizacao" violates not-null constraint
+  Detalhe: Failing row contains (11, 1, null, null, 2016-11-15 21:45:06.546, null).
+
+2016-11-15 21:52:33 :: 0 - ERROR: column "titulo" of relation "exemplar" does not exist
+  Posição: 21
+
+2016-11-16 01:27:19 :: 0 - O índice da coluna está fora do intervalo: 5, número de colunas: 2.
+
+2016-11-16 01:27:30 :: 0 - O índice da coluna está fora do intervalo: 3, número de colunas: 2.
+
+2016-11-16 01:50:55 :: 0 - ERROR: syntax error at or near "p"
+  Posição: 87
+
+2016-11-16 02:20:48 :: 0 - Nenhum valor especificado para parâmetro 2.
+
+2016-11-16 02:21:13 :: 0 - Nenhum valor especificado para parâmetro 2.
+
+2016-11-16 02:26:33 :: 0 - ERROR: insert or update on table "aluno" violates foreign key constraint "aluno_curso_id"
+  Detalhe: Key (curso_id)=(0) is not present in table "curso".
+
