@@ -37,9 +37,9 @@ public abstract class DaoFactory {
     
     public abstract ExemplarDao getExemplarDao();
     
-//    public abstract ProfessorDao getProfessorDao();
+    public abstract ProfessorDao getProfessorDao();
 
-//    public abstract AlunoDao getAlunoDao();
+    public abstract AlunoDao getAlunoDao();
 
 //    public abstract EmprestimoDao getEmprestimoDao();
     

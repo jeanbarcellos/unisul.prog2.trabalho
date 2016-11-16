@@ -32,7 +32,6 @@ public class PostgresExemplarDao implements ExemplarDao {
 
             ps = conn.prepareStatement("INSERT INTO exemplar (id, livro_id, localizacao, edicao, data_cadastro, data_exclusao) VALUES (?, ?, ?, ?, ?, ?)");
             ps.setInt(1, exemplar.getId());
-//            ps.setInt(2, exemplar.getLivro().getId());
             ps.setInt(2, exemplar.getLivroId());
             ps.setString(3, exemplar.getLocalizacao());
             ps.setString(4, exemplar.getEdicao());
@@ -62,7 +61,6 @@ public class PostgresExemplarDao implements ExemplarDao {
 
     @Override
     public boolean update(Exemplar exemplar) {
-
         Connection conn = null;
         PreparedStatement ps = null;
 
@@ -143,7 +141,7 @@ public class PostgresExemplarDao implements ExemplarDao {
             sql += "SELECT id, livro_id, localizacao, edicao ";
             sql += "FROM exemplar ";
             sql += "WHERE id = ? ";
-            sql += "AND data_exclusao IS NULL ";
+//            sql += "AND data_exclusao IS NULL ";
             sql += "LIMIT 1;";
 
             ps = conn.prepareStatement(sql);
@@ -202,7 +200,6 @@ public class PostgresExemplarDao implements ExemplarDao {
             while (rs.next()) {
                 Exemplar exemplar = new Exemplar();
                 exemplar.setId(rs.getInt("id"));
-//                exemplar.setLivro(rs.getInt("livro_id"));
                 exemplar.setLivroId(rs.getInt("livro_id"));
                 exemplar.setLocalizacao(rs.getString("localizacao"));
                 exemplar.setEdicao(rs.getString("edicao"));

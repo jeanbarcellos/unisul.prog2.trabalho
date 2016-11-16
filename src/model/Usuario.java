@@ -20,6 +20,7 @@ public abstract class Usuario implements Serializable {
     private int id;
     private int matricula;
     private String nome;
+
     private List<Exemplar> exemplares;
 
     public Usuario() {
@@ -63,6 +64,11 @@ public abstract class Usuario implements Serializable {
 
     public void setExemplares(List<Exemplar> exemplares) {
         this.exemplares = exemplares;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "id=" + id + ", matricula=" + matricula + ", nome=" + nome + '}';
     }
 
 }

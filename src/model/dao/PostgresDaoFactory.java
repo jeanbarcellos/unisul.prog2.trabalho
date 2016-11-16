@@ -32,6 +32,16 @@ public class PostgresDaoFactory extends DaoFactory {
         return new PostgresExemplarDao();
     }
 
+    @Override
+    public ProfessorDao getProfessorDao() {
+        return new PostgresProfessorDao();
+    }
+
+    @Override
+    public AlunoDao getAlunoDao() {
+        return new PostgresAlunoDao();
+    }
+
     
     
 

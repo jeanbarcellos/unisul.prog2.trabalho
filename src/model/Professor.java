@@ -28,6 +28,6 @@ public class Professor extends Usuario {
 
     public void setCursos(List<Curso> cursos) {
         this.cursos = cursos;
-    }
+    }        
 
 }

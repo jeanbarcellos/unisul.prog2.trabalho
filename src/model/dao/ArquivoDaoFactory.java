@@ -27,4 +27,14 @@ class ArquivoDaoFactory extends DaoFactory {
         return new ArquivoExemplarDao();
     }
 
+    @Override
+    public ProfessorDao getProfessorDao() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public AlunoDao getAlunoDao() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
