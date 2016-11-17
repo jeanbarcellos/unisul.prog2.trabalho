@@ -17,8 +17,7 @@ import model.Exemplar;
  */
 class ExemplarExcluirView {
 
-    private final LivroControl livroControl = new LivroControl();
-    private final ExemplarControl exemplarControl = new ExemplarControl();
+    private ExemplarControl exemplarControl = new ExemplarControl();
 
     public ExemplarExcluirView() {
     }

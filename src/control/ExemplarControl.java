@@ -27,7 +27,7 @@ public class ExemplarControl {
     /**
      * Instância do DaoFactory de Cursos
      */
-    private final ExemplarDao exemplarDao = DaoFactory.getDaoFactory().getExemplarDao();
+    private ExemplarDao exemplarDao = DaoFactory.getDaoFactory().getExemplarDao();
 
     
     /**

@@ -45,7 +45,10 @@ final class ArquivoCursoDao implements CursoDao {
         this.cursos.add(curso);
 
         // Serializar arquivo
-        serializar();
+        this.serializar();
+
+        // Sequenciar arquivo
+        this.sequenciar();
 
         return true;
     }
@@ -80,7 +83,7 @@ final class ArquivoCursoDao implements CursoDao {
             this.cursos.remove(cursoRef);
 
             // Persistir
-            serializar();
+            this.serializar();
 
             return true;
         } else {
@@ -156,8 +159,6 @@ final class ArquivoCursoDao implements CursoDao {
 
             escritorObjeto.writeObject(this.cursos);
             escritorObjeto.flush();
-
-            this.sequenciar();
 
             return true;
         } catch (FileNotFoundException e) {

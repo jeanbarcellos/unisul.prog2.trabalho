@@ -45,7 +45,10 @@ final class ArquivoLivroDao implements LivroDao {
         this.livros.add(livro);
 
         // Serializar arquivo
-        serializar();
+        this.serializar();
+
+        // Sequenciar arquivo
+        this.sequenciar();
 
         return true;
     }
@@ -62,7 +65,7 @@ final class ArquivoLivroDao implements LivroDao {
             livroRef.setAutor(livro.getAutor());
 
             // Persistir
-            serializar();
+            this.serializar();
 
             return true;
         } else {
@@ -81,7 +84,7 @@ final class ArquivoLivroDao implements LivroDao {
             this.livros.remove(livroRef);
 
             // Persistir
-            serializar();
+            this.serializar();
 
             return true;
         } else {
@@ -158,9 +161,8 @@ final class ArquivoLivroDao implements LivroDao {
             escritorObjeto.writeObject(this.livros);
             escritorObjeto.flush();
 
-            this.sequenciar();
-
             return true;
+            
         } catch (FileNotFoundException e) {
             Log.write(e.getMessage());
             return false;

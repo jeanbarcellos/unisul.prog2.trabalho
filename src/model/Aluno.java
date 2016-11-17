@@ -15,8 +15,7 @@ public class Aluno extends Usuario implements Serializable {
 
     private static final long serialVersionUID = 9159168048922608852L;
 
-//    private Curso curso;
-    private int cursoId;
+    private Curso curso;
 
     /**
      * Construtor
@@ -25,30 +24,28 @@ public class Aluno extends Usuario implements Serializable {
 
     }
 
-    
-    
-//    /**
-//     * Retorna o curso que o Aluno frequenta
-//     * @return
-//     */
-//    public Curso getCurso() {
-//        return curso;
-//    }
-//
-//    /**
-//     * Define o curso que o Aluno frequena
-//     * @param curso
-//     */
-//    public void setCurso(Curso curso) {
-//        this.curso = curso;
-//    }
-
-    public int getCursoId() {
-        return cursoId;
+    /**
+     * Retorna o curso que o Aluno frequenta
+     *
+     * @return
+     */
+    public Curso getCurso() {
+        return curso;
     }
 
-    public void setCursoId(int cursoId) {
-        this.cursoId = cursoId;
+    /**
+     * Define o curso que o Aluno frequena
+     *
+     * @param curso
+     */
+    public void setCurso(Curso curso) {
+        this.curso = curso;
     }
+
+    @Override
+    public String toString() {
+        return "Aluno{" + "id=" + super.getId() + ", matricula=" + super.getMatricula() + ", nome=" + super.getNome() + ", curso=" + curso + "}";
+    }    
+    
 
 }

@@ -16,7 +16,7 @@ public class Exemplar implements Serializable {
     private static final long serialVersionUID = 1053690196859830776L;
 
     private int id;
-    private int livroId;
+    private Livro livro;
     private String edicao;
     private String localizacao;
 
@@ -29,9 +29,9 @@ public class Exemplar implements Serializable {
         this.localizacao = localizacao;
     }
 
-    public Exemplar(int id, int livroId, String edicao, String localizacao) {
+    public Exemplar(int id, Livro livro, String edicao, String localizacao) {
         this.id = id;
-        this.livroId = livroId;
+        this.livro = livro;
         this.edicao = edicao;
         this.localizacao = localizacao;
     }
@@ -44,12 +44,12 @@ public class Exemplar implements Serializable {
         this.id = id;
     }
 
-    public int getLivroId() {
-        return livroId;
+    public Livro getLivro() {
+        return livro;
     }
 
-    public void setLivroId(int livroId) {
-        this.livroId = livroId;
+    public void setLivro(Livro livro) {
+        this.livro = livro;
     }
 
     public String getEdicao() {
@@ -70,7 +70,7 @@ public class Exemplar implements Serializable {
 
     @Override
     public String toString() {
-        return "Exemplar{" + "id=" + id + ", livroId=" + livroId + ", edicao=" + edicao + ", localizacao=" + localizacao + "}";
+        return "Exemplar{" + "id=" + id + ", livroId=" + livro + ", edicao=" + edicao + ", localizacao=" + localizacao + "}\n";
     }
 
 }

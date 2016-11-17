@@ -1,5 +1,7 @@
-
 package model.dao;
+
+import model.Aluno;
+import model.Curso;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -8,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import model.Aluno;
 import utils.Log;
 
 /**
@@ -41,7 +42,7 @@ public class PostgresAlunoDao implements AlunoDao {
 
             ps2 = conn.prepareStatement("INSERT INTO aluno (usuario_id, curso_id, matricula, data_inicio, data_fim) VALUES (?, ?, ?, ?, ?)");
             ps2.setInt(1, aluno.getId());
-            ps2.setInt(2, aluno.getCursoId());
+            ps2.setInt(2, aluno.getCurso().getId());
             ps2.setInt(3, aluno.getMatricula());
             ps2.setDate(4, dataAgora);
             ps2.setDate(5, null);
@@ -84,7 +85,7 @@ public class PostgresAlunoDao implements AlunoDao {
 
             ps2 = conn.prepareStatement("UPDATE aluno SET matricula = ?, curso_id = ? WHERE usuario_id = ? ;");
             ps2.setInt(1, aluno.getMatricula());
-            ps2.setInt(2, aluno.getCursoId());
+            ps2.setInt(2, aluno.getCurso().getId());
             ps2.setInt(3, aluno.getId());
 
             int retorno2 = ps2.executeUpdate();
@@ -152,13 +153,20 @@ public class PostgresAlunoDao implements AlunoDao {
             conn = PostgresDaoFactory.openConnection();
 
             String sql = "";
-            sql += "SELECT a.usuario_id AS id, a.curso_id, u.nome, a.matricula ";
-            sql += "FROM aluno a ";
-            sql += "LEFT JOIN usuario u ";
-            sql += "ON a.usuario_id = u.id ";
-            sql += "WHERE a.usuario_id = ? ";
-            sql += "ORDER BY a.usuario_id DESC ";
-            sql += "LIMIT 1 ;";
+            sql += "SELECT ";
+            sql += "    a.usuario_id AS id, ";
+            sql += "    u.nome, ";
+            sql += "    a.matricula, ";
+            sql += "    a.curso_id, ";
+            sql += "      c.nome AS curso_nome ";
+            sql += "  FROM aluno a ";
+            sql += "  LEFT JOIN usuario u ";
+            sql += "    ON a.usuario_id = u.id ";
+            sql += "  LEFT JOIN curso c ";
+            sql += "    ON a.curso_id = c.id ";
+            sql += " WHERE a.usuario_id = ? ";
+            sql += " ORDER BY a.usuario_id DESC ";
+            sql += " LIMIT 1 ;";
 
             ps = conn.prepareStatement(sql);
             ps.setInt(1, id);
@@ -168,7 +176,7 @@ public class PostgresAlunoDao implements AlunoDao {
             while (rs.next()) {
                 aluno = new Aluno();
                 aluno.setId(rs.getInt("id"));
-                aluno.setCursoId(rs.getInt("curso_id"));
+                aluno.setCurso(new Curso(rs.getInt("curso_id"), rs.getString("curso_nome")));
                 aluno.setNome(rs.getString("nome"));
                 aluno.setMatricula(rs.getInt("matricula"));
             }
@@ -203,14 +211,21 @@ public class PostgresAlunoDao implements AlunoDao {
 
         try {
             conn = PostgresDaoFactory.openConnection();
-            String sql = "";
 
-            sql += "SELECT a.usuario_id AS id, a.curso_id, u.nome, a.matricula ";
-            sql += "FROM aluno a ";
-            sql += "LEFT JOIN usuario u ";
-            sql += "ON a.usuario_id = u.id ";
-            sql += "WHERE a.data_fim IS NULL ";
-            sql += "ORDER BY a.usuario_id ASC";
+            String sql = "";
+            sql += "SELECT ";
+            sql += "    a.usuario_id AS id, ";
+            sql += "    u.nome, ";
+            sql += "    a.matricula, ";
+            sql += "    a.curso_id, ";
+            sql += "      c.nome AS curso_nome ";
+            sql += "  FROM aluno a ";
+            sql += "  LEFT JOIN usuario u ";
+            sql += "    ON a.usuario_id = u.id ";
+            sql += "  LEFT JOIN curso c ";
+            sql += "    ON a.curso_id = c.id ";
+            sql += " WHERE a.data_fim IS NULL ";
+            sql += " ORDER BY a.usuario_id ASC ;";
 
             ps = conn.prepareStatement(sql);
 
@@ -219,7 +234,7 @@ public class PostgresAlunoDao implements AlunoDao {
             while (rs.next()) {
                 Aluno aluno = new Aluno();
                 aluno.setId(rs.getInt("id"));
-                aluno.setCursoId(rs.getInt("curso_id"));
+                aluno.setCurso(new Curso(rs.getInt("curso_id"), rs.getString("curso_nome")));
                 aluno.setNome(rs.getString("nome"));
                 aluno.setMatricula(rs.getInt("matricula"));
                 alunos.add(aluno);

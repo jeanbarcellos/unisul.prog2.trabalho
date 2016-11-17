@@ -3,7 +3,6 @@ package view;
 import model.Exemplar;
 
 import control.ExemplarControl;
-import control.LivroControl;
 
 import javax.swing.JOptionPane;
 import model.Livro;
@@ -19,13 +18,12 @@ import model.Livro;
  */
 class ExemplarInserirView {
 
-    private final Livro livro;
-    private final LivroControl livroControl = new LivroControl();
-    private final ExemplarControl exemplarControl = new ExemplarControl();
+    private Livro livro;
+    private ExemplarControl exemplarControl = new ExemplarControl();
 
-    public ExemplarInserirView(int livroId) {
-        this.livro = livroControl.getLivro(livroId);
-    }
+    public ExemplarInserirView(Livro livro) {
+        this.livro = livro;
+    }    
 
     public void show() {
         
@@ -38,7 +36,7 @@ class ExemplarInserirView {
         String localizacao = JOptionPane.showInputDialog(livroTxt + "Informe a LOCALIZAÇÃO do Exemplar:");
 
         Exemplar exemplar = new Exemplar();
-        exemplar.setLivroId(this.livro.getId());
+        exemplar.setLivro(this.livro);
         exemplar.setEdicao(edicao);
         exemplar.setLocalizacao(localizacao);
 

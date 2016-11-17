@@ -24,7 +24,7 @@ public class AlunoTesteDao01 {
 
         AlunoDao alunoDao = DaoFactory.getDaoFactory().getAlunoDao();
 
-        int proxId = alunoDao.lastId() + 1;
+//        int proxId = alunoDao.lastId() + 1;
 
 
         // INSERIR -------------------------------------------------------------
@@ -75,12 +75,12 @@ public class AlunoTesteDao01 {
         // LISTAR --------------------------------------------------------------
 //        List<Aluno> retorno4 = alunoDao.all();
 //        
-//        for (Aluno prof : retorno4) {
-//            System.out.println(prof);
+//        for (Aluno aluno : retorno4) {
+//            System.out.println(aluno);
 //        }
         
         // LOAD ----------------------------------------------------------------
-        Aluno retorno5 = alunoDao.load(3);
+        Aluno retorno5 = alunoDao.load(7);
         
         if (retorno5 != null) {
             System.out.println(retorno5);

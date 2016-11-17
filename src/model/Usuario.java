@@ -68,7 +68,7 @@ public abstract class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "Usuario{" + "id=" + id + ", matricula=" + matricula + ", nome=" + nome + '}';
+        return "Usuario{" + "id=" + id + ", matricula=" + matricula + ", nome=" + nome + "}";
     }
 
 }

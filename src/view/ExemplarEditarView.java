@@ -18,12 +18,11 @@ import model.Livro;
  */
 class ExemplarEditarView {
 
-    private final Livro livro;
-    private final LivroControl livroControl = new LivroControl();
-    private final ExemplarControl exemplarControl = new ExemplarControl();
+    private Livro livro;
+    private ExemplarControl exemplarControl = new ExemplarControl();
 
-    public ExemplarEditarView(int livroId) {
-        this.livro = livroControl.getLivro(livroId);
+    public ExemplarEditarView(Livro livro) {
+        this.livro = livro;
     }
 
     public void show() {

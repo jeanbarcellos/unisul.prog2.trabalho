@@ -20,13 +20,12 @@ public class Emprestimo implements Serializable {
 
     private int id;
     private Usuario usuario;
-    private List<Exemplar> exemplares;
+    private Exemplar exemplar;
     private Date dataEmprestimo;
     private Date dataDevolucaoPrevista;
     private Date dataDevolucao;
 
     public Emprestimo() {
-        this.exemplares = new ArrayList<Exemplar>();
     }
 
     public int getId() {
@@ -45,12 +44,12 @@ public class Emprestimo implements Serializable {
         this.usuario = usuario;
     }
 
-    public List<Exemplar> getExemplares() {
-        return exemplares;
+    public Exemplar getExemplar() {
+        return exemplar;
     }
 
-    public void setExemplares(List<Exemplar> exemplares) {
-        this.exemplares = exemplares;
+    public void setExemplar(Exemplar exemplar) {
+        this.exemplar = exemplar;
     }
 
     public Date getDataEmprestimo() {

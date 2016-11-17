@@ -13,9 +13,15 @@ public class ExemplarTesteDao01 {
 
         ExemplarDao exemplarDao = DaoFactory.getDaoFactory().getExemplarDao();        
         
-        List<Exemplar> lista = exemplarDao.listar(1);
+//        List<Exemplar> lista = exemplarDao.listar(1);        
+//        System.out.println(lista);
+//    
         
-        System.out.println(lista);
+         for(Exemplar exe : exemplarDao.all()){            
+            
+            System.out.println(exe);
+         }
+
     }
     
 }

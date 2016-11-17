@@ -2,7 +2,7 @@ package ztestes;
 
 import model.*;
 
-public class GeralTeste03 {
+public class GeralTeste03Usuarios {
 
     static int total = 0;
 
@@ -24,14 +24,12 @@ public class GeralTeste03 {
             sql2 += "VALLUES ";
             sql2 += "(" + id + "," + usuario.getMatricula() + ", '" + usuario.getNome() + "');";
 
-            
         } else if (usuario instanceof Aluno) {
             sql2 = "INSERT INTO aluno ";
             sql2 += "(usuario_id, matricula) ";
             sql2 += "VALLUES ";
             sql2 += "(" + id + "," + usuario.getMatricula() + ", '" + usuario.getNome() + "');";
 
-            
         }
 
         System.out.println(sql1);
@@ -44,7 +42,7 @@ public class GeralTeste03 {
         Aluno usuario1 = new Aluno();
         usuario1.setMatricula(10001);
         usuario1.setNome("Jean Barcellos Aluno");
-//        usuario1.setCurso(new Curso("Sistemas de Informação"));
+        usuario1.setCurso(new Curso("Sistemas de Informação"));
 
         Professor usuario2 = new Professor();
         usuario2.setMatricula(10001);
@@ -53,7 +51,7 @@ public class GeralTeste03 {
         Aluno usuario3 = new Aluno();
         usuario3.setMatricula(10002);
         usuario3.setNome("Mario José da Silva");
-//        usuario3.setCurso(new Curso("Ciência da Computação"));
+        usuario3.setCurso(new Curso("Ciência da Computação"));
 
         usuarioInserir(usuario1);
         usuarioInserir(usuario2);

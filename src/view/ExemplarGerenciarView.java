@@ -19,8 +19,8 @@ import javax.swing.JOptionPane;
  */
 class ExemplarGerenciarView {
 
-    private final LivroControl livroControl;
-    private final ExemplarControl exemplarControl;
+    private LivroControl livroControl;
+    private ExemplarControl exemplarControl;
 
     public ExemplarGerenciarView() {
         this.livroControl = new LivroControl();
@@ -70,10 +70,10 @@ class ExemplarGerenciarView {
 
                 switch (opcao) {
                     case 1:
-                        new ExemplarInserirView(livro.getId()).show();
+                        new ExemplarInserirView(livro).show();
                         break;
                     case 2:
-                        new ExemplarEditarView(livro.getId()).show();
+                        new ExemplarEditarView(livro).show();
                         break;
                     case 3:
                         new ExemplarExcluirView().show();

@@ -19,11 +19,9 @@ import javax.swing.JOptionPane;
  */
 class ExemplarListarView {
 
-    private final LivroControl livroControl;
-    private final ExemplarControl exemplarControl;
+    private ExemplarControl exemplarControl;
 
     public ExemplarListarView() {
-        this.livroControl = new LivroControl();
         this.exemplarControl = new ExemplarControl();
     }
 
@@ -32,12 +30,10 @@ class ExemplarListarView {
         Livro livro;
         resultTxt = "";
 
-        for (Exemplar exe : exemplarControl.getExemplares()) {
-            livro = livroControl.getLivro(exe.getLivroId());
-
+        for (Exemplar exe : exemplarControl.getExemplares()) {            
             resultTxt += "ID: " + exe.getId() + " | ";
-            resultTxt += "Livro {ID " + livro.getId() + ", ";
-            resultTxt += "Titulo: " + livro.getTitulo() + "} | ";
+            resultTxt += "Livro {ID " + exe.getLivro().getId() + ", ";
+            resultTxt += "Titulo: " + exe.getLivro().getTitulo() + "} | ";
             resultTxt += "Edição" + exe.getEdicao() + "\n";
 
         }
