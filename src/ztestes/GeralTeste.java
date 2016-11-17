@@ -1,11 +1,9 @@
 package ztestes;
 
-import java.util.ArrayList;
-import java.util.List;
 import model.*;
 
 public class GeralTeste {
-   
+
     public static void emprestimoInserir(Emprestimo emprestimo) {
         String sql1 = "";
         String sql2 = "";
@@ -35,28 +33,26 @@ public class GeralTeste {
         Exemplar ex7 = new Exemplar(8, livro4, "Edicao 4", "Localizacao 3");
         Exemplar ex8 = new Exemplar(8, livro4, "Edicao 2", "Localizac 34");
         Exemplar ex9 = new Exemplar(9, livro4, "Edicao 40", "Localizacao 3");
-        
+
         // USUARIO -------------------------------------------------------------
         Usuario usuario = new Professor();
         usuario.setId(1);
         usuario.setMatricula(1);
         usuario.setNome("Jean Barcellos");
-        
 
         // EMPRESTIMO ----------------------------------------------------------        
         // 1
         Emprestimo emprestimo1 = new Emprestimo();
-        emprestimo1.setId(1);        
+        emprestimo1.setId(1);
         emprestimo1.setUsuario(usuario);
         emprestimo1.setExemplar(ex1);
-        
+
         // 2
         Emprestimo emprestimo2 = new Emprestimo();
-        emprestimo2.setId(2);        
+        emprestimo2.setId(2);
         emprestimo2.setUsuario(usuario);
         emprestimo2.setExemplar(ex2);
-        
-                
+
         emprestimoInserir(emprestimo1);
         emprestimoInserir(emprestimo2);
     }

@@ -42,7 +42,9 @@ public class PostgresDaoFactory extends DaoFactory {
         return new PostgresAlunoDao();
     }
 
-    
-    
+    @Override
+    public UsuarioDao getUsuarioDao() {
+        return new PostgresUsuarioDao();
+    }
 
 }
