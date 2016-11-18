@@ -1,5 +1,6 @@
 package model.dao;
 
+import zold.ConfigOld;
 import java.util.Properties;
 
 /**
@@ -19,7 +20,7 @@ public abstract class DaoFactory {
      */
     public static DaoFactory getDaoFactory() {
 
-        Properties config = Config.getConfig();
+        Properties config = ConfigOld.getConfig();
 
         int tipo = Integer.parseInt(config.getProperty("tipo"));
 

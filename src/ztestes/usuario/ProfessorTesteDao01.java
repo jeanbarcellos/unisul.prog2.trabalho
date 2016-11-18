@@ -78,13 +78,13 @@ public class ProfessorTesteDao01 {
 //        }
         
         // LOAD ----------------------------------------------------------------
-        Professor retorno5 = professorDao.load(2);
-        
-        if (retorno5 != null) {
-            System.out.println(retorno5);
-        } else {
-            System.out.println("NÃO");
-        }
+//        Professor retorno5 = professorDao.load(2);
+//        
+//        if (retorno5 != null) {
+//            System.out.println(retorno5);
+//        } else {
+//            System.out.println("NÃO");
+//        }
         
     }
 

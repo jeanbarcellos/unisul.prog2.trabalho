@@ -1,4 +1,4 @@
-package model.dao;
+package zold;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -7,7 +7,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 /**
- * Classe Config
+ * Classe ConfigOld
  *
  * @author Jean Barcellos <jeanbarcellos@hotmail.com>
  * @date 09/10/2016
@@ -15,8 +15,14 @@ import java.util.Properties;
  * @package model.dao
  *
  */
-public class Config {
+public class ConfigOld {
 
+    private ConfigOld() {
+        
+    }
+
+    
+    
     /**
      * Retorna as configurações do sistema
      * 

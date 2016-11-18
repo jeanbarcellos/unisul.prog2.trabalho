@@ -33,7 +33,7 @@ public class ExemplarListarView {
         for (Exemplar exe : exemplarControl.getExemplares()) {            
             resultTxt += "ID: " + exe.getId() + " | ";
             resultTxt += "Livro {ID " + exe.getLivro().getId() + ", ";
-            resultTxt += "Titulo: " + exe.getLivro().getTitulo() + "} | ";
+            resultTxt += "Titulo: " + exe.getLivro().getTitulo() + "} ";
             resultTxt += "Edição" + exe.getEdicao() + "\n";
 
         }

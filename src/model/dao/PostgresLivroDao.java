@@ -60,7 +60,7 @@ class PostgresLivroDao implements LivroDao {
     }
 
     @Override
-    public boolean update(int id, Livro livro) {
+    public boolean update(Livro livro) {
         Connection conn = null;
         PreparedStatement ps = null;
 

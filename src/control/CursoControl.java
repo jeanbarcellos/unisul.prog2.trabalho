@@ -107,7 +107,7 @@ public final class CursoControl {
             // Altera somente o nome
             cursoRef.setNome(curso.getNome());
 
-            boolean retorno = cursoDao.update(id, curso);
+            boolean retorno = cursoDao.update(curso);
 
             return retorno;
         } else {

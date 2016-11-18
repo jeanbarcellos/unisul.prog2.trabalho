@@ -21,11 +21,10 @@ public interface CursoDao {
     /**
      * Alterar curso na base de dados
      *
-     * @param id ID do Curso
      * @param curso Objeto a ser alterado
      * @return
      */
-    public boolean update(int id, Curso curso);
+    public boolean update(Curso curso);
 
     /**
      * Apagar livro da base de dados

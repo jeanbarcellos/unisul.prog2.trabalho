@@ -21,18 +21,17 @@ import java.util.Date;
 public final class Log {
 
     private Log() {
-//        String mensagem
-//        this.gravar(mensagem);
-    }    
-    
+    }
+
     /**
      * Grava a mensagem no arquivo
-     * 
-     * @param mensagem 
+     *
+     * @param mensagem
      */
     static public void write(String mensagem) {
-        String arquivo = "logs/log_error.txt";
-        
+
+        String arquivo = Config.getInstance().getValue("logErros");
+
         OutputStream escritorByte = null;
         OutputStreamWriter escritorCaracter = null;
         BufferedWriter escritorPalavras = null;
@@ -41,18 +40,18 @@ public final class Log {
             escritorByte = new FileOutputStream(arquivo, true);
             escritorCaracter = new OutputStreamWriter(escritorByte);
             escritorPalavras = new BufferedWriter(escritorCaracter);
-            
-            Date data = new Date();            
-            SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");            
-            
-            String msg = formatador.format(data) + " :: " + mensagem + "\n";            
-            
+
+            Date data = new Date();
+            SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+            String msg = formatador.format(data) + " :: " + mensagem + "\n";
+
             escritorPalavras.write(msg);
             escritorPalavras.newLine();
             escritorPalavras.flush();
 
         } catch (FileNotFoundException e) {
-            
+
         } catch (IOException e) {
 
         } finally {

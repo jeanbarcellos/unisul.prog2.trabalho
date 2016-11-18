@@ -3,7 +3,7 @@ package model.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Properties;
+import utils.Config;
 import utils.Log;
 
 /**
@@ -19,20 +19,20 @@ public class PostgresConnection {
 
     /**
      * Abre conexão com o Banco de Dados
-     * 
+     *
      * @return Instância de Conexão
      */
     public static Connection open() {
 
-        Connection conn = null;
-        Properties config = Config.getConfig();
-
-        String server = config.getProperty("server");
-        String host = config.getProperty("host");
-        String port = config.getProperty("port");
-        String user = config.getProperty("user");
-        String password = config.getProperty("password");
-        String database = config.getProperty("database");
+        Connection conn = null;        
+        Config config = Config.getInstance();
+        
+        String server = config.getValue("server");
+        String host = config.getValue("host");
+        String port = config.getValue("port");
+        String user = config.getValue("user");
+        String password = config.getValue("password");
+        String database = config.getValue("database");
 
         try {
             conn = DriverManager.getConnection("jdbc:" + server + "://" + host + ":" + port + "/" + database, user, password);

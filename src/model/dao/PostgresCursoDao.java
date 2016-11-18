@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import utils.Log;
 
 /**
@@ -55,7 +56,7 @@ public class PostgresCursoDao implements CursoDao {
     }
 
     @Override
-    public boolean update(int id, Curso curso) {
+    public boolean update(Curso curso) {
         Connection conn = null;
         PreparedStatement ps = null;
 

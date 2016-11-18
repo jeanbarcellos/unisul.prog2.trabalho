@@ -21,11 +21,10 @@ public interface LivroDao {
     /**
      * Alterar livro na base de dados
      *
-     * @param id ID do Livro
      * @param livro Objeto a ser alterado
      * @return
      */
-    public boolean update(int id, Livro livro);
+    public boolean update(Livro livro);
 
     /**
      * Apagar livro da base de dados

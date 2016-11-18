@@ -1,4 +1,3 @@
-
 package model.dao;
 
 /**
@@ -16,7 +15,7 @@ class ArquivoDaoFactory extends DaoFactory {
     public CursoDao getCursoDao() {
         return new ArquivoCursoDao();
     }
-    
+
     @Override
     public LivroDao getLivroDao() {
         return new ArquivoLivroDao();
@@ -29,12 +28,12 @@ class ArquivoDaoFactory extends DaoFactory {
 
     @Override
     public ProfessorDao getProfessorDao() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new ArquivoProfessorDao();
     }
 
     @Override
     public AlunoDao getAlunoDao() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new ArquivoAlunoDao();
     }
 
     @Override

@@ -1,0 +1,56 @@
+2016-11-18 01:16:33 :: conteudo\aluno_seq (O sistema não pode encontrar o arquivo especificado)
+
+2016-11-18 01:16:46 :: conteudo\aluno_seq (O sistema não pode encontrar o arquivo especificado)
+
+2016-11-18 02:33:30 :: Testando
+
+2016-11-18 02:34:44 :: Testando
+
+2016-11-18 02:41:29 :: conteudo\teste\aluno_seq.txt (O sistema não pode encontrar o arquivo especificado)
+
+2016-11-18 02:41:50 :: conteudo\teste\aluno_seq (O sistema não pode encontrar o arquivo especificado)
+
+2016-11-18 02:41:51 :: conteudo\teste\aluno_seq (O sistema não pode encontrar o arquivo especificado)
+
+2016-11-18 02:42:21 :: conteudo\teste\aluno_seq (O sistema não pode encontrar o arquivo especificado)
+
+2016-11-18 02:42:21 :: conteudo\teste\aluno_seq (O sistema não pode encontrar o arquivo especificado)
+
+2016-11-18 02:43:52 :: conteudo\teste\aluno_seq.txt (O sistema não pode encontrar o arquivo especificado)
+
+2016-11-18 02:52:11 :: conteudo\teste\aluno_seq.txt (O sistema não pode encontrar o arquivo especificado)
+
+2016-11-18 02:52:11 :: conteudo\teste\professor_seq.txt (O sistema não pode encontrar o arquivo especificado)
+
+2016-11-18 02:59:41 :: conteudo\aluno_seq.txt (O sistema não pode encontrar o arquivo especificado)
+
+2016-11-18 02:59:41 :: conteudo\professor_seq.txt (O sistema não pode encontrar o arquivo especificado)
+
+2016-11-18 03:00:49 :: conteudo\cursos.bin (O sistema não pode encontrar o arquivo especificado)
+
+2016-11-18 03:00:49 :: conteudo\cursos.bin (O sistema não pode encontrar o arquivo especificado)
+
+2016-11-18 03:00:54 :: conteudo\curso_seq (O sistema não pode encontrar o arquivo especificado)
+
+2016-11-18 03:01:11 :: conteudo\cursos.bin (O sistema não pode encontrar o arquivo especificado)
+
+2016-11-18 03:01:11 :: conteudo\cursos.bin (O sistema não pode encontrar o arquivo especificado)
+
+2016-11-18 03:01:28 :: conteudo\cursos.bin (O sistema não pode encontrar o arquivo especificado)
+
+2016-11-18 03:01:28 :: conteudo\cursos.bin (O sistema não pode encontrar o arquivo especificado)
+
+2016-11-18 03:02:05 :: conteudo\cursos.bin (O sistema não pode encontrar o arquivo especificado)
+
+2016-11-18 03:02:05 :: conteudo\cursos.bin (O sistema não pode encontrar o arquivo especificado)
+
+2016-11-18 03:03:20 :: conteudo\cursos.bin (O sistema não pode encontrar o arquivo especificado)
+
+2016-11-18 03:03:20 :: conteudo\cursos.bin (O sistema não pode encontrar o arquivo especificado)
+
+2016-11-18 03:10:41 :: conteudo\curso_seq.txt (O sistema não pode encontrar o arquivo especificado)
+
+2016-11-18 03:16:21 :: conteudo\livro_seq.txt (O sistema não pode encontrar o arquivo especificado)
+
+2016-11-18 03:18:37 :: conteudo\exemplar_seq.txt (O sistema não pode encontrar o arquivo especificado)
+

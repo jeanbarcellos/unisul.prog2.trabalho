@@ -4,20 +4,8 @@ import model.Exemplar;
 
 import java.util.ArrayList;
 import java.util.List;
-import utils.Log;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
+import utils.PersistenciaArquivo;
 
 /**
  * Classe ArquivoExemplarDao
@@ -31,10 +19,10 @@ import java.io.OutputStreamWriter;
 final class ArquivoExemplarDao implements ExemplarDao {
 
     private List<Exemplar> exemplares = new ArrayList<Exemplar>();
-    private final String filename = "conteudo/exemplares.bin";
-    private final String sequencia = "conteudo/exemplar_seq";
+    private PersistenciaArquivo persistArquivo;
 
     public ArquivoExemplarDao() {
+        this.persistArquivo = new PersistenciaArquivo("exemplares.bin", "exemplar_seq.txt");
         this.exemplares = this.all();
     }
 
@@ -45,10 +33,10 @@ final class ArquivoExemplarDao implements ExemplarDao {
         this.exemplares.add(exemplar);
 
         // Serializar arquivo
-        this.serializar();
+        this.persistArquivo.serializar(this.exemplares);
 
         // Sequenciar arquivo
-        this.sequenciar();
+        this.persistArquivo.sequenciar();
 
         return true;
     }
@@ -62,10 +50,10 @@ final class ArquivoExemplarDao implements ExemplarDao {
 
             // Altera somente o nome
             exemplarRef.setEdicao(exemplar.getEdicao());
-            exemplarRef.setLocalizacao(exemplar.getEdicao());
+            exemplarRef.setLocalizacao(exemplar.getLocalizacao());
 
             // Persistir
-            serializar();
+            this.persistArquivo.serializar(this.exemplares);
 
             return true;
         } else {
@@ -84,7 +72,7 @@ final class ArquivoExemplarDao implements ExemplarDao {
             this.exemplares.remove(exemplarRef);
 
             // Persistir
-            this.serializar();
+            this.persistArquivo.serializar(this.exemplares);
 
             return true;
         } else {
@@ -105,179 +93,18 @@ final class ArquivoExemplarDao implements ExemplarDao {
 
     @Override
     public List<Exemplar> all() {
-        return this.deserializar();
+        return this.persistArquivo.deserializar();
     }
 
     @Override
-    public int lastId() {
-        InputStream leitorByte = null;
-        InputStreamReader leitorCaracter = null;
-        BufferedReader leitorPalavras = null;
-        int ultimo_id = 0;
-
-        try {
-            leitorByte = new FileInputStream(this.sequencia);
-            leitorCaracter = new InputStreamReader(leitorByte);
-            leitorPalavras = new BufferedReader(leitorCaracter);
-
-            String linha = leitorPalavras.readLine();
-            ultimo_id = Integer.parseInt(linha);
-
-        } catch (FileNotFoundException e) {
-            Log.write(e.getMessage());
-        } catch (IOException e) {
-            Log.write(e.getMessage());
-        } finally {
-            // Todo recruso aberto deve ser fechado
-            try {
-                if (leitorByte != null) {
-                    leitorByte.close();
-                }
-                if (leitorCaracter != null) {
-                    leitorCaracter.close();
-                }
-                if (leitorPalavras != null) {
-                    leitorPalavras.close();
-                }
-            } catch (Exception e) {
-            }
-        }
-        return ultimo_id;
+    public int lastId() {        
+        return this.persistArquivo.getLastId();
     }
 
-    /**
-     * Serializa a lista de exemplares
-     *
-     * @return resultado da serialização
-     */
-    private boolean serializar() {
-        OutputStream escritorByte = null;
-        ObjectOutputStream escritorObjeto = null;
-
-        try {
-            escritorByte = new FileOutputStream(filename);
-            escritorObjeto = new ObjectOutputStream(escritorByte);
-
-            escritorObjeto.writeObject(this.exemplares);
-            escritorObjeto.flush();
-
-            return true;
-            
-        } catch (FileNotFoundException e) {
-            Log.write(e.getMessage());
-            return false;
-        } catch (IOException e) {
-            Log.write(e.getMessage());
-            return false;
-        } finally {
-            try {
-                if (escritorObjeto != null) {
-                    escritorObjeto.close();
-                }
-                if (escritorByte != null) {
-                    escritorByte.close();
-                }
-            } catch (Exception e) {
-            }
-        }
-
-    }
-
-    /**
-     * Deserializa o arquivo contendo a lista de Exemplares
-     *
-     * @return
-     */
-    private List<Exemplar> deserializar() {
-        List<Exemplar> lista = null;
-
-        InputStream leitorByte = null;
-        ObjectInputStream leitorObjeto = null;
-
-        try {
-            leitorByte = new FileInputStream(filename);
-            leitorObjeto = new ObjectInputStream(leitorByte);
-            lista = (List<Exemplar>) leitorObjeto.readObject();
-
-        } catch (FileNotFoundException e) {
-            Log.write(e.getMessage());
-        } catch (IOException | ClassNotFoundException e) {
-            Log.write(e.getMessage());
-        } finally {
-            try {
-                if (leitorObjeto != null) {
-                    leitorObjeto.close();
-                }
-                if (leitorByte != null) {
-                    leitorByte.close();
-                }
-            } catch (Exception e) {
-            }
-        }
-        return lista;
-
-    }
-
-    /**
-     * Gerencia a sequência dos IDs
-     *
-     * Ao chamar este método, é gravado o último id no arquivo que contém a
-     * sequência.
-     *
-     * @return boolean
-     */
-    private boolean sequenciar() {
-        OutputStream escritorByte = null;
-        OutputStreamWriter escritorCaracter = null;
-        BufferedWriter escritorPalavras = null;
-
-        int novoID = this.lastId() + 1;
-
-        try {
-            escritorByte = new FileOutputStream(this.sequencia, false);
-            escritorCaracter = new OutputStreamWriter(escritorByte);
-            escritorPalavras = new BufferedWriter(escritorCaracter);
-
-            String linha = "" + novoID;
-
-            escritorPalavras.write(linha);
-            escritorPalavras.flush();
-
-            return true;
-
-        } catch (FileNotFoundException e) {
-            Log.write(e.getMessage());
-            return false;
-        } catch (IOException e) {
-            Log.write(e.getMessage());
-            return false;
-        } finally {
-            try {
-                if (escritorPalavras != null) {
-                    escritorPalavras.close();
-                }
-                if (escritorCaracter != null) {
-                    escritorCaracter.close();
-                }
-                if (escritorByte != null) {
-                    escritorByte.close();
-                }
-            } catch (Exception e) {
-            }
-        }
-    }
-
-    /**
-     * Recarrega lista interna do Dao
-     */
-    private void recarregarLista(){
-        this.exemplares = this.all();
-    }
-    
     @Override
     public int total(int livroId) {
         this.recarregarLista();
-        
+
         int total = 0;
         for (Exemplar exemplarExt : exemplares) {
             if (exemplarExt.getLivro().getId() == livroId) {
@@ -290,7 +117,7 @@ final class ArquivoExemplarDao implements ExemplarDao {
     @Override
     public List<Exemplar> listar(int livroId) {
         this.recarregarLista();
-        
+
         List<Exemplar> lista = new ArrayList<Exemplar>();
 
         for (Exemplar exemplarExt : this.exemplares) {
@@ -299,6 +126,13 @@ final class ArquivoExemplarDao implements ExemplarDao {
             }
         }
         return lista;
+    }
+
+    /**
+     * Recarrega lista interna do Dao
+     */
+    private void recarregarLista() {
+        this.exemplares = this.all();
     }
 
 }

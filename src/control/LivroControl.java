@@ -100,7 +100,7 @@ public class LivroControl {
 
             livroRef.setTitulo(livro.getTitulo());
 
-            boolean retorno = livroDao.update(id, livro);
+            boolean retorno = livroDao.update(livro);
 
             return retorno;
         } else {
