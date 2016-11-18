@@ -16,7 +16,7 @@ import model.Livro;
  * @package view
  *
  */
-class ExemplarInserirView {
+public class ExemplarInserirView {
 
     private Livro livro;
     private ExemplarControl exemplarControl = new ExemplarControl();

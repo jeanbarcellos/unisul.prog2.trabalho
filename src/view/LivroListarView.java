@@ -15,12 +15,11 @@ import javax.swing.JOptionPane;
  * @package view
  *
  */
-class LivroListarView {
+public class LivroListarView {
 
-    private final LivroControl livroControl;
+    private LivroControl livroControl = new LivroControl();;
 
-    public LivroListarView() {
-        this.livroControl = new LivroControl();
+    public LivroListarView() {        
     }
 
     /**

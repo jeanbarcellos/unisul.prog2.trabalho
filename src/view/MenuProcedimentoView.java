@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
  * @package view
  *
  */
-class MenuProcedimentoView {
+public class MenuProcedimentoView {
 
     public MenuProcedimentoView() {
     }

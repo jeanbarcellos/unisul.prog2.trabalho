@@ -16,7 +16,7 @@ import model.Livro;
  * @package view
  *
  */
-class ExemplarEditarView {
+public class ExemplarEditarView {
 
     private Livro livro;
     private ExemplarControl exemplarControl = new ExemplarControl();
@@ -34,17 +34,17 @@ class ExemplarEditarView {
         
         int idAlterar = Integer.parseInt(JOptionPane.showInputDialog("Informe o código do EXEMPPLAR a ser alterado:"));
 
-        Exemplar exemplarSelecionado = exemplarControl.getExemplar(idAlterar);
+        Exemplar exemplarSel = exemplarControl.getExemplar(idAlterar);
 
-        if (exemplarSelecionado != null) {
+        if (exemplarSel != null) {
 
-            String edicao = JOptionPane.showInputDialog(livroTxt + "Informe a EDICÃO do Exemplar:");
-            String localizacao = JOptionPane.showInputDialog(livroTxt + "Informe a LOCALIZAÇÃO do Exemplar:");
+            String edicao = JOptionPane.showInputDialog(livroTxt + "Informe a EDICÃO do Exemplar:", exemplarSel.getEdicao());
+            String localizacao = JOptionPane.showInputDialog(livroTxt + "Informe a LOCALIZAÇÃO do Exemplar:", exemplarSel.getLocalizacao());
             
-            exemplarSelecionado.setEdicao(edicao);
-            exemplarSelecionado.setLocalizacao(localizacao);
+            exemplarSel.setEdicao(edicao);
+            exemplarSel.setLocalizacao(localizacao);
 
-            boolean retorno = exemplarControl.alterar(exemplarSelecionado);
+            boolean retorno = exemplarControl.alterar(exemplarSel);
 
             if (retorno) {
                 JOptionPane.showMessageDialog(null, "Exemplar alterado com Sucesso.");

@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  * @package view
  *
  */
-class ExemplarGerenciarView {
+public class ExemplarGerenciarView {
 
     private LivroControl livroControl;
     private ExemplarControl exemplarControl;

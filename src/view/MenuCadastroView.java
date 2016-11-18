@@ -41,11 +41,11 @@ public class MenuCadastroView {
                     break;
                 case 2:
                     // Chama View de Cadastro de Aluno
-                    JOptionPane.showMessageDialog(null, "Cadastra Aluno");
+                    new AlunoView().show();
                     break;
                 case 3:
                     // Chama View de Cadastro de Professor
-                    JOptionPane.showMessageDialog(null, "Cadastra Professor");
+                    new ProfessorView().show();
                     break;
                 case 4:
                     // Chama View de Cadastro de Livro

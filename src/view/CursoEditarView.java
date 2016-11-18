@@ -15,10 +15,9 @@ import model.Curso;
  */
 public class CursoEditarView {
 
-    private final CursoControl cursoControl;
+    private CursoControl cursoControl = new CursoControl();
 
     public CursoEditarView() {
-        this.cursoControl = new CursoControl();
     }
 
     public void show() {

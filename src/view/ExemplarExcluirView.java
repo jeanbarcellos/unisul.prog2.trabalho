@@ -15,7 +15,7 @@ import model.Exemplar;
  * @package view
  *
  */
-class ExemplarExcluirView {
+public class ExemplarExcluirView {
 
     private ExemplarControl exemplarControl = new ExemplarControl();
 

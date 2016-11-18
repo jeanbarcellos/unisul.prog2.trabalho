@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  * @package view
  *
  */
-class LivroEditarView {
+public class LivroEditarView {
 
     private final LivroControl livroControl;
 

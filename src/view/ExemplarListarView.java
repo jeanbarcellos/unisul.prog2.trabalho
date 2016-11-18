@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  * @package view
  *
  */
-class ExemplarListarView {
+public class ExemplarListarView {
 
     private ExemplarControl exemplarControl;
 

@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
  * @package view
  *
  */
-class MenuRelatorioView {
+public class MenuRelatorioView {
 
     public MenuRelatorioView() {
     }

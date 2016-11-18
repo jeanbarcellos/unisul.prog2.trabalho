@@ -80,7 +80,7 @@ public class AlunoTesteDao01 {
 //        }
         
         // LOAD ----------------------------------------------------------------
-        Aluno retorno5 = alunoDao.load(7);
+        Aluno retorno5 = alunoDao.load(3);
         
         if (retorno5 != null) {
             System.out.println(retorno5);

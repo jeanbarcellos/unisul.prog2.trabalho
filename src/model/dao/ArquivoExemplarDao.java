@@ -105,7 +105,7 @@ final class ArquivoExemplarDao implements ExemplarDao {
 
     @Override
     public List<Exemplar> all() {
-        return deserializar();
+        return this.deserializar();
     }
 
     @Override
@@ -267,8 +267,17 @@ final class ArquivoExemplarDao implements ExemplarDao {
         }
     }
 
+    /**
+     * Recarrega lista interna do Dao
+     */
+    private void recarregarLista(){
+        this.exemplares = this.all();
+    }
+    
     @Override
     public int total(int livroId) {
+        this.recarregarLista();
+        
         int total = 0;
         for (Exemplar exemplarExt : exemplares) {
             if (exemplarExt.getLivro().getId() == livroId) {
@@ -280,7 +289,8 @@ final class ArquivoExemplarDao implements ExemplarDao {
 
     @Override
     public List<Exemplar> listar(int livroId) {
-
+        this.recarregarLista();
+        
         List<Exemplar> lista = new ArrayList<Exemplar>();
 
         for (Exemplar exemplarExt : this.exemplares) {
@@ -288,7 +298,6 @@ final class ArquivoExemplarDao implements ExemplarDao {
                 lista.add(exemplarExt);
             }
         }
-        System.out.println(lista);
         return lista;
     }
 

@@ -13,16 +13,16 @@ import model.Livro;
  * @package view
  *
  */
-class LivroInserirView {
+public class LivroInserirView {
 
-    private final LivroControl livroControl;
-    
+    private LivroControl livroControl;
+
     public LivroInserirView() {
         this.livroControl = new LivroControl();
     }
 
     public void show() {
-        
+
         String titulo;
         String autor;
 
@@ -43,7 +43,7 @@ class LivroInserirView {
         } else {
             JOptionPane.showMessageDialog(null, "Erro ao Tentar cadastrar Livro.");
         }
-        
+
     }
 
 }
