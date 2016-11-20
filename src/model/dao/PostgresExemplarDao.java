@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Exemplar;
 import model.Livro;
-import utils.Log;
+import util.Log;
 
 /**
  * Classe PostgresExemplarDao

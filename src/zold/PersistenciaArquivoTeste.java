@@ -13,7 +13,7 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.List;
-import utils.Log;
+import util.Log;
 
 /**
  * Classe PersistenciaArquivoTeste

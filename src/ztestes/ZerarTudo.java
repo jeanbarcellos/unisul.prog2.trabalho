@@ -5,7 +5,7 @@ import java.util.List;
 
 import model.*;
 
-import utils.PersistenciaArquivo;
+import util.PersistenciaArquivo;
 
 public class ZerarTudo {
 
@@ -42,14 +42,22 @@ public class ZerarTudo {
 //        List<Livro> livroLista = new ArrayList<Livro>();
 //        livro.serializar(livroLista);
 //        livro.reiniciarSequencia();
+//
+//        /**
+//         * DROP EXEMPLAR
+//         */
+//        PersistenciaArquivo exemplar = new PersistenciaArquivo("exemplares.bin", "exemplar_seq.txt");
+//        List<Exemplar> exemplarLista = new ArrayList<Exemplar>();
+//        exemplar.serializar(exemplarLista);
+//        exemplar.reiniciarSequencia();
 
-        /**
-         * DROP EXEMPLAR
-         */
-        PersistenciaArquivo exemplar = new PersistenciaArquivo("exemplares.bin", "exemplar_seq.txt");
-        List<Exemplar> exemplarLista = new ArrayList<Exemplar>();
-        exemplar.serializar(exemplarLista);
-        exemplar.reiniciarSequencia();
+//        /**
+//         * DROP Emprestimo
+//         */
+        PersistenciaArquivo emprestimo = new PersistenciaArquivo("emprestimos.bin", "emprestimo_seq.txt");
+        List<Exemplar> emprestimoLista = new ArrayList<Exemplar>();
+        emprestimo.serializar(emprestimoLista);
+        emprestimo.reiniciarSequencia();
 
     }
 

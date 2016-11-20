@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import utils.Log;
+import util.Log;
 
 /**
  * Classe PostgresLivroDao

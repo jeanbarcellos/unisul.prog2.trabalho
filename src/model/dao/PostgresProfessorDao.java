@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-import utils.Log;
+import util.Log;
 
 /**
  * Classe PostgresProfessorDao
@@ -33,9 +33,10 @@ class PostgresProfessorDao implements ProfessorDao {
 
             Date dataAgora = new Date(System.currentTimeMillis());
 
-            ps = conn.prepareStatement("INSERT INTO usuario (id, nome) VALUES (?, ?)");
+            ps = conn.prepareStatement("INSERT INTO usuario (id, nome) VALUES (?, ?, ?)");
             ps.setInt(1, professor.getId());
             ps.setString(2, professor.getNome());
+            ps.setInt(3, 2);
 
             int retorno1 = ps.executeUpdate();
 

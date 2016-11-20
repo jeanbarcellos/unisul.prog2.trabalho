@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.Usuario;
-import utils.Log;
+import util.Log;
 
 /**
  * Classe PostgresUsuarioDao

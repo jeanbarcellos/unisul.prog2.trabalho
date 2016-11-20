@@ -47,4 +47,9 @@ public class PostgresDaoFactory extends DaoFactory {
         return new PostgresUsuarioDao();
     }
 
+    @Override
+    public EmprestimoDao getEmprestimoDao() {
+        return new PostgresEmprestimoDao();
+    }
+
 }

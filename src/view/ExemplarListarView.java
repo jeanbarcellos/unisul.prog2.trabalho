@@ -27,7 +27,6 @@ public class ExemplarListarView {
 
     public void show() {
         String resultTxt;
-        Livro livro;
         resultTxt = "";
 
         for (Exemplar exe : exemplarControl.getExemplares()) {            

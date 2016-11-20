@@ -35,7 +35,7 @@ public class CursoEditarView {
             cursoSelecionado.setNome(nome_novo);
 
             // Executa a alteração no controlador
-            boolean retorno = cursoControl.alterar(cursoSelecionado.getId(), cursoSelecionado);
+            boolean retorno = cursoControl.alterar(cursoSelecionado);
 
             if (retorno) {
                 JOptionPane.showMessageDialog(null, "Curso alterado com sucesso.");

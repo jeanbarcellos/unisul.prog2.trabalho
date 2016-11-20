@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import utils.Log;
+import util.Log;
 
 /**
  * Classe PostgresAlunoDao
@@ -34,9 +34,10 @@ public class PostgresAlunoDao implements AlunoDao {
 
             Date dataAgora = new Date(System.currentTimeMillis());
 
-            ps = conn.prepareStatement("INSERT INTO usuario (id, nome) VALUES (?, ?)");
+            ps = conn.prepareStatement("INSERT INTO usuario (id, nome, tipo) VALUES (?, ?, ?)");
             ps.setInt(1, aluno.getId());
             ps.setString(2, aluno.getNome());
+            ps.setInt(3, 1);
 
             int retorno1 = ps.executeUpdate();
 

@@ -25,15 +25,15 @@ public class MenuProcedimentoView {
             opcao = Integer.parseInt(JOptionPane.showInputDialog(null,
                     "Selecione uma das opção abaixo: \n"
                     + "\n"
-                    + "1 - Emprestar exemplar \n"
-                    + "0 - Voltar ao Menu Principal\n\n", "CONSULTAS", JOptionPane.QUESTION_MESSAGE
+                    + "1 - Empréstimo \n"
+                    + "0 - Voltar ao Menu anterior\n\n", "PROCEDIMENTOS", JOptionPane.QUESTION_MESSAGE
             ));
 
             switch (opcao) {
 
                 case 1:
                     // Chama View de Emprestimo de Exemplar de um Livro
-                    JOptionPane.showMessageDialog(null, "Empréstimo de exemplar de um livro");
+                    new ProcedimentoEmprestimoView().show();
                     break;
             }
 

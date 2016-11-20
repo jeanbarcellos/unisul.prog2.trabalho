@@ -3,8 +3,8 @@ package model.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import utils.Config;
-import utils.Log;
+import util.Config;
+import util.Log;
 
 /**
  * Classe Conexao

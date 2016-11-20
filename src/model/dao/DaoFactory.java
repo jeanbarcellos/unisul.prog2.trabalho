@@ -44,6 +44,6 @@ public abstract class DaoFactory {
 
     public abstract AlunoDao getAlunoDao();
 
-//    public abstract EmprestimoDao getEmprestimoDao();
+    public abstract EmprestimoDao getEmprestimoDao();
     
 }

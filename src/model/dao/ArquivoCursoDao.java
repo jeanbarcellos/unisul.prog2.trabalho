@@ -5,7 +5,7 @@ import model.Curso;
 import java.util.List;
 import java.util.ArrayList;
 
-import utils.PersistenciaArquivo;
+import util.PersistenciaArquivo;
 
 /**
  * Classe ArquivoCursoDao

@@ -5,7 +5,7 @@ import model.Aluno;
 import java.util.ArrayList;
 import java.util.List;
 
-import utils.PersistenciaArquivo;
+import util.PersistenciaArquivo;
 
 /**
  * Classe ArquivoAlunoDao

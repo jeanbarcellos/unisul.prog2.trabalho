@@ -92,14 +92,13 @@ public final class CursoControl {
     /**
      * Alterar um curso
      *
-     * @param id ID do Objeto a ser alterado
      * @param curso Objeto Curso já modificado
      * @return Booleando
      */
-    public boolean alterar(int id, Curso curso) {
+    public boolean alterar(Curso curso) {
 
         // Referencia o Objeto a ser alterado na memória
-        Curso cursoRef = this.getCurso(id);
+        Curso cursoRef = this.getCurso(curso.getId());
 
         // Verifica se o objeto existe
         if (cursoRef != null) {

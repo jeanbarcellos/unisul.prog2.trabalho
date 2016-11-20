@@ -76,4 +76,9 @@ public class Emprestimo implements Serializable {
         this.dataDevolucao = dataDevolucao;
     }
 
+    @Override
+    public String toString() {
+        return "Emprestimo{" + "id=" + id + ", \nusuario=" + usuario + ", \nexemplar=" + exemplar + ", dataEmprestimo=" + dataEmprestimo + ", dataDevolucaoPrevista=" + dataDevolucaoPrevista + ", dataDevolucao=" + dataDevolucao + '}';
+    }
+
 }
