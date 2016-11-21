@@ -43,6 +43,7 @@ public class AlunoControl {
      * @return Lista de Alunos
      */
     public List<Aluno> getAlunos() {
+//        this.setAlunos(this.carregarLista());
         return alunos;
     }
 
@@ -167,5 +168,16 @@ public class AlunoControl {
     private int autoId() {
         return this.ultimoId() + 1;
     }
+
+    
+    
+    public List<Aluno> buscarPeloNome(String nome) {
+        return alunoDao.buscarPeloNome(nome);
+    }
+    
+    public List<Aluno> buscarPelaMatricula(int matricula) {
+        return alunoDao.buscarPelaMatricula(matricula);
+    }
+
 
 }

@@ -300,4 +300,126 @@ public class PostgresAlunoDao implements AlunoDao {
         return lastId;
     }
 
+    @Override
+    public List<Aluno> buscarPeloNome(String nome) {
+        List<Aluno> alunos = new ArrayList<Aluno>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            conn = PostgresDaoFactory.openConnection();
+
+            String sql = "";
+            sql += "SELECT ";
+            sql += "    a.usuario_id AS id, ";
+            sql += "    u.nome, ";
+            sql += "    a.matricula, ";
+            sql += "    a.curso_id, ";
+            sql += "      c.nome AS curso_nome ";
+            sql += "  FROM aluno a ";
+            sql += "  LEFT JOIN usuario u ";
+            sql += "    ON a.usuario_id = u.id ";
+            sql += "  LEFT JOIN curso c ";
+            sql += "    ON a.curso_id = c.id ";
+            sql += " WHERE a.data_fim IS NULL ";
+            sql += "   AND u.nome LIKE ?";
+            sql += " ORDER BY a.usuario_id ASC ;";
+
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, "%" + nome + "%");
+            
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Aluno aluno = new Aluno();
+                aluno.setId(rs.getInt("id"));
+                aluno.setCurso(new Curso(rs.getInt("curso_id"), rs.getString("curso_nome")));
+                aluno.setNome(rs.getString("nome"));
+                aluno.setMatricula(rs.getInt("matricula"));
+                alunos.add(aluno);
+            }
+
+        } catch (SQLException ex) {
+            Log.write(ex.getErrorCode() + " - " + ex.getMessage());
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception e) {
+
+            }
+        }
+
+        return alunos;
+    }
+
+    @Override
+    public List<Aluno> buscarPelaMatricula(int matricula) {
+        List<Aluno> alunos = new ArrayList<Aluno>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            conn = PostgresDaoFactory.openConnection();
+
+            String sql = "";
+            sql += "SELECT ";
+            sql += "    a.usuario_id AS id, ";
+            sql += "    u.nome, ";
+            sql += "    a.matricula, ";
+            sql += "    a.curso_id, ";
+            sql += "      c.nome AS curso_nome ";
+            sql += "  FROM aluno a ";
+            sql += "  LEFT JOIN usuario u ";
+            sql += "    ON a.usuario_id = u.id ";
+            sql += "  LEFT JOIN curso c ";
+            sql += "    ON a.curso_id = c.id ";
+            sql += " WHERE a.data_fim IS NULL ";
+            sql += "   AND a.matricula = ?";
+            sql += " ORDER BY a.usuario_id ASC ;";
+
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, matricula);
+            
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Aluno aluno = new Aluno();
+                aluno.setId(rs.getInt("id"));
+                aluno.setCurso(new Curso(rs.getInt("curso_id"), rs.getString("curso_nome")));
+                aluno.setNome(rs.getString("nome"));
+                aluno.setMatricula(rs.getInt("matricula"));
+                alunos.add(aluno);
+            }
+
+        } catch (SQLException ex) {
+            Log.write(ex.getErrorCode() + " - " + ex.getMessage());
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception e) {
+
+            }
+        }
+
+        return alunos;
+    }
+
 }

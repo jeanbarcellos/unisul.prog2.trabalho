@@ -6,9 +6,9 @@
 package tela;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 /**
+ * Principal
  *
  * @author Jean Barcellos <jeanbarcellos@hotmail.com>
  */
@@ -48,6 +48,8 @@ public class Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Biblioteca Universitária");
+        setMinimumSize(new java.awt.Dimension(1024, 700));
+        setName("framePrincipal"); // NOI18N
 
         desktop.setBackground(new java.awt.Color(240, 240, 240));
 
@@ -158,6 +160,8 @@ public class Principal extends javax.swing.JFrame {
             .addComponent(desktop)
         );
 
+        getAccessibleContext().setAccessibleDescription("Biblioteca Universitária");
+
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -165,20 +169,23 @@ public class Principal extends javax.swing.JFrame {
     /**
      * EVENTOS *****************************************************************
      */
-    /**
-     * Evento do Menu
-     *
-     * @param evt
-     */
     private void menuItemCadastroCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCadastroCursoActionPerformed
-        CadastroCursoView cadastroClientesView = new CadastroCursoView();
-        desktop.add(cadastroClientesView);
-        cadastroClientesView.setPosicao();
-        cadastroClientesView.setVisible(true);
+        this.desktop.removeAll();
+
+        CadastroCursoView cadastroCursoView = new CadastroCursoView();
+        desktop.add(cadastroCursoView);
+        cadastroCursoView.setPosicao();
+        cadastroCursoView.setVisible(true);
     }//GEN-LAST:event_menuItemCadastroCursoActionPerformed
 
     private void menuItemCadastroAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCadastroAlunoActionPerformed
+        desktop.removeAll();
 
+        // View de Cadastros
+        CadastroAlunoView cadastroAlunoView = new CadastroAlunoView();
+        desktop.add(cadastroAlunoView);
+        cadastroAlunoView.setPosicao();
+        cadastroAlunoView.setVisible(true);
     }//GEN-LAST:event_menuItemCadastroAlunoActionPerformed
 
     private void menuItemCadastroProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCadastroProfessorActionPerformed
@@ -198,7 +205,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemProcEmprestimoActionPerformed
 
     private void menuItemSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSairActionPerformed
-
+        System.exit(0);
     }//GEN-LAST:event_menuItemSairActionPerformed
 
     /**
@@ -214,7 +221,7 @@ public class Principal extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                Nimbus
+//                Nimbus // Windows
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
@@ -235,9 +242,9 @@ public class Principal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                JFrame seuFrame = new Principal();
-                seuFrame.setExtendedState(seuFrame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-                seuFrame.setVisible(true);
+                JFrame framePrincipal = new Principal();
+                framePrincipal.setExtendedState(framePrincipal.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+                framePrincipal.setVisible(true);
 
             }
         });
@@ -245,7 +252,7 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barraMenuPrincipal;
-    private javax.swing.JDesktopPane desktop;
+    public static javax.swing.JDesktopPane desktop;
     private javax.swing.JMenu menuCadastro;
     private javax.swing.JMenu menuConsulta;
     private javax.swing.JMenuItem menuItemCadastroAluno;

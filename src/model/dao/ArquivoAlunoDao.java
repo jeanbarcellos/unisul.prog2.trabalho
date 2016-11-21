@@ -100,4 +100,14 @@ class ArquivoAlunoDao implements AlunoDao {
         return this.persistArquivo.getLastId();
     }
 
+    @Override
+    public List<Aluno> buscarPeloNome(String nome) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Aluno> buscarPelaMatricula(int matricula) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

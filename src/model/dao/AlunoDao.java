@@ -57,4 +57,20 @@ public interface AlunoDao {
      */
     public int lastId();
 
+    /**
+     * Realiza buscar de alunos pelo nome
+     *
+     * @param nome Nome a ser pesquisado
+     * @return Lista de Alunos
+     */
+    public List<Aluno> buscarPeloNome(String nome);
+
+    /**
+     * Realiza buscar de alunos pelo nome
+     *
+     * @param matricula
+     * @return
+     */
+    public List<Aluno> buscarPelaMatricula(int matricula);
+
 }
