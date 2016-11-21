@@ -20,7 +20,7 @@ public class CursoTestePesquisa {
 
         List<Aluno> alunos = null;
         
-        alunos = alunoDao.buscarPeloNome("Daniela");
+        alunos = alunoDao.buscarPeloNome("Jean Barcellos");
         
         System.out.println(alunos);
         

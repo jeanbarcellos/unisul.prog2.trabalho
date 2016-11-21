@@ -102,12 +102,27 @@ class ArquivoAlunoDao implements AlunoDao {
 
     @Override
     public List<Aluno> buscarPeloNome(String nome) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Aluno> lista = new ArrayList<Aluno>();
+
+        for (Aluno aluno : this.alunos) {
+            System.out.println(aluno);
+            if (aluno.getNome().equals(nome)) {
+                lista.add(aluno);
+            }
+        }
+        return lista;
     }
 
     @Override
     public List<Aluno> buscarPelaMatricula(int matricula) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Aluno> lista = new ArrayList<Aluno>();
+
+        for (Aluno aluno : this.alunos) {
+            if (aluno.getMatricula() == matricula) {
+                lista.add(aluno);
+            }
+        }
+        return lista;
     }
 
 }
