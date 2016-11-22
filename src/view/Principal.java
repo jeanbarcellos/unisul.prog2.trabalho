@@ -1,5 +1,7 @@
 package view;
 
+import view.old.MenuPrincipalView;
+
 /**
  * MenuPrincipalView principal do Software
  *

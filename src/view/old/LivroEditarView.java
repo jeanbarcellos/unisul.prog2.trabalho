@@ -1,4 +1,4 @@
-package view;
+package view.old;
 
 import model.Livro;
 import control.LivroControl;
@@ -38,7 +38,7 @@ public class LivroEditarView {
             livroSelecionado.setAutor(autor_novo);
 
             // Executa a alteração no controlador
-            boolean retorno = livroControl.alterar(livroSelecionado.getId(), livroSelecionado);
+            boolean retorno = livroControl.alterar(livroSelecionado);
 
             if (retorno) {
                 JOptionPane.showMessageDialog(null, "Livro alterado com sucesso.");

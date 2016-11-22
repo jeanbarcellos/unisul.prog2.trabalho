@@ -1,4 +1,4 @@
-package view;
+package view.old;
 import model.Professor;
 
 import control.ProfessorControl;

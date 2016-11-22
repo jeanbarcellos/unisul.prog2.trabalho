@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tela;
 
 import control.AlunoControl;
@@ -14,6 +9,7 @@ import model.Aluno;
 import model.Curso;
 
 /**
+ * CadastroAlunoInserirView
  *
  * @author Jean Barcellos <jeanbarcellos@hotmail.com>
  */
@@ -35,7 +31,7 @@ public class CadastroAlunoInserirView extends javax.swing.JInternalFrame {
         this.cursoControl = new CursoControl();
 
         this.cursos = this.cursoControl.getCursos();
-        
+
         this.carregarCombo();
     }
 

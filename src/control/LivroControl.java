@@ -88,13 +88,12 @@ public class LivroControl {
     /**
      * Alterar um livro
      *
-     * @param id ID do Objeto a ser alterado
      * @param livro Objeto Livro já modificado
      * @return Booleando
      */
-    public boolean alterar(int id, Livro livro) {
+    public boolean alterar(Livro livro) {
 
-        Livro livroRef = this.getLivro(id);
+        Livro livroRef = this.getLivro(livro.getId());
 
         if (livroRef != null) {
 

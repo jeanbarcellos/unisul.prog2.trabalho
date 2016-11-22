@@ -1,42 +1,39 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package tela;
 
-import tela.tm.ExemplaresPegosTM;
-import control.AlunoControl;
-import control.CursoControl;
 import control.EmprestimoControl;
+import control.ProfessorControl;
 import java.awt.Dimension;
-
-import model.Curso;
 import java.util.List;
 import javax.swing.JOptionPane;
-import model.Aluno;
 import model.Emprestimo;
+import model.Professor;
+import tela.tm.ExemplaresPegosTM;
 
 /**
- * CadastroAlunoDetalheView
  *
  * @author Jean Barcellos <jeanbarcellos@hotmail.com>
  */
-public class CadastroAlunoDetalheView extends javax.swing.JInternalFrame {
+public class CadastroProfessorDetalheView extends javax.swing.JInternalFrame {
 
-    private static final long serialVersionUID = -6170983364654323855L;
+    private static final long serialVersionUID = -6461326896631712813L;
 
-    private AlunoControl alunoControl;
-    private CursoControl cursoControl;
+    private ProfessorControl alunoControl;
     private EmprestimoControl emprestimoControl;
     private ExemplaresPegosTM exemplaresTM;
-    private Aluno aluno;
+    private Professor aluno;
 
     /**
-     * Creates new form CadastroAlunoDetalheView
-     *
-     * @param id ID do Aluno a ser detalhado
+     * Creates new form CadastroProfessorDetalheView
      */
-    public CadastroAlunoDetalheView(int id) {
+    public CadastroProfessorDetalheView(int id) {
         initComponents();
 
-        this.alunoControl = new AlunoControl();
-        this.cursoControl = new CursoControl();
+        this.alunoControl = new ProfessorControl();
         this.emprestimoControl = new EmprestimoControl();
 
         this.popularFormulario(id);
@@ -50,17 +47,15 @@ public class CadastroAlunoDetalheView extends javax.swing.JInternalFrame {
 
     /**
      * Popula o formulário
-     * 
-     * @param id 
+     *
+     * @param id
      */
     private void popularFormulario(int id) {
-        this.aluno = this.alunoControl.getAluno(id);
+        this.aluno = this.alunoControl.getProfessor(id);
 
         textId.setText("" + this.aluno.getId());
         textNome.setText(this.aluno.getNome());
         textMatricula.setText("" + this.aluno.getMatricula());
-        textCurso.setText(this.aluno.getCurso().getNome());
-
     }
 
     /**
@@ -113,7 +108,6 @@ public class CadastroAlunoDetalheView extends javax.swing.JInternalFrame {
     private void liberarFormulario() {
         textNome.setEnabled(true);
         textMatricula.setEnabled(true);
-        textCurso.setEnabled(false);
     }
 
     /**
@@ -122,7 +116,6 @@ public class CadastroAlunoDetalheView extends javax.swing.JInternalFrame {
     private void bloquearFormulario() {
         textNome.setEnabled(false);
         textMatricula.setEnabled(false);
-        textCurso.setEnabled(false);
     }
 
     /**
@@ -147,15 +140,13 @@ public class CadastroAlunoDetalheView extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelAluno = new javax.swing.JPanel();
+        panelProfessor = new javax.swing.JPanel();
         labelId = new javax.swing.JLabel();
         textId = new javax.swing.JTextField();
         labelNome = new javax.swing.JLabel();
         textNome = new javax.swing.JTextField();
         labelMatricula = new javax.swing.JLabel();
         textMatricula = new javax.swing.JTextField();
-        curso = new javax.swing.JLabel();
-        textCurso = new javax.swing.JTextField();
         buttonSalvar = new javax.swing.JButton();
         buttonCancelar = new javax.swing.JButton();
         panelLivros = new javax.swing.JPanel();
@@ -164,9 +155,9 @@ public class CadastroAlunoDetalheView extends javax.swing.JInternalFrame {
         buttonEditar = new javax.swing.JButton();
 
         setClosable(true);
-        setTitle("Detalhes do Aluno");
+        setTitle("Detalhes do Professor");
 
-        panelAluno.setBorder(javax.swing.BorderFactory.createTitledBorder("Aluno"));
+        panelProfessor.setBorder(javax.swing.BorderFactory.createTitledBorder("Professor"));
 
         labelId.setText("ID:");
 
@@ -175,8 +166,6 @@ public class CadastroAlunoDetalheView extends javax.swing.JInternalFrame {
         labelNome.setText("Nome:");
 
         labelMatricula.setText("Matrícula:");
-
-        curso.setText("Curso:");
 
         buttonSalvar.setText("Salvar");
         buttonSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -192,59 +181,53 @@ public class CadastroAlunoDetalheView extends javax.swing.JInternalFrame {
             }
         });
 
-        javax.swing.GroupLayout panelAlunoLayout = new javax.swing.GroupLayout(panelAluno);
-        panelAluno.setLayout(panelAlunoLayout);
-        panelAlunoLayout.setHorizontalGroup(
-            panelAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelAlunoLayout.createSequentialGroup()
+        javax.swing.GroupLayout panelProfessorLayout = new javax.swing.GroupLayout(panelProfessor);
+        panelProfessor.setLayout(panelProfessorLayout);
+        panelProfessorLayout.setHorizontalGroup(
+            panelProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelProfessorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(panelProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(labelId)
-                    .addComponent(curso)
                     .addComponent(labelMatricula)
                     .addComponent(labelNome))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelAlunoLayout.createSequentialGroup()
-                        .addGroup(panelAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelProfessorLayout.createSequentialGroup()
+                        .addGroup(panelProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(textMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(textId, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(panelAlunoLayout.createSequentialGroup()
+                            .addGroup(panelProfessorLayout.createSequentialGroup()
                                 .addComponent(buttonSalvar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(buttonCancelar)))
                         .addGap(0, 113, Short.MAX_VALUE))
-                    .addComponent(textNome)
-                    .addComponent(textCurso))
+                    .addComponent(textNome))
                 .addContainerGap())
         );
-        panelAlunoLayout.setVerticalGroup(
-            panelAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelAlunoLayout.createSequentialGroup()
+        panelProfessorLayout.setVerticalGroup(
+            panelProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelProfessorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelId)
                     .addComponent(textId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelNome)
                     .addComponent(textNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelMatricula)
                     .addComponent(textMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(curso)
-                    .addComponent(textCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonSalvar)
                     .addComponent(buttonCancelar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        panelLivros.setBorder(javax.swing.BorderFactory.createTitledBorder("Livros emprestados"));
+        panelLivros.setBorder(javax.swing.BorderFactory.createTitledBorder("Livros pegos emprestados"));
 
         tableLivros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -273,27 +256,22 @@ public class CadastroAlunoDetalheView extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(tableLivros);
-        if (tableLivros.getColumnModel().getColumnCount() > 0) {
-            tableLivros.getColumnModel().getColumn(1).setResizable(false);
-            tableLivros.getColumnModel().getColumn(2).setResizable(false);
-            tableLivros.getColumnModel().getColumn(4).setResizable(false);
-        }
 
         javax.swing.GroupLayout panelLivrosLayout = new javax.swing.GroupLayout(panelLivros);
         panelLivros.setLayout(panelLivrosLayout);
         panelLivrosLayout.setHorizontalGroup(
             panelLivrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelLivrosLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLivrosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelLivrosLayout.setVerticalGroup(
             panelLivrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLivrosLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(21, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32))
+                .addContainerGap())
         );
 
         buttonEditar.setText("Editar Dados");
@@ -310,23 +288,23 @@ public class CadastroAlunoDetalheView extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelLivros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(panelAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(panelProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(buttonEditar))
-                        .addGap(0, 364, Short.MAX_VALUE))
-                    .addComponent(panelLivros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
                 .addComponent(buttonEditar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(panelLivros, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(panelLivros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -347,8 +325,8 @@ public class CadastroAlunoDetalheView extends javax.swing.JInternalFrame {
             boolean retorno = alunoControl.alterar(aluno);
 
             if (retorno) {
-                CadastroAlunoView.carregarTabela();
-                JOptionPane.showMessageDialog(null, "Aluno alterado com sucesso.");
+                CadastroProfessorView.carregarTabela();
+                JOptionPane.showMessageDialog(null, "Professor alterado com sucesso.");
             } else {
                 JOptionPane.showMessageDialog(null, "Erro ao tentar alterar o aluno.");
             }
@@ -372,55 +350,15 @@ public class CadastroAlunoDetalheView extends javax.swing.JInternalFrame {
     private javax.swing.JButton buttonCancelar;
     private javax.swing.JButton buttonEditar;
     private javax.swing.JButton buttonSalvar;
-    private javax.swing.JLabel curso;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelId;
     private javax.swing.JLabel labelMatricula;
     private javax.swing.JLabel labelNome;
-    private javax.swing.JPanel panelAluno;
     private javax.swing.JPanel panelLivros;
+    private javax.swing.JPanel panelProfessor;
     private javax.swing.JTable tableLivros;
-    private javax.swing.JTextField textCurso;
     private javax.swing.JTextField textId;
     private javax.swing.JTextField textMatricula;
     private javax.swing.JTextField textNome;
     // End of variables declaration//GEN-END:variables
-
-    public class ComboBoxItem {
-
-        private int id;
-        private String value;
-
-        public ComboBoxItem() {
-            id = 0;
-            value = "";
-        }
-
-        public ComboBoxItem(int id, String value) {
-            this.id = id;
-            this.value = value;
-        }
-
-        public int getId() {
-            return this.id;
-        }
-
-        public String getValue() {
-            return this.value;
-        }
-
-        public void setID(int id) {
-            this.id = id;
-        }
-
-        public void setValue(String value) {
-            this.value = value;
-        }
-
-        @Override
-        public String toString() {
-            return value;
-        }
-
-    }
 }

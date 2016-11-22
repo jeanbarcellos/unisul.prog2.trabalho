@@ -1,30 +1,30 @@
 package tela;
 
-import tela.tm.AlunoTM;
-import model.Aluno;
-import control.AlunoControl;
+import tela.tm.ProfessorTM;
+import model.Professor;
+import control.ProfessorControl;
 
 import java.awt.Dimension;
 import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
- * CadastroAlunoView
  *
  * @author Jean Barcellos <jeanbarcellos@hotmail.com>
  */
-public class CadastroAlunoView extends javax.swing.JInternalFrame {
+public class CadastroProfessorView extends javax.swing.JInternalFrame {
 
-    private static final long serialVersionUID = -1989171307165005090L;
-    private AlunoControl alunoControl;
+    private static final long serialVersionUID = 738582654898301711L;
+
+    private ProfessorControl professorControl;
 
     /**
-     * Creates new form CadastroAlunoView
+     * Creates new form CadastroProfessorView
      */
-    public CadastroAlunoView() {
+    public CadastroProfessorView() {
         initComponents();
 
-        this.alunoControl = new AlunoControl();
+        this.professorControl = new ProfessorControl();
 
         this.carregarTabela();
     }
@@ -38,17 +38,34 @@ public class CadastroAlunoView extends javax.swing.JInternalFrame {
     }
 
     /**
-     * Popula a tabela com a lista de alunos
+     * Popula a tabela com a lista de professores
      */
     public static void carregarTabela() {
-        List<Aluno> lista = new AlunoControl().getAlunos();
+        List<Professor> lista = new ProfessorControl().getProfessores();
 
-        AlunoTM alunoTM = new AlunoTM(lista);
-        tableAlunoLista.setModel(alunoTM);
-        tableAlunoLista.getColumnModel().getColumn(0).setPreferredWidth(50);
-        tableAlunoLista.getColumnModel().getColumn(1).setPreferredWidth(250);
-        tableAlunoLista.getColumnModel().getColumn(2).setPreferredWidth(50);
-        tableAlunoLista.getColumnModel().getColumn(3).setPreferredWidth(250);
+        ProfessorTM professorTM = new ProfessorTM(lista);
+        tableProfessorLista.setModel(professorTM);
+        tableProfessorLista.getColumnModel().getColumn(0).setPreferredWidth(30);
+        tableProfessorLista.getColumnModel().getColumn(1).setPreferredWidth(400);
+        tableProfessorLista.getColumnModel().getColumn(2).setPreferredWidth(50);
+    }
+
+    private boolean validarBuscar() {
+        String licalizar = textlocalizar.getText();
+        int indice = comboBoxPor.getSelectedIndex();
+
+        if (licalizar.equals("")) {
+            JOptionPane.showMessageDialog(null, "Você deve informar alguma palavra-chave.");
+            textlocalizar.requestFocus();
+            return false;
+        }
+        if (indice == 0) {
+            JOptionPane.showMessageDialog(null, "Você deve informar o tipo de dado.");
+            comboBoxPor.requestFocus();
+            return false;
+        }
+        return true;
+
     }
 
     /**
@@ -61,8 +78,8 @@ public class CadastroAlunoView extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         panelAlunosCadastrados = new javax.swing.JPanel();
-        scrollPaneListaAluno = new javax.swing.JScrollPane();
-        tableAlunoLista = new javax.swing.JTable();
+        scrollPaneListaProfessor = new javax.swing.JScrollPane();
+        tableProfessorLista = new javax.swing.JTable();
         labelPor = new javax.swing.JLabel();
         comboBoxPor = new javax.swing.JComboBox<>();
         labelLocalizar = new javax.swing.JLabel();
@@ -74,26 +91,26 @@ public class CadastroAlunoView extends javax.swing.JInternalFrame {
         buttonExcluir = new javax.swing.JButton();
 
         setClosable(true);
-        setTitle("Cadastro de Alunos");
+        setTitle("Cadastro de Professores");
 
-        panelAlunosCadastrados.setBorder(javax.swing.BorderFactory.createTitledBorder("Alunos Cadastrados"));
+        panelAlunosCadastrados.setBorder(javax.swing.BorderFactory.createTitledBorder("Professores Cadastrados"));
 
-        tableAlunoLista.setModel(new javax.swing.table.DefaultTableModel(
+        tableProfessorLista.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "ID", "Nome", "Matrícula", "Curso"
+                "ID", "Nome", "Matrícula"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -104,13 +121,10 @@ public class CadastroAlunoView extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        tableAlunoLista.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        scrollPaneListaAluno.setViewportView(tableAlunoLista);
-        if (tableAlunoLista.getColumnModel().getColumnCount() > 0) {
-            tableAlunoLista.getColumnModel().getColumn(0).setResizable(false);
-            tableAlunoLista.getColumnModel().getColumn(0).setPreferredWidth(40);
-            tableAlunoLista.getColumnModel().getColumn(2).setResizable(false);
-            tableAlunoLista.getColumnModel().getColumn(3).setResizable(false);
+        scrollPaneListaProfessor.setViewportView(tableProfessorLista);
+        if (tableProfessorLista.getColumnModel().getColumnCount() > 0) {
+            tableProfessorLista.getColumnModel().getColumn(0).setResizable(false);
+            tableProfessorLista.getColumnModel().getColumn(2).setResizable(false);
         }
 
         labelPor.setText("Por:");
@@ -180,7 +194,7 @@ public class CadastroAlunoView extends javax.swing.JInternalFrame {
                         .addComponent(buttonDetalhar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonExcluir))
-                    .addComponent(scrollPaneListaAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(scrollPaneListaProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         panelAlunosCadastradosLayout.setVerticalGroup(
@@ -195,7 +209,7 @@ public class CadastroAlunoView extends javax.swing.JInternalFrame {
                     .addComponent(buttonBuscar)
                     .addComponent(buttonRecarregar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrollPaneListaAluno, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
+                .addComponent(scrollPaneListaProfessor, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelAlunosCadastradosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonNovo)
@@ -224,23 +238,9 @@ public class CadastroAlunoView extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private boolean validarBuscar() {
-        String licalizar = textlocalizar.getText();
-        int indice = comboBoxPor.getSelectedIndex();
-
-        if (licalizar.equals("")) {
-            JOptionPane.showMessageDialog(null, "Você deve informar alguma palavra-chave.");
-            textlocalizar.requestFocus();
-            return false;
-        }
-        if (indice == 0) {
-            JOptionPane.showMessageDialog(null, "Você deve informar o tipo de dado.");
-            comboBoxPor.requestFocus();
-            return false;
-        }
-        return true;
-
-    }
+    private void buttonRecarregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRecarregarActionPerformed
+        this.carregarTabela();
+    }//GEN-LAST:event_buttonRecarregarActionPerformed
 
     private void buttonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBuscarActionPerformed
 
@@ -250,59 +250,29 @@ public class CadastroAlunoView extends javax.swing.JInternalFrame {
         boolean retorno = this.validarBuscar();
 
         if (retorno) {
-            List<Aluno> lista = null;
+            List<Professor> lista = null;
 
             if (indice == 1) {
-                lista = alunoControl.buscarPeloNome(chave);
+                lista = professorControl.buscarPeloNome(chave);
             } else if (indice == 2) {
-                lista = alunoControl.buscarPelaMatricula(Integer.parseInt(chave));
+                lista = professorControl.buscarPelaMatricula(Integer.parseInt(chave));
             }
 
             if (lista != null) {
-                AlunoTM alunoTM = new AlunoTM(lista);
-                tableAlunoLista.setModel(alunoTM);
-                tableAlunoLista.getColumnModel().getColumn(0).setPreferredWidth(50);
-                tableAlunoLista.getColumnModel().getColumn(1).setPreferredWidth(250);
-                tableAlunoLista.getColumnModel().getColumn(2).setPreferredWidth(50);
-                tableAlunoLista.getColumnModel().getColumn(3).setPreferredWidth(250);
+                ProfessorTM professorTM = new ProfessorTM(lista);
+                tableProfessorLista.setModel(professorTM);
+                tableProfessorLista.getColumnModel().getColumn(0).setPreferredWidth(30);
+                tableProfessorLista.getColumnModel().getColumn(1).setPreferredWidth(400);
+                tableProfessorLista.getColumnModel().getColumn(2).setPreferredWidth(50);
             } else {
-                JOptionPane.showMessageDialog(null, "Não há alunos cadastrados com os dados informados.");
+                JOptionPane.showMessageDialog(null, "Não há professores cadastrados com os dados informados.");
             }
         }
-
     }//GEN-LAST:event_buttonBuscarActionPerformed
-
-    private void buttonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExcluirActionPerformed
-        int linha = tableAlunoLista.getSelectedRow();
-
-        if (linha < 0) {
-            JOptionPane.showMessageDialog(null, "Selecione uma linha para excluir");
-        } else {
-            Object[] options = {"Sim", "Cancelar"};
-            int retornoExcluir = JOptionPane.showOptionDialog(null, "Tens certeza que deseja excluir o aluno selecionado?", "Informação", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
-
-            if (retornoExcluir == JOptionPane.YES_OPTION) {
-
-                int idExcluir = (int) tableAlunoLista.getValueAt(linha, 0);
-
-                boolean retorno = alunoControl.excluir(idExcluir);
-
-                if (retorno) {
-                    JOptionPane.showMessageDialog(null, "Aluno excluído com sucesso.");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Erro ao excluír o aluno.");
-                }
-
-            }
-            this.carregarTabela();
-
-        }
-
-    }//GEN-LAST:event_buttonExcluirActionPerformed
 
     private void buttonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNovoActionPerformed
 
-        CadastroAlunoInserirView inserirView = new CadastroAlunoInserirView();
+        CadastroProfessorInserirView inserirView = new CadastroProfessorInserirView();
         Principal.desktop.add(inserirView);
         inserirView.getFont();
         inserirView.setPosicao();
@@ -310,13 +280,13 @@ public class CadastroAlunoView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_buttonNovoActionPerformed
 
     private void buttonDetalharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDetalharActionPerformed
-        int linha = tableAlunoLista.getSelectedRow();
+        int linha = tableProfessorLista.getSelectedRow();
         if (linha < 0) {
-            JOptionPane.showMessageDialog(null, "Selecione uma aluno para detalhar.");
+            JOptionPane.showMessageDialog(null, "Selecione uma professor para detalhar.");
         } else {
-            int idEditar = (int) tableAlunoLista.getValueAt(linha, 0);
+            int idEditar = (int) tableProfessorLista.getValueAt(linha, 0);
 
-            CadastroAlunoDetalheView detalheView = new CadastroAlunoDetalheView(idEditar);
+            CadastroProfessorDetalheView detalheView = new CadastroProfessorDetalheView(idEditar);
             Principal.desktop.add(detalheView);
             detalheView.getFont();
             detalheView.setPosicao();
@@ -324,9 +294,32 @@ public class CadastroAlunoView extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_buttonDetalharActionPerformed
 
-    private void buttonRecarregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRecarregarActionPerformed
-        this.carregarTabela();
-    }//GEN-LAST:event_buttonRecarregarActionPerformed
+    private void buttonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExcluirActionPerformed
+        int linha = tableProfessorLista.getSelectedRow();
+
+        if (linha < 0) {
+            JOptionPane.showMessageDialog(null, "Selecione uma linha para excluir");
+        } else {
+            Object[] options = {"Sim", "Cancelar"};
+            int retornoExcluir = JOptionPane.showOptionDialog(null, "Tens certeza que deseja excluir o professor selecionado?", "Informação", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
+
+            if (retornoExcluir == JOptionPane.YES_OPTION) {
+
+                int idExcluir = (int) tableProfessorLista.getValueAt(linha, 0);
+
+                boolean retorno = professorControl.excluir(idExcluir);
+
+                if (retorno) {
+                    JOptionPane.showMessageDialog(null, "Professor excluído com sucesso.");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Erro ao excluír o professor.");
+                }
+
+            }
+            this.carregarTabela();
+
+        }
+    }//GEN-LAST:event_buttonExcluirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -339,8 +332,8 @@ public class CadastroAlunoView extends javax.swing.JInternalFrame {
     private javax.swing.JLabel labelLocalizar;
     private javax.swing.JLabel labelPor;
     private javax.swing.JPanel panelAlunosCadastrados;
-    private javax.swing.JScrollPane scrollPaneListaAluno;
-    public static javax.swing.JTable tableAlunoLista;
+    private javax.swing.JScrollPane scrollPaneListaProfessor;
+    public static javax.swing.JTable tableProfessorLista;
     private javax.swing.JTextField textlocalizar;
     // End of variables declaration//GEN-END:variables
 }

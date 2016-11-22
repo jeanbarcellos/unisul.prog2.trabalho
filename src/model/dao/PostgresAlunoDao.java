@@ -174,6 +174,7 @@ public class PostgresAlunoDao implements AlunoDao {
             sql += "  LEFT JOIN curso c ";
             sql += "    ON a.curso_id = c.id ";
             sql += " WHERE u.id = ? ";
+            sql += "   AND u.tipo = 1 ";
             sql += " LIMIT 1 ;";
 
             ps = conn.prepareStatement(sql);
@@ -227,12 +228,13 @@ public class PostgresAlunoDao implements AlunoDao {
             sql += "    u.matricula, ";
             sql += "    a.curso_id, ";
             sql += "      c.nome AS curso_nome ";
-            sql += "  FROM aluno a ";
-            sql += "  LEFT JOIN usuario u ";
-            sql += "    ON a.usuario_id = u.id ";
+            sql += "  FROM usuario u ";
+            sql += "  LEFT JOIN aluno a ";
+            sql += "    ON u.id = a.usuario_id";
             sql += "  LEFT JOIN curso c ";
             sql += "    ON a.curso_id = c.id ";
             sql += " WHERE u.data_fim IS NULL ";
+            sql += "   AND u.tipo = 1 ";
             sql += " ORDER BY a.usuario_id ASC ;";
 
             ps = conn.prepareStatement(sql);
@@ -324,12 +326,13 @@ public class PostgresAlunoDao implements AlunoDao {
             sql += "    u.matricula, ";
             sql += "    a.curso_id, ";
             sql += "      c.nome AS curso_nome ";
-            sql += "  FROM aluno a ";
-            sql += "  LEFT JOIN usuario u ";
-            sql += "    ON a.usuario_id = u.id ";
+            sql += "  FROM usuario u ";
+            sql += "  LEFT JOIN aluno a ";
+            sql += "    ON u.id  = a.usuario_id";
             sql += "  LEFT JOIN curso c ";
             sql += "    ON a.curso_id = c.id ";
             sql += " WHERE u.data_fim IS NULL ";
+            sql += "   AND u.tipo = 1 ";
             sql += "   AND u.nome LIKE ?";
             sql += " ORDER BY u.id ASC ;";
 
@@ -385,12 +388,13 @@ public class PostgresAlunoDao implements AlunoDao {
             sql += "    u.matricula, ";
             sql += "    a.curso_id, ";
             sql += "      c.nome AS curso_nome ";
-            sql += "  FROM aluno a ";
-            sql += "  LEFT JOIN usuario u ";
-            sql += "    ON a.usuario_id = u.id ";
+            sql += "  FROM usuario u ";
+            sql += "  LEFT JOIN aluno a ";
+            sql += "    ON u.id  = a.usuario_id";
             sql += "  LEFT JOIN curso c ";
             sql += "    ON a.curso_id = c.id ";
             sql += " WHERE u.data_fim IS NULL ";
+            sql += "   AND u.tipo = 1 ";
             sql += "   AND u.matricula = ?";
             sql += " ORDER BY u.id ASC ;";
 

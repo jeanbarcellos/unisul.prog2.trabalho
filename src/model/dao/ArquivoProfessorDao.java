@@ -100,39 +100,29 @@ class ArquivoProfessorDao implements ProfessorDao {
         return this.persistArquivo.getLastId();
     }
 
-//
-//    /**
-//     * Serializa a lista de professores
-//     *
-//     * @return resultado da serialização
-//     */
-//    private boolean serializar() {
-//        return PersistenciaArquivoTeste.serializar(this.filename, this.professores);
-//    }
-//
-//    /**
-//     * Deserializa o arquivo contendo a lista de Professores
-//     *
-//     * @return
-//     */
-//    private List<Professor> deserializar() {
-//        List<Professor> lista = PersistenciaArquivoTeste.deserializar(filename);
-//        return lista;
-//    }
-//
-//    /**
-//     * Gerencia a sequência dos IDs
-//     *
-//     * Ao chamar este método, é gravado o último id no arquivo que contém a
-//     * sequência.
-//     *
-//     * @return boolean
-//     */
-//    private boolean sequenciar() {
-//    return PersistenciaArquivoTeste.sequenciar (
+    @Override
+    public List<Professor> buscarPeloNome(String nome) {
+        List<Professor> lista = new ArrayList<Professor>();
 
-//this.sequencia);
-//    }
-    
-    
+        for (Professor professor : this.professores) {
+            System.out.println(professor);
+            if (professor.getNome().equals(nome)) {
+                lista.add(professor);
+            }
+        }
+        return lista;
+    }
+
+    @Override
+    public List<Professor> buscarPelaMatricula(int matricula) {
+        List<Professor> lista = new ArrayList<Professor>();
+
+        for (Professor professor : this.professores) {
+            if (professor.getMatricula() == matricula) {
+                lista.add(professor);
+            }
+        }
+        return lista;
+    }
+
 }

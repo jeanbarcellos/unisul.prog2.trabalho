@@ -58,4 +58,19 @@ public interface ProfessorDao {
      */
     public int lastId();
 
+    /**
+     * Realiza buscar de professores pelo nome
+     *
+     * @param nome Nome a ser pesquisado
+     * @return Lista de Professores
+     */
+    public List<Professor> buscarPeloNome(String nome);
+
+    /**
+     * Realiza buscar de professores pelo nome
+     *
+     * @param matricula Matrícula a ser pesquisada
+     * @return Lista de Professores
+     */
+    public List<Professor> buscarPelaMatricula(int matricula);
 }

@@ -27,7 +27,7 @@ public class ProfessorControl {
     /**
      * Instância do DaoFactory de Cursos
      */
-    private ProfessorDao alunoDao = DaoFactory.getDaoFactory().getProfessorDao();
+    private ProfessorDao professorDao = DaoFactory.getDaoFactory().getProfessorDao();
 
     /**
      * Contrutor
@@ -69,7 +69,7 @@ public class ProfessorControl {
 
         this.professores.add(aluno);
 
-        boolean db = alunoDao.insert(aluno);
+        boolean db = professorDao.insert(aluno);
 
         if (db) {
             return true;
@@ -94,7 +94,7 @@ public class ProfessorControl {
             aluno.setNome(aluno.getNome());
             aluno.setMatricula(aluno.getMatricula());
 
-            boolean retorno = alunoDao.update(aluno);
+            boolean retorno = professorDao.update(aluno);
 
             return retorno;
         } else {
@@ -116,7 +116,7 @@ public class ProfessorControl {
         if (alunoRef != null) {
             this.professores.remove(alunoRef);
 
-            boolean retorno = alunoDao.delete(id);
+            boolean retorno = professorDao.delete(id);
 
             return retorno;
         } else {
@@ -147,7 +147,7 @@ public class ProfessorControl {
      * @return Lista com todos os Professores
      */
     private List<Professor> carregarLista() {
-        return alunoDao.all();
+        return professorDao.all();
     }
 
     /**
@@ -156,7 +156,7 @@ public class ProfessorControl {
      * @return Último ID cadastrado
      */
     private int ultimoId() {
-        return alunoDao.lastId();
+        return professorDao.lastId();
     }
 
     /**
@@ -166,6 +166,14 @@ public class ProfessorControl {
      */
     private int autoId() {
         return this.ultimoId() + 1;
+    }
+
+    public List<Professor> buscarPeloNome(String nome) {
+        return professorDao.buscarPeloNome(nome);
+    }
+
+    public List<Professor> buscarPelaMatricula(int matricula) {
+        return professorDao.buscarPelaMatricula(matricula);
     }
 
 }

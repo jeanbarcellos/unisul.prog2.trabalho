@@ -49,7 +49,6 @@ class PostgresProfessorDao implements ProfessorDao {
 //            ps2 = conn.prepareStatement("INSERT INTO professor (usuario_id, matricula, data_inicio, data_fim) VALUES (?, ?, ?, ?)");
 //            ps2.setInt(1, professor.getId());
 //            int retorno2 = ps2.executeUpdate();
-
 //            return retorno1 == 1 && retorno2 == 1;
             return retorno1 == 1;
 
@@ -150,11 +149,9 @@ class PostgresProfessorDao implements ProfessorDao {
 
             String sql = "";
             sql += "SELECT u.id, u.nome, u.matricula ";
-            sql += "  FROM professor p ";
-            sql += "  LEFT JOIN usuario u ";
-            sql += "    ON p.usuario_id = u.id ";
-            sql += " WHERE p.usuario_id = ? ";
-            sql += " ORDER BY p.usuario_id DESC ";
+            sql += "  FROM usuario u ";
+            sql += " WHERE u.id = ? ";
+            sql += "   AND u.tipo = 2 ";
             sql += " LIMIT 1 ;";
 
             ps = conn.prepareStatement(sql);
@@ -204,6 +201,7 @@ class PostgresProfessorDao implements ProfessorDao {
             sql += "SELECT u.id, u.nome, u.matricula ";
             sql += "FROM usuario u ";
             sql += "WHERE u.data_fim IS NULL ";
+            sql += "  AND u.tipo = 2 ";
             sql += "ORDER BY u.id ASC";
 
             ps = conn.prepareStatement(sql);
@@ -275,6 +273,116 @@ class PostgresProfessorDao implements ProfessorDao {
         }
 
         return lastId;
+    }
+
+    @Override
+    public List<Professor> buscarPeloNome(String nome) {
+        List<Professor> professores = new ArrayList<Professor>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            conn = PostgresDaoFactory.openConnection();
+
+            String sql = "";
+            sql += "SELECT ";
+            sql += "    u.id, ";
+            sql += "    u.nome, ";
+            sql += "    u.matricula ";
+            sql += "  FROM usuario u ";
+            sql += " WHERE u.data_fim IS NULL ";
+            sql += "   AND u.tipo = 2 ";
+            sql += "   AND u.nome LIKE ?";
+            sql += " ORDER BY u.id ASC ;";
+
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, "%" + nome + "%");
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Professor professor = new Professor();
+                professor.setId(rs.getInt("id"));
+                professor.setNome(rs.getString("nome"));
+                professor.setMatricula(rs.getInt("matricula"));
+                professores.add(professor);
+            }
+
+        } catch (SQLException ex) {
+            Log.write(ex.getErrorCode() + " - " + ex.getMessage());
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception e) {
+
+            }
+        }
+
+        return professores;
+    }
+
+    @Override
+    public List<Professor> buscarPelaMatricula(int matricula) {
+        List<Professor> professores = new ArrayList<Professor>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            conn = PostgresDaoFactory.openConnection();
+
+            String sql = "";
+            sql += "SELECT ";
+            sql += "    u.id, ";
+            sql += "    u.nome, ";
+            sql += "    u.matricula ";
+            sql += "  FROM usuario u ";
+            sql += " WHERE u.data_fim IS NULL ";
+            sql += "   AND u.tipo = 2 ";
+            sql += "   AND u.matricula = ?";
+            sql += " ORDER BY u.id ASC ;";
+
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, matricula);
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Professor professor = new Professor();
+                professor.setId(rs.getInt("id"));
+                professor.setNome(rs.getString("nome"));
+                professor.setMatricula(rs.getInt("matricula"));
+                professores.add(professor);
+            }
+
+        } catch (SQLException ex) {
+            Log.write(ex.getErrorCode() + " - " + ex.getMessage());
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception e) {
+
+            }
+        }
+
+        return professores;
     }
 
 }

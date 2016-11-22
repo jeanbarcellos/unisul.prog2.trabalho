@@ -1,4 +1,4 @@
-package view;
+package view.old;
 
 import control.ProfessorControl;
 import java.util.List;

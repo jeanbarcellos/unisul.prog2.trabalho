@@ -1,5 +1,8 @@
-package view;
+package view.old;
 
+import view.old.ProfessorView;
+import view.old.LivroView;
+import view.old.ExemplarView;
 import view.old.AlunoView;
 import view.old.CursoView;
 import javax.swing.JOptionPane;

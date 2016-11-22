@@ -1,6 +1,7 @@
-package view;
+package view.old;
 
 import javax.swing.JOptionPane;
+import view.ProcedimentoEmprestimoView;
 
 /**
  * Classe MenuProcedimentoView

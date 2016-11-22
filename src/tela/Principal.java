@@ -39,7 +39,6 @@ public class Principal extends javax.swing.JFrame {
         menuItemCadastroAluno = new javax.swing.JMenuItem();
         menuItemCadastroProfessor = new javax.swing.JMenuItem();
         menuItemCadastroLivro = new javax.swing.JMenuItem();
-        menuItemCadastroExemplar = new javax.swing.JMenuItem();
         menuConsulta = new javax.swing.JMenu();
         menuProcedimento = new javax.swing.JMenu();
         menuItemProcEmprestimo = new javax.swing.JMenuItem();
@@ -68,7 +67,7 @@ public class Principal extends javax.swing.JFrame {
         menuCadastro.setText("Cadastro");
 
         menuItemCadastroCurso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons/folder.png"))); // NOI18N
-        menuItemCadastroCurso.setText("Curso");
+        menuItemCadastroCurso.setText("Cursos");
         menuItemCadastroCurso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemCadastroCursoActionPerformed(evt);
@@ -77,7 +76,7 @@ public class Principal extends javax.swing.JFrame {
         menuCadastro.add(menuItemCadastroCurso);
 
         menuItemCadastroAluno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons/user.png"))); // NOI18N
-        menuItemCadastroAluno.setText("Aluno");
+        menuItemCadastroAluno.setText("Alunos");
         menuItemCadastroAluno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemCadastroAlunoActionPerformed(evt);
@@ -86,7 +85,7 @@ public class Principal extends javax.swing.JFrame {
         menuCadastro.add(menuItemCadastroAluno);
 
         menuItemCadastroProfessor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons/user_gray.png"))); // NOI18N
-        menuItemCadastroProfessor.setText("Professor");
+        menuItemCadastroProfessor.setText("Professores");
         menuItemCadastroProfessor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemCadastroProfessorActionPerformed(evt);
@@ -95,22 +94,13 @@ public class Principal extends javax.swing.JFrame {
         menuCadastro.add(menuItemCadastroProfessor);
 
         menuItemCadastroLivro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons/book_open.png"))); // NOI18N
-        menuItemCadastroLivro.setText("Livro");
+        menuItemCadastroLivro.setText("Livros e Exemplares");
         menuItemCadastroLivro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemCadastroLivroActionPerformed(evt);
             }
         });
         menuCadastro.add(menuItemCadastroLivro);
-
-        menuItemCadastroExemplar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons/book.png"))); // NOI18N
-        menuItemCadastroExemplar.setText("Exemplar");
-        menuItemCadastroExemplar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemCadastroExemplarActionPerformed(evt);
-            }
-        });
-        menuCadastro.add(menuItemCadastroExemplar);
 
         barraMenuPrincipal.add(menuCadastro);
 
@@ -189,16 +179,22 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemCadastroAlunoActionPerformed
 
     private void menuItemCadastroProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCadastroProfessorActionPerformed
-        // TODO add your handling code here:
+        desktop.removeAll();
+
+        CadastroProfessorView cadastroProfessorView = new CadastroProfessorView();
+        desktop.add(cadastroProfessorView);
+        cadastroProfessorView.setPosicao();
+        cadastroProfessorView.setVisible(true);
     }//GEN-LAST:event_menuItemCadastroProfessorActionPerformed
 
     private void menuItemCadastroLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCadastroLivroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_menuItemCadastroLivroActionPerformed
+        desktop.removeAll();
 
-    private void menuItemCadastroExemplarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCadastroExemplarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_menuItemCadastroExemplarActionPerformed
+        CadastroLivroView cadastroLivroView = new CadastroLivroView();
+        desktop.add(cadastroLivroView);
+        cadastroLivroView.setPosicao();
+        cadastroLivroView.setVisible(true);
+    }//GEN-LAST:event_menuItemCadastroLivroActionPerformed
 
     private void menuItemProcEmprestimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemProcEmprestimoActionPerformed
         // TODO add your handling code here:
@@ -257,7 +253,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu menuConsulta;
     private javax.swing.JMenuItem menuItemCadastroAluno;
     private javax.swing.JMenuItem menuItemCadastroCurso;
-    private javax.swing.JMenuItem menuItemCadastroExemplar;
     private javax.swing.JMenuItem menuItemCadastroLivro;
     private javax.swing.JMenuItem menuItemCadastroProfessor;
     private javax.swing.JMenuItem menuItemProcEmprestimo;

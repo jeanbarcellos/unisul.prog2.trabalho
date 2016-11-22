@@ -23,7 +23,7 @@ final class ArquivoLivroDao implements LivroDao {
 
     public ArquivoLivroDao() {
         this.persistArquivo = new PersistenciaArquivo("livros.bin", "livro_seq.txt");
-        this.livros = this.all();
+        this.carregarLista();
     }
 
     @Override
@@ -55,6 +55,9 @@ final class ArquivoLivroDao implements LivroDao {
             // Persistir
             this.persistArquivo.serializar(this.livros);
 
+            // Recarregar lista interna
+            this.carregarLista();
+            
             return true;
         } else {
             return false;
@@ -97,8 +100,14 @@ final class ArquivoLivroDao implements LivroDao {
     }
 
     @Override
-    public int lastId() {        
+    public int lastId() {
         return this.persistArquivo.getLastId();
     }
 
+    /**
+     * Recarrega lista interna do Dao
+     */
+    private void carregarLista() {
+        this.livros = this.all();
+    }
 }
