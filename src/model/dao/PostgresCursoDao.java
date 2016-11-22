@@ -122,7 +122,49 @@ public class PostgresCursoDao implements CursoDao {
 
     @Override
     public Curso load(int id) {
-        return null;
+        Curso curso = null;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            conn = PostgresDaoFactory.openConnection();
+            String sql = "";
+
+            sql += "SELECT id, nome ";
+            sql += "FROM curso ";
+            sql += "WHERE id = ? ";
+            sql += "LIMIT 1";
+
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            rs = ps.executeQuery();
+            rs.next();
+
+            curso = new Curso();
+            curso.setId(rs.getInt("id"));
+            curso.setNome(rs.getString("nome"));
+
+        } catch (SQLException ex) {
+            Log.write(ex.getErrorCode() + " - " + ex.getMessage());
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception e) {
+
+            }
+        }
+
+        return curso;
     }
 
     @Override

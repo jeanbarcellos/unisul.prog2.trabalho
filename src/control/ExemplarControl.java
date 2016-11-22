@@ -29,7 +29,6 @@ public class ExemplarControl {
      */
     private ExemplarDao exemplarDao = DaoFactory.getDaoFactory().getExemplarDao();
 
-    
     /**
      * Contrutor
      */
@@ -38,7 +37,6 @@ public class ExemplarControl {
         this.setExemplares(this.carregarLista());
     }
 
-    
     /**
      * Retorna a lista de Exemplares do controlador
      *
@@ -59,7 +57,6 @@ public class ExemplarControl {
         this.exemplares = exemplares;
     }
 
-    
     /**
      * Inserir um exemplar
      *
@@ -128,7 +125,6 @@ public class ExemplarControl {
         }
     }
 
-    
     /**
      * Retorna a referência de um objeto da lista através de seu ID. Caso não o
      * encontre retorna NULL.
@@ -146,7 +142,6 @@ public class ExemplarControl {
         return retorno;
     }
 
-    
     /**
      * Total de exemplares ativos por livro
      *
@@ -157,11 +152,16 @@ public class ExemplarControl {
         return exemplarDao.total(livroId);
     }
 
+    /**
+     * Lista os exemplares de um livro
+     *
+     * @param livroId
+     * @return
+     */
     public List<Exemplar> listar(int livroId) {
         return exemplarDao.listar(livroId);
     }
-        
-    
+
     /**
      * Carrega a lista no controlador
      *
@@ -187,6 +187,18 @@ public class ExemplarControl {
      */
     private int autoId() {
         return this.ultimoId() + 1;
+    }
+
+    public List<Exemplar> buscarPeloTitulo(String titulo) {
+        return this.exemplarDao.buscarPeloTitulo(titulo);
+    }
+
+    public List<Exemplar> buscarPeloAutor(String autor) {
+        return this.exemplarDao.buscarPeloAutor(autor);
+    }
+
+    public List<Exemplar> buscarPelaEdicao(String edicao) {
+        return this.exemplarDao.buscarPelaEdicao(edicao);
     }
 
 }

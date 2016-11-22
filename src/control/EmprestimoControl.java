@@ -3,8 +3,9 @@ package control;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import model.Aluno;
 import model.Emprestimo;
-import model.Exemplar;
+import model.Professor;
 import model.dao.DaoFactory;
 import model.dao.EmprestimoDao;
 import util.Config;
@@ -70,10 +71,10 @@ public class EmprestimoControl {
      * @return Booleano
      */
     public boolean inserir(Emprestimo emprestimo) {
-        
+
         Config config = Config.getInstance();
         int diasEmprestimo = Integer.parseInt(config.getValue("diasEmprestimo"));
-        
+
         Date dataAgora = Data.dataAtual();
         Date dataPrevisao = Data.somaDias(dataAgora, diasEmprestimo);
 
@@ -97,33 +98,6 @@ public class EmprestimoControl {
 
     }
 
-    /**
-     * Alterar um emprestimo
-     *
-     * @param id ID do Objeto a ser alterado
-     * @param emprestimo Objeto Emprestimo já modificado
-     * @return Booleando
-     */
-//    public boolean alterar(int id, Emprestimo emprestimo) {
-//
-////        // Referencia o Objeto a ser alterado na memória
-////        Emprestimo emprestimoRef = this.getEmprestimo(id);
-////
-////        // Verifica se o objeto existe
-////        if (emprestimoRef != null) {
-////
-////            // Altera somente o nome
-////            emprestimoRef.setNome(emprestimo.getNome());
-////
-////            boolean retorno = emprestimoDao.update(emprestimo);
-////
-////            return retorno;
-////        } else {
-////            return false;
-////        }
-//        return true;
-//
-//    }
     /**
      * Excluir um objeto da base de dados
      *
@@ -194,5 +168,37 @@ public class EmprestimoControl {
 
     public List<Emprestimo> getExemplaresPegos(int usuarioId) {
         return this.emprestimoDao.getEmprestimosPorUsuario(usuarioId);
+    }
+
+    /**
+     * Verifica o timpo de usuário (Professor ou Aluno)
+     *
+     * @param emprestimo
+     * @return
+     */
+    public static String tipoUsuario(Emprestimo emprestimo) {
+        String tipo;
+
+        if (emprestimo.getUsuario() instanceof Aluno) {
+            tipo = "Aluno";
+        } else if (emprestimo.getUsuario() instanceof Professor) {
+            tipo = "Professor";
+        } else {
+            tipo = "Usuário";
+        }
+
+        return tipo;
+    }
+
+    public String getDisponibilidade(int idExemplar) {
+        String situacao = "Disponível";
+
+        for (Emprestimo emprestimoExt : this.getEmprestimos()) {
+            if (emprestimoExt.getExemplar().getId() == idExemplar && emprestimoExt.getDataDevolucao() != null) {
+                situacao = "Emprestado";
+                System.out.println(emprestimoExt);
+            }
+        }
+        return situacao;
     }
 }

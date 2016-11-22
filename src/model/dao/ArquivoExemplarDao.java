@@ -97,7 +97,7 @@ final class ArquivoExemplarDao implements ExemplarDao {
     }
 
     @Override
-    public int lastId() {        
+    public int lastId() {
         return this.persistArquivo.getLastId();
     }
 
@@ -133,6 +133,48 @@ final class ArquivoExemplarDao implements ExemplarDao {
      */
     private void carregarLista() {
         this.exemplares = this.all();
+    }
+
+    @Override
+    public List<Exemplar> buscarPeloTitulo(String titulo) {
+        this.carregarLista();
+
+        List<Exemplar> lista = new ArrayList<Exemplar>();
+
+        for (Exemplar exemplarExt : this.exemplares) {
+            if (exemplarExt.getLivro().getTitulo().equals(titulo)) {
+                lista.add(exemplarExt);
+            }
+        }
+        return lista;
+    }
+
+    @Override
+    public List<Exemplar> buscarPeloAutor(String autor) {
+        this.carregarLista();
+
+        List<Exemplar> lista = new ArrayList<Exemplar>();
+
+        for (Exemplar exemplarExt : this.exemplares) {
+            if (exemplarExt.getLivro().getAutor().equals(autor)) {
+                lista.add(exemplarExt);
+            }
+        }
+        return lista;
+    }
+
+    @Override
+    public List<Exemplar> buscarPelaEdicao(String edicao) {
+        this.carregarLista();
+
+        List<Exemplar> lista = new ArrayList<Exemplar>();
+
+        for (Exemplar exemplarExt : this.exemplares) {
+            if (exemplarExt.getEdicao().equals(edicao)) {
+                lista.add(exemplarExt);
+            }
+        }
+        return lista;
     }
 
 }

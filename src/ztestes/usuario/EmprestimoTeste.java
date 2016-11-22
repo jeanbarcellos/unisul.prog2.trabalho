@@ -9,8 +9,8 @@ import control.EmprestimoControl;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.Emprestimo;
-import view.ProcedimentoEmprestimoEmprestarView;
-import view.ProcedimentoEmprestimoView;
+import zview.old.ProcedimentoEmprestimoEmprestarView;
+import zview.old.ProcedimentoEmprestimoView;
 
 /**
  *
@@ -28,22 +28,24 @@ public class EmprestimoTeste {
 
         List<Emprestimo> lista = emprestimoControl.getEmprestimos();
 //        List<Emprestimo> lista = emprestimoControl.getExemplaresPegos(1);
-
+//
         for (Emprestimo emprestimo : lista) {
-//            String resultTxt;
-//            resultTxt = "";
-//            resultTxt += "ID: " + emprestimo.getId() + " | ";
-//            resultTxt += "Usuário: " + emprestimo.getUsuario().getMatricula() + " - ";
-//            resultTxt += "" + emprestimo.getUsuario().getNome() + "\n";
-//            resultTxt += "LIVRO: " + emprestimo.getExemplar().getLivro().getTitulo() + " | ";
-//            resultTxt += "Edição" + emprestimo.getExemplar().getEdicao() + "\n";
-//            resultTxt += "DATAS: \n";
-//            resultTxt += "Empréstimo: " + emprestimo.getDataEmprestimo() + " | ";
-//            resultTxt += "Devolução previsão: " + emprestimo.getDataDevolucaoPrevista() + "\n\n";
-
+            String resultTxt;
+            resultTxt = "";
+            resultTxt += "ID: " + emprestimo.getId() + " | ";
+            resultTxt += "Usuário: " + emprestimo.getUsuario().getMatricula() + " - ";
+            resultTxt += "" + emprestimo.getUsuario().getNome() + "\n";
+            resultTxt += "LIVRO: " + emprestimo.getExemplar().getLivro().getTitulo() + " | ";
+            resultTxt += "Edição" + emprestimo.getExemplar().getEdicao() + "\n";
+            resultTxt += "DATAS: \n";
+            resultTxt += "Empréstimo: " + emprestimo.getDataEmprestimo() + " | ";
+            resultTxt += "Devolução previsão: " + emprestimo.getDataDevolucaoPrevista() + "\n\n";
+//
             System.out.println(emprestimo);
         }
 //        JOptionPane.showMessageDialog(null, resultTxt);
+
+        System.out.println(emprestimoControl.getDisponibilidade(1));
 
     }
 

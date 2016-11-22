@@ -157,14 +157,14 @@ public class PostgresExemplarDao implements ExemplarDao {
 
             rs = ps.executeQuery();
             rs.next();
-            
+
             Livro livro = new Livro(rs.getInt("livro_id"), rs.getString("livro_titulo"), rs.getString("livro_autor"));
-            
+
             exemplar = new Exemplar();
             exemplar.setId(rs.getInt("id"));
             exemplar.setLivro(livro);
             exemplar.setLocalizacao(rs.getString("localizacao"));
-            exemplar.setEdicao(rs.getString("edicao"));            
+            exemplar.setEdicao(rs.getString("edicao"));
 
         } catch (SQLException ex) {
             Log.write(ex.getErrorCode() + " - " + ex.getMessage());
@@ -210,14 +210,14 @@ public class PostgresExemplarDao implements ExemplarDao {
             sql += "    ON e.livro_id = l.id ";
             sql += " WHERE e.data_exclusao IS NULL ";
             sql += " ORDER BY e.id ASC ";
-            
+
             ps = conn.prepareStatement(sql);
 
             rs = ps.executeQuery();
-            
-            while (rs.next()) {                
+
+            while (rs.next()) {
                 Livro livro = new Livro(rs.getInt("livro_id"), rs.getString("livro_titulo"), rs.getString("livro_autor"));
-                
+
                 Exemplar exemplar = new Exemplar();
                 exemplar.setId(rs.getInt("id"));
                 exemplar.setLivro(livro);
@@ -295,7 +295,7 @@ public class PostgresExemplarDao implements ExemplarDao {
 
         try {
             conn = PostgresDaoFactory.openConnection();
-            
+
             String sql = "";
             sql += "SELECT COUNT(*) AS total ";
             sql += "  FROM exemplar ";
@@ -340,8 +340,8 @@ public class PostgresExemplarDao implements ExemplarDao {
         ResultSet rs = null;
 
         try {
-            conn = PostgresDaoFactory.openConnection();            
-            
+            conn = PostgresDaoFactory.openConnection();
+
             String sql = "";
             sql += "SELECT ";
             sql += "  e.id, ";
@@ -359,12 +359,12 @@ public class PostgresExemplarDao implements ExemplarDao {
 
             ps = conn.prepareStatement(sql);
             ps.setInt(1, livroId);
-            
+
             rs = ps.executeQuery();
 
             while (rs.next()) {
                 Livro livro = new Livro(rs.getInt("livro_id"), rs.getString("livro_titulo"), rs.getString("livro_autor"));
-                
+
                 Exemplar exemplar = new Exemplar();
                 exemplar.setId(rs.getInt("id"));
                 exemplar.setLivro(livro);
@@ -394,5 +394,190 @@ public class PostgresExemplarDao implements ExemplarDao {
         return exemplares;
     }
 
-    
+    @Override
+    public List<Exemplar> buscarPeloTitulo(String titulo) {
+        List<Exemplar> exemplares = new ArrayList<Exemplar>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            conn = PostgresDaoFactory.openConnection();
+
+            String sql = "";
+            sql += "SELECT ";
+            sql += "  e.id, ";
+            sql += "  e.livro_id, ";
+            sql += "    l.titulo AS livro_titulo, ";
+            sql += "    l.autor AS livro_autor, ";
+            sql += "  e.localizacao, ";
+            sql += "  e.edicao ";
+            sql += "  FROM exemplar e ";
+            sql += "  LEFT JOIN livro l ";
+            sql += "    ON e.livro_id = l.id ";
+            sql += " WHERE l.titulo LIKE ? ";
+            sql += "   AND e.data_exclusao IS NULL ";
+            sql += " ORDER BY e.id ASC ";
+
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, "%" + titulo + "%");
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Livro livro = new Livro(rs.getInt("livro_id"), rs.getString("livro_titulo"), rs.getString("livro_autor"));
+
+                Exemplar exemplar = new Exemplar();
+                exemplar.setId(rs.getInt("id"));
+                exemplar.setLivro(livro);
+                exemplar.setLocalizacao(rs.getString("localizacao"));
+                exemplar.setEdicao(rs.getString("edicao"));
+                exemplares.add(exemplar);
+            }
+
+        } catch (SQLException ex) {
+            Log.write(ex.getErrorCode() + " - " + ex.getMessage());
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception e) {
+
+            }
+        }
+
+        return exemplares;
+    }
+
+    @Override
+    public List<Exemplar> buscarPeloAutor(String autor) {
+        List<Exemplar> exemplares = new ArrayList<Exemplar>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            conn = PostgresDaoFactory.openConnection();
+
+            String sql = "";
+            sql += "SELECT ";
+            sql += "  e.id, ";
+            sql += "  e.livro_id, ";
+            sql += "    l.titulo AS livro_titulo, ";
+            sql += "    l.autor AS livro_autor, ";
+            sql += "  e.localizacao, ";
+            sql += "  e.edicao ";
+            sql += "  FROM exemplar e ";
+            sql += "  LEFT JOIN livro l ";
+            sql += "    ON e.livro_id = l.id ";
+            sql += " WHERE l.autor LIKE ? ";
+            sql += "   AND e.data_exclusao IS NULL ";
+            sql += " ORDER BY e.id ASC ";
+
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, "%" + autor + "%");
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Livro livro = new Livro(rs.getInt("livro_id"), rs.getString("livro_titulo"), rs.getString("livro_autor"));
+
+                Exemplar exemplar = new Exemplar();
+                exemplar.setId(rs.getInt("id"));
+                exemplar.setLivro(livro);
+                exemplar.setLocalizacao(rs.getString("localizacao"));
+                exemplar.setEdicao(rs.getString("edicao"));
+                exemplares.add(exemplar);
+            }
+
+        } catch (SQLException ex) {
+            Log.write(ex.getErrorCode() + " - " + ex.getMessage());
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception e) {
+
+            }
+        }
+
+        return exemplares;
+    }
+
+    @Override
+    public List<Exemplar> buscarPelaEdicao(String edicao) {
+        List<Exemplar> exemplares = new ArrayList<Exemplar>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            conn = PostgresDaoFactory.openConnection();
+
+            String sql = "";
+            sql += "SELECT ";
+            sql += "  e.id, ";
+            sql += "  e.livro_id, ";
+            sql += "    l.titulo AS livro_titulo, ";
+            sql += "    l.autor AS livro_autor, ";
+            sql += "  e.localizacao, ";
+            sql += "  e.edicao ";
+            sql += "  FROM exemplar e ";
+            sql += "  LEFT JOIN livro l ";
+            sql += "    ON e.livro_id = l.id ";
+            sql += " WHERE e.edicao LIKE ? ";
+            sql += "   AND e.data_exclusao IS NULL ";
+            sql += " ORDER BY e.id ASC ";
+
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, "%" + edicao + "%");
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Livro livro = new Livro(rs.getInt("livro_id"), rs.getString("livro_titulo"), rs.getString("livro_autor"));
+
+                Exemplar exemplar = new Exemplar();
+                exemplar.setId(rs.getInt("id"));
+                exemplar.setLivro(livro);
+                exemplar.setLocalizacao(rs.getString("localizacao"));
+                exemplar.setEdicao(rs.getString("edicao"));
+                exemplares.add(exemplar);
+            }
+
+        } catch (SQLException ex) {
+            Log.write(ex.getErrorCode() + " - " + ex.getMessage());
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception e) {
+
+            }
+        }
+
+        return exemplares;
+    }
+
 }

@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import model.Curso;
 import util.Log;
 
 /**
@@ -275,6 +276,122 @@ class PostgresProfessorDao implements ProfessorDao {
         return lastId;
     }
 
+    
+    @Override
+    public List<Curso> getCursos(int idProfessor) {
+        List<Curso> cursos = new ArrayList<Curso>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            conn = PostgresDaoFactory.openConnection();
+            String sql = "";
+
+            sql += "SELECT c.id, c.nome ";
+            sql += "  FROM curso c ";
+            sql += "  LEFT JOIN professor_curso pc ";
+            sql += "    ON c.id = pc.curso_id ";
+            sql += " WHERE pc.professor_id = ? ";
+
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, idProfessor);
+
+            rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                Curso curso = new Curso();
+                curso.setId(rs.getInt("id"));
+                curso.setNome(rs.getString("nome"));
+                cursos.add(curso);
+            }
+
+        } catch (SQLException ex) {
+            Log.write(ex.getErrorCode() + " - " + ex.getMessage());
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception e) {
+
+            }
+        }
+
+        return cursos;
+    }
+
+    public boolean addCurso(int idProfessor, Curso curso){
+        Connection conn = null;
+        PreparedStatement ps = null;
+
+        try {
+            conn = PostgresDaoFactory.openConnection();
+
+            ps = conn.prepareStatement("INSERT INTO professor_curso (professor_id, curso_id) VALUES (?, ?)");            
+            ps.setInt(1, idProfessor);
+            ps.setInt(2, curso.getId());
+
+            int retorno = ps.executeUpdate();
+
+            return retorno == 1;
+
+        } catch (SQLException ex) {
+            Log.write(ex.getErrorCode() + " - " + ex.getMessage());
+            return false;
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception e) {
+
+            }
+        }
+    }
+        
+    @Override
+    public boolean delCurso(int idProfessor, int idCurso) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+
+        try {
+            conn = PostgresDaoFactory.openConnection();
+
+            ps = conn.prepareStatement("DELETE FROM professor_curso WHERE professor_id = ? AND curso_id = ?;");
+            ps.setInt(1, idProfessor);
+            ps.setInt(2, idCurso);
+
+            int retorno = ps.executeUpdate();
+
+            return retorno == 1;
+
+        } catch (SQLException ex) {
+            Log.write(ex.getErrorCode() + " - " + ex.getMessage());
+            return false;
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception e) {
+
+            }
+        }
+    }
+    
     @Override
     public List<Professor> buscarPeloNome(String nome) {
         List<Professor> professores = new ArrayList<Professor>();

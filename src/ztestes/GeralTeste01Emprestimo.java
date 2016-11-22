@@ -9,11 +9,18 @@ public class GeralTeste01Emprestimo {
         String sql1 = "";
         String sql2 = "";
 
-        sql1 += "INSERT INTO emprestimo ";
-        sql1 += "(id, usuario_id, exemplar_id, data_emprestimo, data_devolucao_previsao, data_devolucao) ";
-        sql1 += "VALUES (" + emprestimo.getId() + "," + emprestimo.getUsuario().getId() + ", " + emprestimo.getDataEmprestimo() + ",  " + emprestimo.getDataDevolucaoPrevista()+ ", null);";
+        String tipo = null;
 
-        System.out.println(sql1);
+        if (emprestimo.getUsuario() instanceof Aluno) {
+            tipo = "Aluno";
+        } else if (emprestimo.getUsuario() instanceof Professor) {
+            tipo = "Professor";
+        }
+
+//        sql1 += "INSERT INTO emprestimo ";
+//        sql1 += "(id, usuario_id, exemplar_id, data_emprestimo, data_devolucao_previsao, data_devolucao) ";
+//        sql1 += "VALUES (" + emprestimo.getId() + "," + emprestimo.getUsuario().getId() + ", " + emprestimo.getDataEmprestimo() + ",  " + emprestimo.getDataDevolucaoPrevista()+ ", null);";
+        System.out.println(tipo);
 
     }
 
@@ -36,7 +43,7 @@ public class GeralTeste01Emprestimo {
         Exemplar ex9 = new Exemplar(9, livro4, "Edicao 40", "Localizacao 3");
 
         // USUARIO -------------------------------------------------------------
-        Usuario usuario = new Professor();
+        Usuario usuario = new Aluno();
         usuario.setId(1);
         usuario.setMatricula(1);
         usuario.setNome("Jean Barcellos");

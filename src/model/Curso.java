@@ -26,6 +26,7 @@ public class Curso implements Serializable {
 
     /**
      * Construtor com do Nome por parametro
+     *
      * @param nome Nome do Curso
      */
     public Curso(String nome) {
@@ -34,6 +35,7 @@ public class Curso implements Serializable {
 
     /**
      * Construtor com passagem de ID e Nome por parâmetro
+     *
      * @param id ID do Curso
      * @param nome Nome do Curso
      */
@@ -44,6 +46,7 @@ public class Curso implements Serializable {
 
     /**
      * Retorna o ID do Curso
+     *
      * @return ID do Curso
      */
     public int getId() {
@@ -52,6 +55,7 @@ public class Curso implements Serializable {
 
     /**
      * Define o ID do Curso
+     *
      * @param id ID do Curso
      */
     public void setId(int id) {
@@ -60,6 +64,7 @@ public class Curso implements Serializable {
 
     /**
      * Retorna o Nome do Curso
+     *
      * @return Nome do Curso
      */
     public String getNome() {
@@ -68,6 +73,7 @@ public class Curso implements Serializable {
 
     /**
      * Define o nome do Curso
+     *
      * @param nome Nome do Curso
      */
     public void setNome(String nome) {
@@ -75,9 +81,33 @@ public class Curso implements Serializable {
     }
 
     @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 19 * hash + this.id;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Curso other = (Curso) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
     public String toString() {
         return "Curso{" + "id=" + id + ", nome=" + nome + '}';
     }
 
-        
 }

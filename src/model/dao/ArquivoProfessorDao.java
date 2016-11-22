@@ -4,6 +4,7 @@ import model.Professor;
 
 import java.util.ArrayList;
 import java.util.List;
+import model.Curso;
 
 import util.PersistenciaArquivo;
 
@@ -23,7 +24,8 @@ class ArquivoProfessorDao implements ProfessorDao {
 
     public ArquivoProfessorDao() {
         this.persistArquivo = new PersistenciaArquivo("professores.bin", "usuario_seq.txt");
-        this.professores = this.all();
+        
+        this.carregarLista();
     }
 
     @Override
@@ -101,6 +103,38 @@ class ArquivoProfessorDao implements ProfessorDao {
     }
 
     @Override
+    public List<Curso> getCursos(int idProfessor) {
+        this.carregarLista();
+        Professor professor = this.load(idProfessor);
+        return professor.getCursos();
+    }
+
+    @Override
+    public boolean addCurso(int idProfessor, Curso curso) {
+        Professor professor = this.load(idProfessor);
+
+        professor.addCurso(curso);
+
+        this.persistArquivo.serializar(this.professores);
+        
+        this.carregarLista();
+
+        return true;
+    }
+
+    @Override
+    public boolean delCurso(int idProfessor, int cursoId) {
+        Professor professor = this.load(idProfessor);
+        professor.delCurso(cursoId);
+
+        this.persistArquivo.serializar(this.professores);
+        
+        this.carregarLista();
+
+        return true;
+    }
+
+    @Override
     public List<Professor> buscarPeloNome(String nome) {
         List<Professor> lista = new ArrayList<Professor>();
 
@@ -123,6 +157,14 @@ class ArquivoProfessorDao implements ProfessorDao {
             }
         }
         return lista;
+    }
+
+    
+    /**
+     * Recarrega lista interna do Dao
+     */
+    private void carregarLista() {
+        this.professores = this.all();
     }
 
 }

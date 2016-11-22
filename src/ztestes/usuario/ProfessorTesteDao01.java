@@ -7,7 +7,9 @@ package ztestes.usuario;
 
 import java.util.List;
 import javax.swing.JOptionPane;
+import model.Curso;
 import model.Professor;
+import model.dao.CursoDao;
 import model.dao.DaoFactory;
 import model.dao.ProfessorDao;
 
@@ -23,12 +25,11 @@ public class ProfessorTesteDao01 {
     public static void main(String[] args) {
 
         ProfessorDao professorDao = DaoFactory.getDaoFactory().getProfessorDao();
+        CursoDao cursoDao = DaoFactory.getDaoFactory().getCursoDao();
 
         int proxId = professorDao.lastId() + 1;
 
-
         // INSERIR -------------------------------------------------------------
-
 //        Professor usuario1 = new Professor();
 //        usuario1.setId(proxId);
 //        usuario1.setMatricula(10003);
@@ -41,10 +42,7 @@ public class ProfessorTesteDao01 {
 //        } else {
 //            JOptionPane.showMessageDialog(null, "Erro ao tentar incluir professor.");
 //        }
-        
-        
         // EDITAR -------------------------------------------------------------
-
 //        Professor usuario2 = new Professor();
 //        usuario2.setId(1);
 //        usuario2.setMatricula(10101);
@@ -57,7 +55,6 @@ public class ProfessorTesteDao01 {
 //        } else {
 //            JOptionPane.showMessageDialog(null, "Erro ao tentar alterar dados do professor.");
 //        }
-        
         // EDITAR --------------------------------------------------------------
 //        Professor usuario3 = new Professor();
 //        usuario3.setId(1);
@@ -69,23 +66,46 @@ public class ProfessorTesteDao01 {
 //        } else {
 //            JOptionPane.showMessageDialog(null, "Erro ao excluir professor.");
 //        }
-
         // LISTAR --------------------------------------------------------------
 //        List<Professor> retorno4 = professorDao.all();
 //        
 //        for (Professor prof : retorno4) {
 //            System.out.println(prof);
 //        }
-        
         // LOAD ----------------------------------------------------------------
-//        Professor retorno5 = professorDao.load(2);
-//        
-//        if (retorno5 != null) {
-//            System.out.println(retorno5);
+        Professor professor = professorDao.load(2);
+        System.out.println(professor + "\n");
+
+        Curso curso = cursoDao.load(1);
+//        System.out.println(curso + "\n");
+
+        // LISTAR --------------------------------------------------------------
+        List<Curso> retorno6 = professorDao.getCursos(professor.getId());
+        for (Curso prof : retorno6) {
+            System.out.println(prof);
+        }
+
+        // Add Curso ao professor ----------------------------------------------
+//        boolean retornoAdd = professorDao.addCurso(professor.getId(), curso);
+//        if (retornoAdd) {
+//            System.out.println("Adicionado com sucesso");
 //        } else {
-//            System.out.println("NÃO");
+//            System.out.println("Erro ao adicionar");
 //        }
-        
+        // Remover -------------------------------------------------------------
+        boolean retornoDel = professorDao.delCurso(professor.getId(), 2);
+
+        if (retornoDel) {
+            System.out.println("EXCLUIDO com sucesso");
+        } else {
+            System.out.println("Erro ao excluir");
+        }
+
+        List<Curso> retorno7 = professorDao.getCursos(professor.getId());
+        for (Curso prof : retorno7) {
+            System.out.println(prof);
+        }
+
     }
 
 }

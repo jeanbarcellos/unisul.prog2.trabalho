@@ -72,5 +72,12 @@ public interface ExemplarDao {
      * @return
      */
     public List<Exemplar> listar(int livroId);
+    
+    
+    public List<Exemplar> buscarPeloTitulo(String titulo);
+    
+    public List<Exemplar> buscarPeloAutor(String autor);
+    
+    public List<Exemplar> buscarPelaEdicao(String edicao);
 
 }

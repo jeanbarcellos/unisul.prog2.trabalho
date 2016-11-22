@@ -7,6 +7,7 @@ import model.dao.ProfessorDao;
 
 import java.util.List;
 import java.util.ArrayList;
+import model.Curso;
 
 /**
  * Classe ProfessorControl
@@ -168,10 +169,36 @@ public class ProfessorControl {
         return this.ultimoId() + 1;
     }
 
+    public List<Curso> getCursosParticipa(int idProfessor) {
+        return this.professorDao.getCursos(idProfessor);
+    }
+
+    private boolean adicionarCurso(int idProfessor, Curso curso) {
+        Professor professor = this.getProfessor(idProfessor);
+
+        return true;
+    }
+
+    private boolean excluirCurso(int idProfessor, int idCurso) {
+        return true;
+    }
+
+    /**
+     * Buscar Professor através de seu nome
+     *
+     * @param nome Nome;
+     * @return
+     */
     public List<Professor> buscarPeloNome(String nome) {
         return professorDao.buscarPeloNome(nome);
     }
 
+    /**
+     * Buscar professor através da sua matrícula
+     *
+     * @param matricula Matricula
+     * @return
+     */
     public List<Professor> buscarPelaMatricula(int matricula) {
         return professorDao.buscarPelaMatricula(matricula);
     }

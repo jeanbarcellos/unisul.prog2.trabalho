@@ -28,6 +28,31 @@ public class Professor extends Usuario {
 
     public void setCursos(List<Curso> cursos) {
         this.cursos = cursos;
-    }        
+    }
+
+    public boolean addCurso(Curso curso) {
+        this.cursos.add(curso);
+        return true;
+    }
+
+    public boolean delCurso(int cursoId) {
+        Curso curso = null;
+        for (Curso cursoEx : this.cursos) {
+            if (cursoEx.getId() == cursoId) {
+                this.cursos.remove(curso);
+            }
+        }
+        return true;
+    }
+
+    public Curso getCurso(int id) {
+        Curso retorno = null;
+        for (Curso cursoEx : this.cursos) {
+            if (cursoEx.getId() == id) {
+                retorno = cursoEx;
+            }
+        }
+        return retorno;
+    }
 
 }
