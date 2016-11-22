@@ -1,7 +1,6 @@
 package model.dao;
 
-import zold.ConfigOld;
-import java.util.Properties;
+import util.Config;
 
 /**
  * Classe DaoFactory
@@ -16,13 +15,14 @@ public abstract class DaoFactory {
 
     /**
      * Retorna uma instância DaoFactory
-     * @return 
+     *
+     * @return
      */
     public static DaoFactory getDaoFactory() {
 
-        Properties config = ConfigOld.getConfig();
+        Config config = Config.getInstance();
 
-        int tipo = Integer.parseInt(config.getProperty("tipo"));
+        int tipo = Integer.parseInt(config.getValue("tipo"));
 
         if (tipo == 1) {
             return new PostgresDaoFactory();
@@ -33,17 +33,17 @@ public abstract class DaoFactory {
     }
 
     public abstract CursoDao getCursoDao();
-    
+
     public abstract LivroDao getLivroDao();
-    
+
     public abstract UsuarioDao getUsuarioDao();
-    
+
     public abstract ExemplarDao getExemplarDao();
-    
+
     public abstract ProfessorDao getProfessorDao();
 
     public abstract AlunoDao getAlunoDao();
 
     public abstract EmprestimoDao getEmprestimoDao();
-    
+
 }
