@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import control.CursoControl;
@@ -22,7 +17,7 @@ public class CadastroProfessorCursoView extends javax.swing.JInternalFrame {
 
     private ProfessorControl professorControl;
     private Professor professor;
-    
+
     private CursoControl cursoControl;
     private CursoTM cursoTM;
     private List<Curso> cursos;
@@ -36,9 +31,13 @@ public class CadastroProfessorCursoView extends javax.swing.JInternalFrame {
         this.cursoControl = new CursoControl();
         this.professorControl = new ProfessorControl();
 
+        this.cursos = this.cursoControl.getCursos();
+
         this.popularFormulario(id);
-        
+
         this.carregarTabela();
+
+        this.carregarCombo();
     }
 
     /**
@@ -48,8 +47,8 @@ public class CadastroProfessorCursoView extends javax.swing.JInternalFrame {
         Dimension d = this.getDesktopPane().getSize();
         this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
     }
-    
-        /**
+
+    /**
      * Popula o formulário
      *
      * @param id
@@ -75,15 +74,26 @@ public class CadastroProfessorCursoView extends javax.swing.JInternalFrame {
     }
 
     /**
+     * Popula o ComboBox de Cursos
+     */
+    public void carregarCombo() {
+        this.comboCurso.removeAllItems();
+
+        this.comboCurso.addItem("Selecione");
+        for (int i = 0; i < this.cursos.size(); i++) {
+            this.comboCurso.addItem(this.cursos.get(i).getNome());
+        }
+    }
+
+    /**
      * Valida o formulário;
      *
      * @return
      */
     private boolean validarFormulario() {
-        // Campo Nome
-        if (textNome.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Você deve preencher o nome do curso.");
-            textNome.requestFocus();
+        if (comboCurso.getSelectedIndex() < 1) {
+            JOptionPane.showMessageDialog(null, "Você deve selecionar o curso.");
+            comboCurso.requestFocus();
             return false;
         }
         return true;
@@ -295,16 +305,24 @@ public class CadastroProfessorCursoView extends javax.swing.JInternalFrame {
         boolean validacao = this.validarFormulario();
 
         if (validacao) {
-            String nome = textNome.getText();
-            int matricula = Integer.parseInt(textMatricula.getText());
             int cursoSel = comboCurso.getSelectedIndex() - 1;
-            int cursoId = 0;
+            Curso curso = null;
 
             for (int i = 0; i < this.cursos.size(); i++) {
                 if (i == cursoSel) {
-                    cursoId = this.cursos.get(i).getId();
+                    curso = this.cursos.get(i);
                     i = cursos.size();
                 }
+            }
+            // Envia o objeto criado para o controlador               
+            boolean retorno = this.professorControl.adicionarCurso(professor.getId(), curso);
+
+            if (retorno) {
+                this.carregarTabela();
+                JOptionPane.showMessageDialog(null, "Curso associado ao Professor.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro ao Tentar associar Aluno.");
+                this.setVisible(false);
             }
         }
 

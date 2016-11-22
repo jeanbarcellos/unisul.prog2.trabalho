@@ -3,6 +3,7 @@ package view;
 import control.EmprestimoControl;
 import java.awt.Dimension;
 import java.util.List;
+import javax.swing.JOptionPane;
 import model.Emprestimo;
 import view.tm.EmprestimosAtivosTM;
 
@@ -17,7 +18,7 @@ public class EmprestimoLivroView extends javax.swing.JInternalFrame {
      */
     public EmprestimoLivroView() {
         initComponents();
-        
+
         carregarTabela();
     }
 
@@ -28,7 +29,7 @@ public class EmprestimoLivroView extends javax.swing.JInternalFrame {
         Dimension d = this.getDesktopPane().getSize();
         this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
     }
-    
+
     /**
      * Popula a tabela com a lista de alunos
      */
@@ -45,7 +46,7 @@ public class EmprestimoLivroView extends javax.swing.JInternalFrame {
         tableEmprestimosLista.getColumnModel().getColumn(5).setPreferredWidth(100);
 //        tableEmprestimosLista.getColumnModel().getColumn(6).setPreferredWidth(100);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -57,7 +58,6 @@ public class EmprestimoLivroView extends javax.swing.JInternalFrame {
 
         scrollPaneLivroLista = new javax.swing.JScrollPane();
         tableEmprestimosLista = new javax.swing.JTable();
-        buttonNovo = new javax.swing.JButton();
         buttonEditar = new javax.swing.JButton();
 
         setClosable(true);
@@ -98,13 +98,6 @@ public class EmprestimoLivroView extends javax.swing.JInternalFrame {
         });
         scrollPaneLivroLista.setViewportView(tableEmprestimosLista);
 
-        buttonNovo.setText("Emprestar livro");
-        buttonNovo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonNovoActionPerformed(evt);
-            }
-        });
-
         buttonEditar.setText("Realizar Devolucao");
         buttonEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,8 +114,6 @@ public class EmprestimoLivroView extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scrollPaneLivroLista, javax.swing.GroupLayout.DEFAULT_SIZE, 923, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(buttonNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
                         .addComponent(buttonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -131,12 +122,10 @@ public class EmprestimoLivroView extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addComponent(scrollPaneLivroLista, javax.swing.GroupLayout.DEFAULT_SIZE, 383, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonNovo)
-                    .addComponent(buttonEditar))
-                .addContainerGap())
+                .addComponent(scrollPaneLivroLista, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(buttonEditar)
+                .addGap(18, 18, 18))
         );
 
         pack();
@@ -146,18 +135,23 @@ public class EmprestimoLivroView extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_tableEmprestimosListaMouseClicked
 
-    private void buttonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNovoActionPerformed
-
-    }//GEN-LAST:event_buttonNovoActionPerformed
-
     private void buttonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarActionPerformed
+        int linha = tableEmprestimosLista.getSelectedRow();
 
+        if (linha < 0) {
+            JOptionPane.showMessageDialog(null, "Você deve selecoinar o exemplar primeiro");
+        } else {
+            EmprestimoDevolucaoView inserirView = new EmprestimoDevolucaoView();
+            Principal.desktop.add(inserirView);
+            inserirView.getFont();
+            inserirView.setPosicao();
+            inserirView.setVisible(true);
+        }
     }//GEN-LAST:event_buttonEditarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonEditar;
-    private javax.swing.JButton buttonNovo;
     private javax.swing.JScrollPane scrollPaneLivroLista;
     public static javax.swing.JTable tableEmprestimosLista;
     // End of variables declaration//GEN-END:variables

@@ -76,7 +76,7 @@ public class Data {
         long diS2 = ((1000 * 60) * 60) * 24;
 
         java.sql.Date dataPrevisao = new java.sql.Date(data.getTime() + (qtdDas * dia));
-        
+
         return dataPrevisao;
     }
 

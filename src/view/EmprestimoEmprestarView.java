@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.Exemplar;
+import static view.CadastroAlunoView.tableAlunoLista;
 import view.tm.EmprestimoDisponibilidadeTM;
 
 /**
@@ -244,12 +245,17 @@ public class EmprestimoEmprestarView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_buttonBuscarActionPerformed
 
     private void buttonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNovoActionPerformed
+        int linha = tableListaExemplar.getSelectedRow();
 
-        CadastroAlunoInserirView inserirView = new CadastroAlunoInserirView();
-        Principal.desktop.add(inserirView);
-        inserirView.getFont();
-        inserirView.setPosicao();
-        inserirView.setVisible(true);
+        if (linha < 0) {
+            JOptionPane.showMessageDialog(null, "Você deve selecoinar o exemplar primeiro");
+        } else {
+            EmprestimoEmprestarView2 inserirView = new EmprestimoEmprestarView2();
+            Principal.desktop.add(inserirView);
+            inserirView.getFont();
+            inserirView.setPosicao();
+            inserirView.setVisible(true);
+        }
     }//GEN-LAST:event_buttonNovoActionPerformed
 
 

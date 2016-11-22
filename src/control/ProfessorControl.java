@@ -173,13 +173,12 @@ public class ProfessorControl {
         return this.professorDao.getCursos(idProfessor);
     }
 
-    private boolean adicionarCurso(int idProfessor, Curso curso) {
+    public boolean adicionarCurso(int idProfessor, Curso curso) {
         Professor professor = this.getProfessor(idProfessor);
-
         return true;
     }
 
-    private boolean excluirCurso(int idProfessor, int idCurso) {
+    public boolean excluirCurso(int idProfessor, int idCurso) {
         return true;
     }
 
