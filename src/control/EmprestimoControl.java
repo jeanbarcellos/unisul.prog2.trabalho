@@ -1,10 +1,14 @@
 package control;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import model.Emprestimo;
+import model.Exemplar;
 import model.dao.DaoFactory;
 import model.dao.EmprestimoDao;
+import util.Config;
+import util.Data;
 
 /**
  * Classe EmprestimoControl
@@ -66,8 +70,16 @@ public class EmprestimoControl {
      * @return Booleano
      */
     public boolean inserir(Emprestimo emprestimo) {
+        
+        Config config = Config.getInstance();
+        int diasEmprestimo = Integer.parseInt(config.getValue("diasEmprestimo"));
+        
+        Date dataAgora = Data.dataAtual();
+        Date dataPrevisao = Data.somaDias(dataAgora, diasEmprestimo);
 
         emprestimo.setId(this.autoId());
+        emprestimo.setDataEmprestimo(dataAgora);
+        emprestimo.setDataDevolucaoPrevista(dataPrevisao);
 
         // Inserir em memória
         this.emprestimos.add(emprestimo);
@@ -92,27 +104,26 @@ public class EmprestimoControl {
      * @param emprestimo Objeto Emprestimo já modificado
      * @return Booleando
      */
-    public boolean alterar(int id, Emprestimo emprestimo) {
-
-//        // Referencia o Objeto a ser alterado na memória
-//        Emprestimo emprestimoRef = this.getEmprestimo(id);
+//    public boolean alterar(int id, Emprestimo emprestimo) {
 //
-//        // Verifica se o objeto existe
-//        if (emprestimoRef != null) {
+////        // Referencia o Objeto a ser alterado na memória
+////        Emprestimo emprestimoRef = this.getEmprestimo(id);
+////
+////        // Verifica se o objeto existe
+////        if (emprestimoRef != null) {
+////
+////            // Altera somente o nome
+////            emprestimoRef.setNome(emprestimo.getNome());
+////
+////            boolean retorno = emprestimoDao.update(emprestimo);
+////
+////            return retorno;
+////        } else {
+////            return false;
+////        }
+//        return true;
 //
-//            // Altera somente o nome
-//            emprestimoRef.setNome(emprestimo.getNome());
-//
-//            boolean retorno = emprestimoDao.update(emprestimo);
-//
-//            return retorno;
-//        } else {
-//            return false;
-//        }
-        return true;
-
-    }
-
+//    }
     /**
      * Excluir um objeto da base de dados
      *
@@ -181,4 +192,7 @@ public class EmprestimoControl {
         return this.ultimoId() + 1;
     }
 
+    public List<Emprestimo> getExemplaresPegos(int usuarioId) {
+        return this.emprestimoDao.getEmprestimosPorUsuario(usuarioId);
+    }
 }

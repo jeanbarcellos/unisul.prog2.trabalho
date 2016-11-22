@@ -1,5 +1,6 @@
 package tela;
 
+import tela.tm.AlunoTM;
 import model.Aluno;
 import control.AlunoControl;
 

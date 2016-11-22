@@ -23,7 +23,8 @@ class ArquivoEmprestimoDao implements EmprestimoDao {
 
     public ArquivoEmprestimoDao() {
         this.persistArquivo = new PersistenciaArquivo("emprestimos.bin", "emprestimo_seq.txt");
-        this.emprestimos = this.all();
+
+        this.carregarLista();
     }
 
     @Override
@@ -39,26 +40,6 @@ class ArquivoEmprestimoDao implements EmprestimoDao {
         this.persistArquivo.sequenciar();
 
         return true;
-    }
-
-    @Override
-    public boolean update(Emprestimo emprestimo) {
-
-        Emprestimo emprestimoRef = this.load(emprestimo.getId());
-
-        if (emprestimoRef != null) {
-
-            // Altera somente o nome
-//            emprestimoRef.setNome(emprestimo.getNome());
-
-            // Persistir
-            this.persistArquivo.serializar(this.emprestimos);
-
-            return true;
-        } else {
-            return false;
-        }
-
     }
 
     @Override
@@ -103,6 +84,30 @@ class ArquivoEmprestimoDao implements EmprestimoDao {
     @Override
     public List<Emprestimo> listarAtivos() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Emprestimo> getEmprestimosPorUsuario(int usuarioId) {
+        this.carregarLista();
+
+        List<Emprestimo> lista = new ArrayList<Emprestimo>();
+
+        for (Emprestimo emprestimo : this.emprestimos) {
+            if ((emprestimo.getUsuario().getId() == usuarioId)
+                    && (emprestimo.getDataDevolucao() == null)) {
+                lista.add(emprestimo);
+            }
+            System.out.println(emprestimo);
+        }
+
+        return lista;
+    }
+
+    /**
+     * Recarrega lista interna do Dao
+     */
+    private void carregarLista() {
+        this.emprestimos = this.all();
     }
 
 }

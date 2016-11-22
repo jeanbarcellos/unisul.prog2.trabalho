@@ -1,5 +1,6 @@
 package model.dao;
 
+import com.sun.org.apache.bcel.internal.generic.D2F;
 import util.Data;
 
 import java.sql.Connection;
@@ -9,7 +10,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import model.Aluno;
 import model.Emprestimo;
+import model.Exemplar;
+import model.Livro;
+import model.Professor;
+import model.Usuario;
 import util.Config;
 import util.Log;
 
@@ -31,12 +37,10 @@ public class PostgresEmprestimoDao implements EmprestimoDao {
 
         try {
             conn = PostgresDaoFactory.openConnection();
-            
-            Config config = Config.getInstance();          
-            int diasEmprestimo = Integer.parseInt(config.getValue("diasEmprestimo"));
 
-            Date dataAgora = Data.sqlDataAtual();
-            Date dataPrevisao = Data.sqlSomarDias(dataAgora, diasEmprestimo);
+
+            Date dataAgora = Data.setDataSql(emprestimo.getDataEmprestimo());
+            Date dataPrevisao = Data.setDataSql(emprestimo.getDataDevolucaoPrevista());
 
             String sql = "";
             sql += "INSERT INTO emprestimo ";
@@ -71,39 +75,7 @@ public class PostgresEmprestimoDao implements EmprestimoDao {
             }
         }
     }
-
-    @Override
-    public boolean update(Emprestimo emprestimo) {
-        Connection conn = null;
-        PreparedStatement ps = null;
-
-        try {
-            conn = PostgresDaoFactory.openConnection();
-
-            ps = conn.prepareStatement("UPDATE emprestimo SET nome = ? WHERE id = ? ;");
-//            ps.setString(1, emprestimo.getNome());
-//            ps.setInt(2, emprestimo.getId());
-
-            int retorno = ps.executeUpdate();
-
-            return retorno == 1;
-
-        } catch (SQLException ex) {
-            Log.write(ex.getErrorCode() + " - " + ex.getMessage());
-            return false;
-        } finally {
-            try {
-                if (ps != null) {
-                    ps.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (Exception e) {
-
-            }
-        }
-    }
+    
 
     @Override
     public boolean delete(int id) {
@@ -152,13 +124,71 @@ public class PostgresEmprestimoDao implements EmprestimoDao {
         try {
             conn = PostgresDaoFactory.openConnection();
 
-            ps = conn.prepareStatement("SELECT id, nome FROM emprestimo ORDER BY id");
+            String sql = "";
+            sql += " SELECT ";
+            sql += "   em.id, ";
+            sql += "   em.usuario_id, ";
+            sql += "     u.tipo AS usuario_tipo, ";
+            sql += "     u.nome AS usuario_nome, ";
+            sql += "     u.matricula AS usuario_matricula, ";
+            sql += "   em.exemplar_id, ";
+            sql += "     l.id AS livro_id, ";
+            sql += "     l.titulo AS livro_titulo, ";
+            sql += "     l.autor AS livro_autor, ";
+            sql += "     ex.edicao As exemplar_edicao, ";
+            sql += "     ex.localizacao AS exemplar_localizacao, ";
+            sql += "   em.data_emprestimo, ";
+            sql += "   em.data_devolucao_previsao, ";
+            sql += "   em.data_devolucao ";
+            sql += "  FROM emprestimo em ";
+            sql += "  LEFT JOIN exemplar ex ";
+            sql += "    ON em.exemplar_id = ex.id ";
+            sql += "  LEFT JOIN livro l ";
+            sql += "    ON ex.livro_id = l.id ";
+            sql += "  LEFT JOIN usuario u ";
+            sql += "    ON em.usuario_id = u.id ";
+            sql += "   AND data_devolucao IS NULL";
+            ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
 
             while (rs.next()) {
+                // Monta o livro
+                Livro livro = new Livro();
+                livro.setId(rs.getInt("livro_id"));
+                livro.setTitulo(rs.getString("livro_titulo"));
+                livro.setAutor(rs.getString("livro_autor"));
+
+                // Monta o exemplar
+                Exemplar exemplar = new Exemplar();
+                exemplar.setId(rs.getInt("exemplar_id"));
+                exemplar.setLivro(livro);
+                exemplar.setEdicao(rs.getString("exemplar_edicao"));
+                exemplar.setLocalizacao(rs.getString("exemplar_localizacao"));
+
+                int tipo = rs.getInt("usuario_tipo");
+                
+                Usuario usuario;
+
+                if (tipo == 1) {
+                    usuario = new Aluno();
+                    usuario.setId(rs.getInt("usuario_id"));
+                    usuario.setNome(rs.getString("usuario_nome"));
+                    usuario.setMatricula(rs.getInt("usuario_matricula"));
+                } else {
+                    usuario = new Professor();
+                    usuario.setId(rs.getInt("usuario_id"));
+                    usuario.setNome(rs.getString("usuario_nome"));
+                    usuario.setMatricula(rs.getInt("usuario_matricula"));
+                }
+
                 Emprestimo emprestimo = new Emprestimo();
                 emprestimo.setId(rs.getInt("id"));
-//                emprestimo.setNome(rs.getString("nome"));
+                emprestimo.setExemplar(exemplar);
+                emprestimo.setUsuario(usuario);
+                emprestimo.setDataEmprestimo(rs.getDate("data_emprestimo"));
+                emprestimo.setDataDevolucaoPrevista(rs.getDate("data_devolucao_previsao"));
+                emprestimo.setDataDevolucao(rs.getDate("data_devolucao"));
+
                 emprestimos.add(emprestimo);
             }
 
@@ -225,5 +255,106 @@ public class PostgresEmprestimoDao implements EmprestimoDao {
     @Override
     public List<Emprestimo> listarAtivos() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Emprestimo> getEmprestimosPorUsuario(int usuarioId) {
+        List<Emprestimo> emprestimos = new ArrayList<Emprestimo>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            conn = PostgresDaoFactory.openConnection();
+
+            String sql = "";
+            sql += " SELECT ";
+            sql += "   em.id, ";
+            sql += "   em.usuario_id, ";
+            sql += "     u.tipo AS usuario_tipo, ";
+            sql += "     u.nome AS usuario_nome, ";
+            sql += "     u.matricula AS usuario_matricula, ";
+            sql += "   em.exemplar_id, ";
+            sql += "     l.id AS livro_id, ";
+            sql += "     l.titulo AS livro_titulo, ";
+            sql += "     l.autor AS livro_autor, ";
+            sql += "     ex.edicao As exemplar_edicao, ";
+            sql += "     ex.localizacao AS exemplar_localizacao, ";
+            sql += "   em.data_emprestimo, ";
+            sql += "   em.data_devolucao_previsao, ";
+            sql += "   em.data_devolucao ";
+            sql += "  FROM emprestimo em ";
+            sql += "  LEFT JOIN exemplar ex ";
+            sql += "    ON em.exemplar_id = ex.id ";
+            sql += "  LEFT JOIN livro l ";
+            sql += "    ON ex.livro_id = l.id ";
+            sql += "  LEFT JOIN usuario u ";
+            sql += "    ON em.usuario_id = u.id ";
+            sql += " WHERE em.usuario_id = ?";
+            sql += "   AND data_devolucao IS NULL";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, usuarioId);
+            
+            rs = ps.executeQuery();            
+
+            while (rs.next()) {
+                // Monta o livro
+                Livro livro = new Livro();
+                livro.setId(rs.getInt("livro_id"));
+                livro.setTitulo(rs.getString("livro_titulo"));
+                livro.setAutor(rs.getString("livro_autor"));
+
+                // Monta o exemplar
+                Exemplar exemplar = new Exemplar();
+                exemplar.setId(rs.getInt("exemplar_id"));
+                exemplar.setLivro(livro);
+                exemplar.setEdicao(rs.getString("exemplar_edicao"));
+                exemplar.setLocalizacao(rs.getString("exemplar_localizacao"));
+
+                int tipo = rs.getInt("usuario_tipo");
+                
+                Usuario usuario;
+                if (tipo == 1) {
+                    usuario = new Aluno();
+                    usuario.setId(rs.getInt("usuario_id"));
+                    usuario.setNome(rs.getString("usuario_nome"));
+                    usuario.setMatricula(rs.getInt("usuario_matricula"));
+                } else {
+                    usuario = new Professor();
+                    usuario.setId(rs.getInt("usuario_id"));
+                    usuario.setNome(rs.getString("usuario_nome"));
+                    usuario.setMatricula(rs.getInt("usuario_matricula"));
+                }
+
+                Emprestimo emprestimo = new Emprestimo();
+                emprestimo.setId(rs.getInt("id"));
+                emprestimo.setExemplar(exemplar);
+                emprestimo.setUsuario(usuario);
+                emprestimo.setDataEmprestimo(rs.getDate("data_emprestimo"));
+                emprestimo.setDataDevolucaoPrevista(rs.getDate("data_devolucao_previsao"));
+                emprestimo.setDataDevolucao(rs.getDate("data_devolucao"));
+
+                emprestimos.add(emprestimo);
+            }
+
+        } catch (SQLException ex) {
+            Log.write(ex.getErrorCode() + " - " + ex.getMessage());
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception e) {
+
+            }
+        }
+
+        return emprestimos;
     }
 }

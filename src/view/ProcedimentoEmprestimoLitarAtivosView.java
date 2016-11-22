@@ -26,13 +26,13 @@ public class ProcedimentoEmprestimoLitarAtivosView {
 
         for (Emprestimo emprestimo : emprestimoControl.getEmprestimos()) {
             resultTxt += "ID: " + emprestimo.getId() + " | ";
-            resultTxt += "Usuário: " + emprestimo.getUsuario().getId() + " - ";
+            resultTxt += "Usuário: " + emprestimo.getUsuario().getMatricula()+ " - ";
             resultTxt += "" + emprestimo.getUsuario().getNome() + "\n";
             resultTxt += "LIVRO: " + emprestimo.getExemplar().getLivro().getTitulo() + " | ";
             resultTxt += "Edição" + emprestimo.getExemplar().getEdicao() + "\n";
             resultTxt += "DATAS: \n";
             resultTxt += "Empréstimo: " + emprestimo.getDataEmprestimo()+ " | ";
-            resultTxt += "Devolução previsão: " + emprestimo.getDataDevolucaoPrevista()+ "\n";
+            resultTxt += "Devolução previsão: " + emprestimo.getDataDevolucaoPrevista()+ "\n\n";
         }
         JOptionPane.showMessageDialog(null, resultTxt);
     }

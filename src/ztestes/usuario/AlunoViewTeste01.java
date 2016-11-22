@@ -1,6 +1,6 @@
 package ztestes.usuario;
 
-import view.AlunoView;
+import view.old.AlunoView;
 
 public class AlunoViewTeste01 {
 

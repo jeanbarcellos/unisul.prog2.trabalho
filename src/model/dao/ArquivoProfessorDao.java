@@ -22,7 +22,7 @@ class ArquivoProfessorDao implements ProfessorDao {
     private PersistenciaArquivo persistArquivo;
 
     public ArquivoProfessorDao() {
-        this.persistArquivo = new PersistenciaArquivo("professores.bin", "professor_seq.txt");
+        this.persistArquivo = new PersistenciaArquivo("professores.bin", "usuario_seq.txt");
         this.professores = this.all();
     }
 

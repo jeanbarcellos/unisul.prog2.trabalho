@@ -1,5 +1,7 @@
 package view;
 
+import view.old.AlunoView;
+import view.old.CursoView;
 import javax.swing.JOptionPane;
 
 /**

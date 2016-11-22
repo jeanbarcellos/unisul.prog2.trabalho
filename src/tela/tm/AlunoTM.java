@@ -1,12 +1,13 @@
-package tela;
+package tela.tm;
+
+import model.Aluno;
 
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import model.Curso;
 
 /**
- * Classe CursoTM
+ * Classe AlunoTM
  *
  * @author Jean Barcellos <jeanbarcellos@hotmail.com>
  * @date 20/11/2016
@@ -14,19 +15,19 @@ import model.Curso;
  * @package tela
  *
  */
-public class CursoTM extends AbstractTableModel {
+public class AlunoTM extends AbstractTableModel {
 
     private static final long serialVersionUID = 1L;
 
-    private List<Curso> linhas;
-    private String[] colunas = new String[]{"Cd.", "Nome"};
+    private List<Aluno> linhas;
+    private String[] colunas = new String[]{"ID", "Nome", "Matrícula", "Curso"};
 
-    public CursoTM() {
-        linhas = new ArrayList<Curso>();
+    public AlunoTM() {
+        linhas = new ArrayList<Aluno>();
     }
 
-    public CursoTM(List<Curso> lista) {
-        linhas = new ArrayList<Curso>(lista);
+    public AlunoTM(List<Aluno> lista) {
+        linhas = new ArrayList<Aluno>(lista);
     }
 
     @Override
@@ -59,13 +60,17 @@ public class CursoTM extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Curso f = linhas.get(rowIndex);
+        Aluno f = linhas.get(rowIndex);
 
         switch (columnIndex) {
             case 0:
                 return f.getId();
             case 1:
                 return f.getNome();
+            case 2:
+                return f.getMatricula();
+            case 3:
+                return f.getCurso().getNome();
             default:
                 throw new IndexOutOfBoundsException("columnIndex out of bounds");
         }
@@ -75,7 +80,7 @@ public class CursoTM extends AbstractTableModel {
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
         // Carrega o item da linha que deve ser modificado
-        Curso f = linhas.get(rowIndex);
+        Aluno f = linhas.get(rowIndex);
 
         // Seta o valor do campo respectivo
         switch (columnIndex) {
@@ -85,6 +90,12 @@ public class CursoTM extends AbstractTableModel {
             case 1:
                 f.setNome(aValue.toString());
                 break;
+            case 3:
+                f.setMatricula(Integer.parseInt(aValue.toString()));
+                break;
+            case 4:
+//                f.setCurso(aValue.toString());
+//                break;
             default:
             // Isto não deveria acontecer...             
         }
@@ -92,8 +103,8 @@ public class CursoTM extends AbstractTableModel {
     }
 
     //modifica na linha especificada
-    public void setValueAt(Curso aValue, int rowIndex) {
-        Curso f = linhas.get(rowIndex); // Carrega o item da linha que deve ser modificado
+    public void setValueAt(Aluno aValue, int rowIndex) {
+        Aluno f = linhas.get(rowIndex); // Carrega o item da linha que deve ser modificado
 
         f.setId(Integer.parseInt(aValue.toString()));
         f.setNome(aValue.getNome());
@@ -107,11 +118,11 @@ public class CursoTM extends AbstractTableModel {
         return false;
     }
 
-    public Curso getCurso(int indiceLinha) {
+    public Aluno getAluno(int indiceLinha) {
         return linhas.get(indiceLinha);
     }
 
-    public void addCurso(Curso f) {
+    public void addAluno(Aluno f) {
         // Adiciona o registro.
         linhas.add(f);
         int ultimoIndice = getRowCount() - 1;
@@ -125,7 +136,7 @@ public class CursoTM extends AbstractTableModel {
     }
 
     /* Adiciona uma lista de Cliente ao final dos registros. */
-    public void addLista(List<Curso> f) {
+    public void addLista(List<Aluno> f) {
         // Pega o tamanho antigo da tabela.
         int tamanhoAntigo = getRowCount();
 

@@ -29,6 +29,12 @@ public class Data {
             case "BR_HORA":
                 formato = "HH:mm:SS";
                 break;
+            case "DB_DATAHORA":
+                formato = "yyyy-MM-dd HH:mm:SS";
+                break;
+            case "DB_DATA":
+                formato = "yyyy-MM-dd";
+                break;
             default:
                 formato = "dd/MM/yyyy HH:mm:ss";
 

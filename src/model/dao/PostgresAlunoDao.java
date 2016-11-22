@@ -34,19 +34,23 @@ public class PostgresAlunoDao implements AlunoDao {
 
             Date dataAgora = new Date(System.currentTimeMillis());
 
-            ps = conn.prepareStatement("INSERT INTO usuario (id, nome, tipo) VALUES (?, ?, ?)");
+            String sql1 = "";
+            sql1 += "INSERT INTO usuario (id, nome, tipo, matricula, data_inicio, data_fim) ";
+            sql1 += "VALUES (?, ?, ?, ?, ?, ?);";
+            
+            ps = conn.prepareStatement(sql1);
             ps.setInt(1, aluno.getId());
             ps.setString(2, aluno.getNome());
             ps.setInt(3, 1);
+            ps.setInt(4, aluno.getMatricula());
+            ps.setDate(5, dataAgora);
+            ps.setDate(6, null);
 
             int retorno1 = ps.executeUpdate();
 
-            ps2 = conn.prepareStatement("INSERT INTO aluno (usuario_id, curso_id, matricula, data_inicio, data_fim) VALUES (?, ?, ?, ?, ?)");
+            ps2 = conn.prepareStatement("INSERT INTO aluno (usuario_id, curso_id) VALUES (?, ?)");
             ps2.setInt(1, aluno.getId());
             ps2.setInt(2, aluno.getCurso().getId());
-            ps2.setInt(3, aluno.getMatricula());
-            ps2.setDate(4, dataAgora);
-            ps2.setDate(5, null);
 
             int retorno2 = ps2.executeUpdate();
 
@@ -78,16 +82,20 @@ public class PostgresAlunoDao implements AlunoDao {
         try {
             conn = PostgresDaoFactory.openConnection();
 
-            ps = conn.prepareStatement("UPDATE usuario SET nome = ? WHERE id = ? ;");
+            String sql1 = "";
+            sql1 += "UPDATE usuario ";
+            sql1 += "SET nome = ?, matricula = ?";
+            sql1 += "WHERE id = ? ;";
+            ps = conn.prepareStatement(sql1);
             ps.setString(1, aluno.getNome());
-            ps.setInt(2, aluno.getId());
+            ps.setInt(2, aluno.getMatricula());
+            ps.setInt(3, aluno.getId());
 
             int retorno1 = ps.executeUpdate();
 
-            ps2 = conn.prepareStatement("UPDATE aluno SET matricula = ?, curso_id = ? WHERE usuario_id = ? ;");
-            ps2.setInt(1, aluno.getMatricula());
-            ps2.setInt(2, aluno.getCurso().getId());
-            ps2.setInt(3, aluno.getId());
+            ps2 = conn.prepareStatement("UPDATE aluno SET curso_id = ? WHERE usuario_id = ? ;");
+            ps2.setInt(1, aluno.getCurso().getId());
+            ps2.setInt(2, aluno.getId());
 
             int retorno2 = ps2.executeUpdate();
 
@@ -118,7 +126,7 @@ public class PostgresAlunoDao implements AlunoDao {
         try {
             conn = PostgresDaoFactory.openConnection();
 
-            ps = conn.prepareStatement("UPDATE aluno SET data_fim = ? WHERE usuario_id = ? ;");
+            ps = conn.prepareStatement("UPDATE usuario SET data_fim = ? WHERE id = ? ;");
             ps.setDate(1, new Date(System.currentTimeMillis()));
             ps.setInt(2, id);
 
@@ -155,9 +163,9 @@ public class PostgresAlunoDao implements AlunoDao {
 
             String sql = "";
             sql += "SELECT ";
-            sql += "    a.usuario_id AS id, ";
+            sql += "    u.id, ";
             sql += "    u.nome, ";
-            sql += "    a.matricula, ";
+            sql += "    u.matricula, ";
             sql += "    a.curso_id, ";
             sql += "      c.nome AS curso_nome ";
             sql += "  FROM aluno a ";
@@ -165,8 +173,7 @@ public class PostgresAlunoDao implements AlunoDao {
             sql += "    ON a.usuario_id = u.id ";
             sql += "  LEFT JOIN curso c ";
             sql += "    ON a.curso_id = c.id ";
-            sql += " WHERE a.usuario_id = ? ";
-            sql += " ORDER BY a.usuario_id DESC ";
+            sql += " WHERE u.id = ? ";
             sql += " LIMIT 1 ;";
 
             ps = conn.prepareStatement(sql);
@@ -215,9 +222,9 @@ public class PostgresAlunoDao implements AlunoDao {
 
             String sql = "";
             sql += "SELECT ";
-            sql += "    a.usuario_id AS id, ";
+            sql += "    u.id, ";
             sql += "    u.nome, ";
-            sql += "    a.matricula, ";
+            sql += "    u.matricula, ";
             sql += "    a.curso_id, ";
             sql += "      c.nome AS curso_nome ";
             sql += "  FROM aluno a ";
@@ -225,7 +232,7 @@ public class PostgresAlunoDao implements AlunoDao {
             sql += "    ON a.usuario_id = u.id ";
             sql += "  LEFT JOIN curso c ";
             sql += "    ON a.curso_id = c.id ";
-            sql += " WHERE a.data_fim IS NULL ";
+            sql += " WHERE u.data_fim IS NULL ";
             sql += " ORDER BY a.usuario_id ASC ;";
 
             ps = conn.prepareStatement(sql);
@@ -312,9 +319,9 @@ public class PostgresAlunoDao implements AlunoDao {
 
             String sql = "";
             sql += "SELECT ";
-            sql += "    a.usuario_id AS id, ";
+            sql += "    u.id, ";
             sql += "    u.nome, ";
-            sql += "    a.matricula, ";
+            sql += "    u.matricula, ";
             sql += "    a.curso_id, ";
             sql += "      c.nome AS curso_nome ";
             sql += "  FROM aluno a ";
@@ -322,9 +329,9 @@ public class PostgresAlunoDao implements AlunoDao {
             sql += "    ON a.usuario_id = u.id ";
             sql += "  LEFT JOIN curso c ";
             sql += "    ON a.curso_id = c.id ";
-            sql += " WHERE a.data_fim IS NULL ";
+            sql += " WHERE u.data_fim IS NULL ";
             sql += "   AND u.nome LIKE ?";
-            sql += " ORDER BY a.usuario_id ASC ;";
+            sql += " ORDER BY u.id ASC ;";
 
             ps = conn.prepareStatement(sql);
             ps.setString(1, "%" + nome + "%");
@@ -373,9 +380,9 @@ public class PostgresAlunoDao implements AlunoDao {
 
             String sql = "";
             sql += "SELECT ";
-            sql += "    a.usuario_id AS id, ";
+            sql += "    u.id, ";
             sql += "    u.nome, ";
-            sql += "    a.matricula, ";
+            sql += "    u.matricula, ";
             sql += "    a.curso_id, ";
             sql += "      c.nome AS curso_nome ";
             sql += "  FROM aluno a ";
@@ -383,9 +390,9 @@ public class PostgresAlunoDao implements AlunoDao {
             sql += "    ON a.usuario_id = u.id ";
             sql += "  LEFT JOIN curso c ";
             sql += "    ON a.curso_id = c.id ";
-            sql += " WHERE a.data_fim IS NULL ";
-            sql += "   AND a.matricula = ?";
-            sql += " ORDER BY a.usuario_id ASC ;";
+            sql += " WHERE u.data_fim IS NULL ";
+            sql += "   AND u.matricula = ?";
+            sql += " ORDER BY u.id ASC ;";
 
             ps = conn.prepareStatement(sql);
             ps.setInt(1, matricula);

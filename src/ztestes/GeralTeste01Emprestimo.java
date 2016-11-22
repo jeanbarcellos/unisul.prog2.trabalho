@@ -11,7 +11,7 @@ public class GeralTeste01Emprestimo {
 
         sql1 += "INSERT INTO emprestimo ";
         sql1 += "(id, usuario_id, exemplar_id, data_emprestimo, data_devolucao_previsao, data_devolucao) ";
-        sql1 += "VALUES (" + emprestimo.getId() + "," + emprestimo.getUsuario().getId() + ", " + emprestimo.getDataEmprestimo() + ", '2016-11-20', null);";
+        sql1 += "VALUES (" + emprestimo.getId() + "," + emprestimo.getUsuario().getId() + ", " + emprestimo.getDataEmprestimo() + ",  " + emprestimo.getDataDevolucaoPrevista()+ ", null);";
 
         System.out.println(sql1);
 

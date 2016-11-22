@@ -23,7 +23,7 @@ final class ArquivoExemplarDao implements ExemplarDao {
 
     public ArquivoExemplarDao() {
         this.persistArquivo = new PersistenciaArquivo("exemplares.bin", "exemplar_seq.txt");
-        this.exemplares = this.all();
+        this.carregarLista();
     }
 
     @Override
@@ -103,7 +103,7 @@ final class ArquivoExemplarDao implements ExemplarDao {
 
     @Override
     public int total(int livroId) {
-        this.recarregarLista();
+        this.carregarLista();
 
         int total = 0;
         for (Exemplar exemplarExt : exemplares) {
@@ -116,7 +116,7 @@ final class ArquivoExemplarDao implements ExemplarDao {
 
     @Override
     public List<Exemplar> listar(int livroId) {
-        this.recarregarLista();
+        this.carregarLista();
 
         List<Exemplar> lista = new ArrayList<Exemplar>();
 
@@ -131,7 +131,7 @@ final class ArquivoExemplarDao implements ExemplarDao {
     /**
      * Recarrega lista interna do Dao
      */
-    private void recarregarLista() {
+    private void carregarLista() {
         this.exemplares = this.all();
     }
 

@@ -1,13 +1,16 @@
 package tela;
 
+import tela.tm.ExemplaresPegosTM;
 import control.AlunoControl;
 import control.CursoControl;
+import control.EmprestimoControl;
 import java.awt.Dimension;
 
 import model.Curso;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.Aluno;
+import model.Emprestimo;
 
 /**
  *
@@ -19,6 +22,8 @@ public class CadastroAlunoDetalheView extends javax.swing.JInternalFrame {
 
     private AlunoControl alunoControl;
     private CursoControl cursoControl;
+    private EmprestimoControl emprestimoControl;
+    private ExemplaresPegosTM exemplaresTM;
     private Aluno aluno;
 
     /**
@@ -31,12 +36,15 @@ public class CadastroAlunoDetalheView extends javax.swing.JInternalFrame {
 
         this.alunoControl = new AlunoControl();
         this.cursoControl = new CursoControl();
+        this.emprestimoControl = new EmprestimoControl();
 
         this.popularFormulario(id);
 
         this.gerenciarBotoes(false, false, true);
 
         this.bloquearFormulario();
+        
+        this.carregarTabela();
     }
 
     private void popularFormulario(int id) {
@@ -55,6 +63,21 @@ public class CadastroAlunoDetalheView extends javax.swing.JInternalFrame {
     public void setPosicao() {
         Dimension d = this.getDesktopPane().getSize();
         this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
+    }
+
+    /**
+     * Popula a tabela com a lista de cursos
+     */
+    private void carregarTabela() {
+        List<Emprestimo> lista = this.emprestimoControl.getExemplaresPegos(aluno.getId());
+
+        this.exemplaresTM = new ExemplaresPegosTM(lista);
+        tableLivros.setModel(exemplaresTM);
+        tableLivros.getColumnModel().getColumn(0).setPreferredWidth(250);
+        tableLivros.getColumnModel().getColumn(1).setPreferredWidth(150);
+        tableLivros.getColumnModel().getColumn(2).setPreferredWidth(100);
+        tableLivros.getColumnModel().getColumn(3).setPreferredWidth(55);
+        tableLivros.getColumnModel().getColumn(4).setPreferredWidth(55);
     }
 
     /**
@@ -219,20 +242,20 @@ public class CadastroAlunoDetalheView extends javax.swing.JInternalFrame {
 
         tableLivros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Título", "Autor", "Edição"
+                "Título", "Autor", "Edição", "Data Emprestimo", "Data Entrega"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, true
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -244,20 +267,26 @@ public class CadastroAlunoDetalheView extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(tableLivros);
+        if (tableLivros.getColumnModel().getColumnCount() > 0) {
+            tableLivros.getColumnModel().getColumn(1).setResizable(false);
+            tableLivros.getColumnModel().getColumn(2).setResizable(false);
+            tableLivros.getColumnModel().getColumn(4).setResizable(false);
+        }
 
         javax.swing.GroupLayout panelLivrosLayout = new javax.swing.GroupLayout(panelLivros);
         panelLivros.setLayout(panelLivrosLayout);
         panelLivrosLayout.setHorizontalGroup(
             panelLivrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLivrosLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         panelLivrosLayout.setVerticalGroup(
             panelLivrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelLivrosLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLivrosLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32))
         );
 
         buttonEditar.setText("Editar Dados");
@@ -275,22 +304,22 @@ public class CadastroAlunoDetalheView extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(panelAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panelLivros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(buttonEditar))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(panelAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(buttonEditar))
+                        .addGap(0, 364, Short.MAX_VALUE))
+                    .addComponent(panelLivros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelLivros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(panelAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonEditar)))
+                .addComponent(panelAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonEditar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panelLivros, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 

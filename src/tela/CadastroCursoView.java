@@ -1,5 +1,6 @@
 package tela;
 
+import tela.tm.CursoTM;
 import control.CursoControl;
 import java.awt.Dimension;
 import java.util.List;

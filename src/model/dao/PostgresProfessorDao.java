@@ -33,22 +33,25 @@ class PostgresProfessorDao implements ProfessorDao {
 
             Date dataAgora = new Date(System.currentTimeMillis());
 
-            ps = conn.prepareStatement("INSERT INTO usuario (id, nome) VALUES (?, ?, ?)");
+            String sql1 = "";
+            sql1 += "INSERT INTO usuario (id, nome, tipo, matricula, data_inicio, data_fim) ";
+            sql1 += "VALUES (?, ?, ?, ?, ?, ?);";
+            ps = conn.prepareStatement(sql1);
             ps.setInt(1, professor.getId());
             ps.setString(2, professor.getNome());
             ps.setInt(3, 2);
+            ps.setInt(4, professor.getMatricula());
+            ps.setDate(5, dataAgora);
+            ps.setDate(6, null);
 
             int retorno1 = ps.executeUpdate();
 
-            ps2 = conn.prepareStatement("INSERT INTO professor (usuario_id, matricula, data_inicio, data_fim) VALUES (?, ?, ?, ?)");
-            ps2.setInt(1, professor.getId());
-            ps2.setInt(2, professor.getMatricula());
-            ps2.setDate(3, dataAgora);
-            ps2.setDate(4, null);
+//            ps2 = conn.prepareStatement("INSERT INTO professor (usuario_id, matricula, data_inicio, data_fim) VALUES (?, ?, ?, ?)");
+//            ps2.setInt(1, professor.getId());
+//            int retorno2 = ps2.executeUpdate();
 
-            int retorno2 = ps2.executeUpdate();
-
-            return retorno1 == 1 && retorno2 == 1;
+//            return retorno1 == 1 && retorno2 == 1;
+            return retorno1 == 1;
 
         } catch (SQLException ex) {
             Log.write(ex.getErrorCode() + " - " + ex.getMessage());
@@ -76,19 +79,14 @@ class PostgresProfessorDao implements ProfessorDao {
         try {
             conn = PostgresDaoFactory.openConnection();
 
-            ps = conn.prepareStatement("UPDATE usuario SET nome = ? WHERE id = ? ;");
+            ps = conn.prepareStatement("UPDATE usuario SET nome = ?, matricula = ? WHERE id = ? ;");
             ps.setString(1, professor.getNome());
-            ps.setInt(2, professor.getId());
+            ps.setInt(2, professor.getMatricula());
+            ps.setInt(3, professor.getId());
 
             int retorno1 = ps.executeUpdate();
 
-            ps2 = conn.prepareStatement("UPDATE professor SET matricula = ? WHERE usuario_id = ? ;");
-            ps2.setInt(1, professor.getMatricula());
-            ps2.setInt(2, professor.getId());
-
-            int retorno2 = ps2.executeUpdate();
-
-            return retorno1 == 1 && retorno2 == 1;
+            return retorno1 == 1;
 
         } catch (SQLException ex) {
             Log.write(ex.getErrorCode() + " - " + ex.getMessage());
@@ -115,7 +113,7 @@ class PostgresProfessorDao implements ProfessorDao {
         try {
             conn = PostgresDaoFactory.openConnection();
 
-            ps = conn.prepareStatement("UPDATE professor SET data_fim = ? WHERE usuario_id = ? ;");
+            ps = conn.prepareStatement("UPDATE usuario SET data_fim = ? WHERE id = ? ;");
             ps.setDate(1, new Date(System.currentTimeMillis()));
             ps.setInt(2, id);
 
@@ -151,13 +149,13 @@ class PostgresProfessorDao implements ProfessorDao {
             conn = PostgresDaoFactory.openConnection();
 
             String sql = "";
-            sql += "SELECT p.usuario_id AS id, u.nome, p.matricula ";
-            sql += "FROM professor p ";
-            sql += "LEFT JOIN usuario u ";
-            sql += "ON p.usuario_id = u.id ";
-            sql += "WHERE p.usuario_id = ? ";
-            sql += "ORDER BY p.usuario_id DESC ";
-            sql += "LIMIT 1 ;";
+            sql += "SELECT u.id, u.nome, u.matricula ";
+            sql += "  FROM professor p ";
+            sql += "  LEFT JOIN usuario u ";
+            sql += "    ON p.usuario_id = u.id ";
+            sql += " WHERE p.usuario_id = ? ";
+            sql += " ORDER BY p.usuario_id DESC ";
+            sql += " LIMIT 1 ;";
 
             ps = conn.prepareStatement(sql);
             ps.setInt(1, id);
@@ -203,12 +201,10 @@ class PostgresProfessorDao implements ProfessorDao {
             conn = PostgresDaoFactory.openConnection();
             String sql = "";
 
-            sql += "SELECT p.usuario_id AS id, u.nome, p.matricula ";
-            sql += "FROM professor p ";
-            sql += "LEFT JOIN usuario u ";
-            sql += "ON p.usuario_id = u.id ";
-            sql += "WHERE p.data_fim IS NULL ";
-            sql += "ORDER BY p.usuario_id ASC";
+            sql += "SELECT u.id, u.nome, u.matricula ";
+            sql += "FROM usuario u ";
+            sql += "WHERE u.data_fim IS NULL ";
+            sql += "ORDER BY u.id ASC";
 
             ps = conn.prepareStatement(sql);
 

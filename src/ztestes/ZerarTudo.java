@@ -22,10 +22,10 @@ public class ZerarTudo {
 //        /**
 //         * DROP ALUNO
 //         */
-//        PersistenciaArquivo aluno = new PersistenciaArquivo("alunos.bin", "aluno_seq.txt");
-//        List<Aluno> alunoLista = new ArrayList<Aluno>();
-//        aluno.serializar(alunoLista);
-//        aluno.reiniciarSequencia();
+        PersistenciaArquivo aluno = new PersistenciaArquivo("alunos.bin", "usuario_seq.txt");
+        List<Aluno> alunoLista = new ArrayList<Aluno>();
+        aluno.serializar(alunoLista);
+        aluno.reiniciarSequencia();
 //
 //        /**
 //         * DROP PROFESSOR
@@ -54,10 +54,10 @@ public class ZerarTudo {
 //        /**
 //         * DROP Emprestimo
 //         */
-        PersistenciaArquivo emprestimo = new PersistenciaArquivo("emprestimos.bin", "emprestimo_seq.txt");
-        List<Exemplar> emprestimoLista = new ArrayList<Exemplar>();
-        emprestimo.serializar(emprestimoLista);
-        emprestimo.reiniciarSequencia();
+//        PersistenciaArquivo emprestimo = new PersistenciaArquivo("emprestimos.bin", "emprestimo_seq.txt");
+//        List<Exemplar> emprestimoLista = new ArrayList<Exemplar>();
+//        emprestimo.serializar(emprestimoLista);
+//        emprestimo.reiniciarSequencia();
 
     }
 

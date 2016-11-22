@@ -1,0 +1,51 @@
+2016-11-21 23:22:52 :: 0 - ERROR: column "nome" does not exist
+  Posição: 12
+2016-11-21 23:23:11 :: 0 - ERROR: column "nome" does not exist
+  Posição: 12
+2016-11-21 23:23:21 :: 0 - ERROR: column "nome" does not exist
+  Posição: 12
+2016-11-21 23:28:10 :: 0 - ERROR: column "nome" does not exist
+  Posição: 12
+2016-11-21 23:43:14 :: 0 - ERROR: column "nome" does not exist
+  Posição: 12
+2016-11-21 23:43:32 :: 0 - ERROR: column "nome" does not exist
+  Posição: 12
+2016-11-21 23:59:44 :: 0 - ERROR: INSERT has more expressions than target columns
+  Posição: 48
+2016-11-22 00:01:21 :: 0 - ERROR: syntax error at or near "2"
+  Posição: 32
+2016-11-22 00:02:48 :: 0 - ERROR: column "nome" does not exist
+  Posição: 12
+2016-11-22 00:03:17 :: 0 - ERROR: column "nome" does not exist
+  Posição: 12
+2016-11-22 00:24:07 :: 0 - O índice da coluna está fora do intervalo: 3, número de colunas: 2.
+2016-11-22 00:39:00 :: 0 - ERROR: column a.matricula does not exist
+  Dica: Perhaps you meant to reference the column "u.matricula".
+  Posição: 48
+2016-11-22 00:48:37 :: 0 - ERROR: column p.matricula does not exist
+  Dica: Perhaps you meant to reference the column "u.matricula".
+  Posição: 36
+2016-11-22 00:49:46 :: 0 - ERROR: column p.matricula does not exist
+  Dica: Perhaps you meant to reference the column "u.matricula".
+  Posição: 36
+2016-11-22 00:49:53 :: 0 - ERROR: column p.matricula does not exist
+  Dica: Perhaps you meant to reference the column "u.matricula".
+  Posição: 36
+2016-11-22 00:50:02 :: 0 - ERROR: column p.matricula does not exist
+  Dica: Perhaps you meant to reference the column "u.matricula".
+  Posição: 36
+2016-11-22 00:50:40 :: 0 - ERROR: column p.matricula does not exist
+  Dica: Perhaps you meant to reference the column "u.matricula".
+  Posição: 36
+2016-11-22 00:50:50 :: 0 - ERROR: column p.matricula does not exist
+  Dica: Perhaps you meant to reference the column "u.matricula".
+  Posição: 36
+2016-11-22 01:05:21 :: 0 - Valor inválido para tipo int : 2016-11-22
+2016-11-22 01:05:39 :: 0 - Valor inválido para tipo int : 2016-11-22
+2016-11-22 01:06:23 :: 0 - Valor inválido para tipo int : 2016-11-22
+2016-11-22 01:06:29 :: 0 - Valor inválido para tipo int : 2016-11-22
+2016-11-22 01:07:21 :: 0 - A nome da coluna data_devolucao_prevista não foi encontrado neste ResultSet.
+2016-11-22 01:17:56 :: 0 - A nome da coluna usuario_matricula não foi encontrado neste ResultSet.
+2016-11-22 01:19:17 :: 0 - ERROR: syntax error at or near "u"
+  Posição: 98
+2016-11-22 03:45:26 :: conteudo\usuario_seq.txt (O sistema não pode encontrar o arquivo especificado)
