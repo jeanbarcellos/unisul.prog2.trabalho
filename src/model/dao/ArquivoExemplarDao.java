@@ -177,4 +177,9 @@ final class ArquivoExemplarDao implements ExemplarDao {
         return lista;
     }
 
+    @Override
+    public List<Exemplar> disponiveis() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

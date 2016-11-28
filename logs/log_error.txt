@@ -1,0 +1,2 @@
+2016-11-27 01:19:25 :: 0 - ERROR: update or delete on table "curso" violates foreign key constraint "aluno_curso_id" on table "aluno"
+  Detalhe: Key (id)=(3) is still referenced from table "aluno".

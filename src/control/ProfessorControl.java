@@ -134,9 +134,19 @@ public class ProfessorControl {
      */
     public Professor getProfessor(int id) {
         Professor retorno = null;
-        for (Professor alunoExt : this.getProfessores()) {
-            if (alunoExt.getId() == id) {
-                retorno = alunoExt;
+        for (Professor profExt : this.getProfessores()) {
+            if (profExt.getId() == id) {
+                retorno = profExt;
+            }
+        }
+        return retorno;
+    }
+    
+        public Professor getProfessorMatricula(int matricula) {
+        Professor retorno = null;
+        for (Professor profExt : this.getProfessores()) {
+            if (profExt.getMatricula()== matricula) {
+                retorno = profExt;
             }
         }
         return retorno;
@@ -169,23 +179,42 @@ public class ProfessorControl {
         return this.ultimoId() + 1;
     }
 
+    /**
+     * Recupera a lista de cursos que o professor participa
+     *
+     * @param idProfessor ID do Professor
+     * @return
+     */
     public List<Curso> getCursosParticipa(int idProfessor) {
         return this.professorDao.getCursos(idProfessor);
     }
 
+    /**
+     * Adiciona um professor a um curso, no qual participa
+     *
+     * @param idProfessor ID do Professor
+     * @param curso Curso no qual irá participar
+     * @return
+     */
     public boolean adicionarCurso(int idProfessor, Curso curso) {
-        Professor professor = this.getProfessor(idProfessor);
-        return true;
+        return this.professorDao.addCurso(idProfessor, curso);
     }
 
+    /**
+     * Desassocia um professor a um curso que ele até então participava
+     *
+     * @param idProfessor ID do Professor
+     * @param idCurso ID do Curso
+     * @return
+     */
     public boolean excluirCurso(int idProfessor, int idCurso) {
-        return true;
+        return this.professorDao.delCurso(idProfessor, idCurso);
     }
 
     /**
      * Buscar Professor através de seu nome
      *
-     * @param nome Nome;
+     * @param nome Nome
      * @return
      */
     public List<Professor> buscarPeloNome(String nome) {

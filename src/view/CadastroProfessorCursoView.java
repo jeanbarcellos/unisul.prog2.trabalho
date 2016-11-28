@@ -333,26 +333,31 @@ public class CadastroProfessorCursoView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tableCursoListaMouseClicked
 
     private void buttonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExcluirActionPerformed
-        Object[] options = {"Sim", "Cancelar"};
-        int retornoExcluir = JOptionPane.showOptionDialog(null, "Tens certeza que deseja excluir ...?", "Informação", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
-
-        if (retornoExcluir == JOptionPane.YES_OPTION) {
-
-            int idExcluir = Integer.parseInt(textId.getText());
-
-            boolean retorno = this.cursoControl.excluir(idExcluir);
-
-            if (retorno) {
-                this.carregarTabela();
-                JOptionPane.showMessageDialog(null, "Curso excluído com sucesso.");
-            } else {
-                JOptionPane.showMessageDialog(null, "Erro ao excluír o curso.");
-            }
-
+        int linha = tableCursoLista.getSelectedRow();
+        
+        if (linha < 0) {
+            JOptionPane.showMessageDialog(null, "Selecione uma linha para excluir");
         } else {
+            Object[] options = {"Sim", "Cancelar"};
+            int retornoExcluir = JOptionPane.showOptionDialog(null, "Tens certeza que deseja excluir ...?", "Informação", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
 
+            if (retornoExcluir == JOptionPane.YES_OPTION) {
+
+                int idExcluir = (int) tableCursoLista.getValueAt(linha, 0);
+
+                boolean retorno = this.professorControl.excluirCurso(this.professor.getId(), idExcluir);
+
+                if (retorno) {
+                    this.carregarTabela();
+                    JOptionPane.showMessageDialog(null, "Curso excluído com sucesso.");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Erro ao excluír o curso.");
+                }
+
+            } else {
+
+            }
         }
-
 //        this.gerenciarBotoes(true, false, false, false, false);
     }//GEN-LAST:event_buttonExcluirActionPerformed
 

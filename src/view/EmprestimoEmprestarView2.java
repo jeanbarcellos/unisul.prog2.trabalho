@@ -5,7 +5,18 @@
  */
 package view;
 
+import control.AlunoControl;
+import control.EmprestimoControl;
+import control.ExemplarControl;
+import control.ProfessorControl;
 import java.awt.Dimension;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import model.Emprestimo;
+import model.Exemplar;
+import model.Usuario;
+import util.Config;
+import util.Data;
 
 /**
  *
@@ -13,11 +24,27 @@ import java.awt.Dimension;
  */
 public class EmprestimoEmprestarView2 extends javax.swing.JInternalFrame {
 
+    private ProfessorControl professorControl;
+    private AlunoControl alunoControl;
+    private ExemplarControl exemplarControl;
+    private EmprestimoControl emprestimoControl;
+    private Usuario usuario;
+    private Exemplar exemplar;
+
     /**
      * Creates new form EmprestimoEmprestarView2
      */
-    public EmprestimoEmprestarView2() {
+    public EmprestimoEmprestarView2(int exemplarId) {
         initComponents();
+
+        this.professorControl = new ProfessorControl();
+        this.alunoControl = new AlunoControl();
+        this.exemplarControl = new ExemplarControl();
+        this.emprestimoControl = new EmprestimoControl();
+
+        this.exemplar = this.exemplarControl.getExemplar(exemplarId);
+
+        this.popularFormulario();
     }
 
     /**
@@ -26,6 +53,41 @@ public class EmprestimoEmprestarView2 extends javax.swing.JInternalFrame {
     public void setPosicao() {
         Dimension d = this.getDesktopPane().getSize();
         this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
+    }
+
+    /**
+     * popularFormulario()
+     */
+    private void popularFormulario() {
+
+        Config config = Config.getInstance();
+        int diasEmprestimo = Integer.parseInt(config.getValue("diasEmprestimo"));
+        Date dataPrevisao = Data.somaDias(Data.dataAtual(), diasEmprestimo);
+
+        String dataAgora = Data.formatar(Data.dataAtual(), "BR_DATA");
+        String dataPrev = Data.formatar(dataPrevisao, "BR_DATA");
+
+        textDtEmprestimo.setText(dataAgora);
+        textDtDevolucaoPrev.setText(dataPrev);
+    }
+
+    private boolean validarBuscar() {
+        String matricula = textMatricula.getText();
+        int indice = comboTipo.getSelectedIndex();
+
+        if (indice == 0) {
+            JOptionPane.showMessageDialog(null, "Você deve informar o tipo de usário.");
+            comboTipo.requestFocus();
+            return false;
+        }
+
+        if (matricula.equals("")) {
+            JOptionPane.showMessageDialog(null, "Você deve informar a matrícula do usuário.");
+            textMatricula.requestFocus();
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -38,45 +100,48 @@ public class EmprestimoEmprestarView2 extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        labelTipo = new javax.swing.JLabel();
+        comboTipo = new javax.swing.JComboBox<>();
+        labelMatricula = new javax.swing.JLabel();
+        textMatricula = new javax.swing.JTextField();
+        buttonBuscar = new javax.swing.JButton();
+        labelNome = new javax.swing.JLabel();
+        textNome = new javax.swing.JTextField();
+        panelEmprestimo = new javax.swing.JPanel();
+        labelDtEmprestimo = new javax.swing.JLabel();
+        textDtEmprestimo = new javax.swing.JTextField();
+        labelDtDevolucaoPrev = new javax.swing.JLabel();
+        textDtDevolucaoPrev = new javax.swing.JTextField();
+        buttonEmprestar = new javax.swing.JButton();
+        buttonCancelar = new javax.swing.JButton();
 
         setClosable(true);
-        setTitle("Selecionar Usuário");
+        setTitle("Dados do Usuário");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Usuário"));
 
-        jLabel1.setText("Matrícula:");
+        labelTipo.setText("Tipo:");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Aluno", "Professor" }));
+
+        labelMatricula.setText("Matrícula:");
+
+        textMatricula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                textMatriculaActionPerformed(evt);
             }
         });
 
-        jLabel2.setText("Nome:");
-
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        buttonBuscar.setText("Buscar Usuário");
+        buttonBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                buttonBuscarActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Buscar Usuário");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        labelNome.setText("Nome:");
 
-        jButton2.setText("Realizar Emprestimo");
-
-        jButton3.setText("Cancelar");
+        textNome.setEditable(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -85,81 +150,201 @@ public class EmprestimoEmprestarView2 extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
+                    .addComponent(labelTipo)
+                    .addComponent(labelNome)
+                    .addComponent(labelMatricula))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(textMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1))
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(buttonBuscar))
+                    .addComponent(textNome, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jLabel1))
+                    .addComponent(labelTipo)
+                    .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonBuscar)
+                    .addComponent(labelMatricula))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(labelNome)
+                    .addComponent(textNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        panelEmprestimo.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados do Empréstmo"));
+
+        labelDtEmprestimo.setText("Data Emprestimo:");
+
+        textDtEmprestimo.setEditable(false);
+
+        labelDtDevolucaoPrev.setText("Data Previsão Devolução:");
+
+        textDtDevolucaoPrev.setEditable(false);
+
+        javax.swing.GroupLayout panelEmprestimoLayout = new javax.swing.GroupLayout(panelEmprestimo);
+        panelEmprestimo.setLayout(panelEmprestimoLayout);
+        panelEmprestimoLayout.setHorizontalGroup(
+            panelEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelEmprestimoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEmprestimoLayout.createSequentialGroup()
+                        .addComponent(labelDtEmprestimo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(textDtEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelEmprestimoLayout.createSequentialGroup()
+                        .addComponent(labelDtDevolucaoPrev)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(textDtDevolucaoPrev, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelEmprestimoLayout.setVerticalGroup(
+            panelEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelEmprestimoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelDtEmprestimo)
+                    .addComponent(textDtEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelDtDevolucaoPrev)
+                    .addComponent(textDtDevolucaoPrev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31))
+        );
+
+        buttonEmprestar.setText("Realizar Emprestimo");
+        buttonEmprestar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEmprestarActionPerformed(evt);
+            }
+        });
+
+        buttonCancelar.setText("Cancelar");
+        buttonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(panelEmprestimo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(81, 81, 81)
+                                .addComponent(buttonEmprestar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(buttonCancelar)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panelEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonEmprestar)
+                    .addComponent(buttonCancelar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void textMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textMatriculaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_textMatriculaActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    private void buttonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBuscarActionPerformed
+        boolean retorno = this.validarBuscar();
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        if (retorno) {
+            int matricula = Integer.parseInt(textMatricula.getText());
+            int indice = comboTipo.getSelectedIndex();
+
+            // Aluno
+            if (indice == 1) {
+                this.usuario = alunoControl.getAlunoMatricula(matricula);
+            } else if (indice == 2) {
+                this.usuario = professorControl.getProfessorMatricula(matricula);
+            }
+
+            if (this.usuario == null) {
+                JOptionPane.showMessageDialog(null, "Usuário não encontrado");
+            } else {
+                textNome.setText(this.usuario.getNome());
+            }
+
+        }
+    }//GEN-LAST:event_buttonBuscarActionPerformed
+
+    private void buttonEmprestarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEmprestarActionPerformed
+        if (this.usuario == null) {
+            JOptionPane.showMessageDialog(null, "Usuário incorreto");
+        } else {
+            Emprestimo emprestimo = new Emprestimo();
+            emprestimo.setUsuario(this.usuario);
+            emprestimo.setExemplar(this.exemplar);
+
+            boolean retorno = this.emprestimoControl.inserir(emprestimo);
+
+            if (retorno) {
+                JOptionPane.showMessageDialog(null, "Emprestimo realizado com Sucesso.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro ao realizado Emprestimo.");
+            }
+            EmprestimoEmprestarView.carregarTabela();
+            this.setVisible(false);
+        }
+
+
+    }//GEN-LAST:event_buttonEmprestarActionPerformed
+
+    private void buttonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelarActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_buttonCancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton buttonBuscar;
+    private javax.swing.JButton buttonCancelar;
+    private javax.swing.JButton buttonEmprestar;
+    private javax.swing.JComboBox<String> comboTipo;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JLabel labelDtDevolucaoPrev;
+    private javax.swing.JLabel labelDtEmprestimo;
+    private javax.swing.JLabel labelMatricula;
+    private javax.swing.JLabel labelNome;
+    private javax.swing.JLabel labelTipo;
+    private javax.swing.JPanel panelEmprestimo;
+    private javax.swing.JTextField textDtDevolucaoPrev;
+    private javax.swing.JTextField textDtEmprestimo;
+    private javax.swing.JTextField textMatricula;
+    private javax.swing.JTextField textNome;
     // End of variables declaration//GEN-END:variables
 }

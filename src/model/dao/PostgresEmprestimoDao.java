@@ -1,6 +1,5 @@
 package model.dao;
 
-import com.sun.org.apache.bcel.internal.generic.D2F;
 import util.Data;
 
 import java.sql.Connection;
@@ -16,7 +15,6 @@ import model.Exemplar;
 import model.Livro;
 import model.Professor;
 import model.Usuario;
-import util.Config;
 import util.Log;
 
 /**
@@ -37,7 +35,6 @@ public class PostgresEmprestimoDao implements EmprestimoDao {
 
         try {
             conn = PostgresDaoFactory.openConnection();
-
 
             Date dataAgora = Data.setDataSql(emprestimo.getDataEmprestimo());
             Date dataPrevisao = Data.setDataSql(emprestimo.getDataDevolucaoPrevista());
@@ -75,7 +72,73 @@ public class PostgresEmprestimoDao implements EmprestimoDao {
             }
         }
     }
-    
+
+    @Override
+    public boolean emprestar(Emprestimo emprestimo) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+
+        try {
+            conn = PostgresDaoFactory.openConnection();
+
+            ps = conn.prepareStatement("UPDATE emprestimo set data_devolucao = ? WHERE id = ? ;");
+//            ps.setInt(1, id);
+
+            int retorno = ps.executeUpdate();
+
+            return retorno == 1;
+
+        } catch (SQLException ex) {
+            Log.write(ex.getErrorCode() + " - " + ex.getMessage());
+            return false;
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception e) {
+
+            }
+        }
+    }
+
+    @Override
+    public boolean devolver(int emprestimoId, java.util.Date dataDevolucao) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+
+        try {
+            conn = PostgresDaoFactory.openConnection();
+            
+            Date dataAgora = Data.setDataSql(dataDevolucao);
+
+            ps = conn.prepareStatement("UPDATE emprestimo SET data_devolucao = ? WHERE id = ? ;");
+            ps.setDate(1, dataAgora);
+            ps.setInt(2, emprestimoId);
+
+            int retorno = ps.executeUpdate();
+
+            return retorno == 1;
+
+        } catch (SQLException ex) {
+            Log.write(ex.getErrorCode() + " - " + ex.getMessage());
+            return false;
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception e) {
+
+            }
+        }
+    }
 
     @Override
     public boolean delete(int id) {
@@ -148,6 +211,7 @@ public class PostgresEmprestimoDao implements EmprestimoDao {
             sql += "  LEFT JOIN usuario u ";
             sql += "    ON em.usuario_id = u.id ";
             sql += "   AND data_devolucao IS NULL";
+            sql += " WHERE em.data_devolucao IS NULL";
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
 
@@ -166,7 +230,7 @@ public class PostgresEmprestimoDao implements EmprestimoDao {
                 exemplar.setLocalizacao(rs.getString("exemplar_localizacao"));
 
                 int tipo = rs.getInt("usuario_tipo");
-                
+
                 Usuario usuario;
 
                 if (tipo == 1) {
@@ -253,11 +317,6 @@ public class PostgresEmprestimoDao implements EmprestimoDao {
     }
 
     @Override
-    public List<Emprestimo> listarAtivos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public List<Emprestimo> getEmprestimosPorUsuario(int usuarioId) {
         List<Emprestimo> emprestimos = new ArrayList<Emprestimo>();
         Connection conn = null;
@@ -294,8 +353,8 @@ public class PostgresEmprestimoDao implements EmprestimoDao {
             sql += "   AND data_devolucao IS NULL";
             ps = conn.prepareStatement(sql);
             ps.setInt(1, usuarioId);
-            
-            rs = ps.executeQuery();            
+
+            rs = ps.executeQuery();
 
             while (rs.next()) {
                 // Monta o livro
@@ -312,7 +371,7 @@ public class PostgresEmprestimoDao implements EmprestimoDao {
                 exemplar.setLocalizacao(rs.getString("exemplar_localizacao"));
 
                 int tipo = rs.getInt("usuario_tipo");
-                
+
                 Usuario usuario;
                 if (tipo == 1) {
                     usuario = new Aluno();
@@ -357,4 +416,5 @@ public class PostgresEmprestimoDao implements EmprestimoDao {
 
         return emprestimos;
     }
+
 }

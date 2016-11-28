@@ -13,6 +13,8 @@ import view.tm.EmprestimosAtivosTM;
  */
 public class EmprestimoLivroView extends javax.swing.JInternalFrame {
 
+    private static final long serialVersionUID = 1111314156641038648L;    
+
     /**
      * Creates new form EmprestimoLivroView
      */
@@ -98,7 +100,7 @@ public class EmprestimoLivroView extends javax.swing.JInternalFrame {
         });
         scrollPaneLivroLista.setViewportView(tableEmprestimosLista);
 
-        buttonEditar.setText("Realizar Devolucao");
+        buttonEditar.setText("Realizar Devolução");
         buttonEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonEditarActionPerformed(evt);
@@ -141,7 +143,9 @@ public class EmprestimoLivroView extends javax.swing.JInternalFrame {
         if (linha < 0) {
             JOptionPane.showMessageDialog(null, "Você deve selecoinar o exemplar primeiro");
         } else {
-            EmprestimoDevolucaoView inserirView = new EmprestimoDevolucaoView();
+            int idEmprestimo = (int) tableEmprestimosLista.getValueAt(linha, 0);
+            
+            EmprestimoDevolucaoView inserirView = new EmprestimoDevolucaoView(idEmprestimo);
             Principal.desktop.add(inserirView);
             inserirView.getFont();
             inserirView.setPosicao();

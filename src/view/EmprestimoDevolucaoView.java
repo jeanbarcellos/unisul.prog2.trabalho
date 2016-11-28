@@ -1,11 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
+import control.EmprestimoControl;
 import java.awt.Dimension;
+import javax.swing.JOptionPane;
+import model.Emprestimo;
+import util.Data;
 
 /**
  *
@@ -13,11 +12,42 @@ import java.awt.Dimension;
  */
 public class EmprestimoDevolucaoView extends javax.swing.JInternalFrame {
 
+    private static final long serialVersionUID = 267626876742832959L;
+    private EmprestimoControl emprestimoControl;
+    private Emprestimo emprestimo;
+
     /**
      * Creates new form EmprestimoDevolucaoView
      */
-    public EmprestimoDevolucaoView() {
+    public EmprestimoDevolucaoView(int exemplarId) {
         initComponents();
+
+        this.emprestimoControl = new EmprestimoControl();
+
+        this.emprestimo = this.emprestimoControl.getEmprestimo(exemplarId);
+
+        this.popularFormulario();
+    }
+
+    private void popularFormulario() {
+        // Dados do Usuário
+        textMatricula.setText("" + this.emprestimo.getUsuario().getMatricula());
+        textNome.setText(this.emprestimo.getUsuario().getNome());
+        textTipo.setText(EmprestimoControl.tipoUsuario(this.emprestimo));
+
+        // Dados do Livro
+        textLivroId.setText("" + this.emprestimo.getExemplar().getId());
+        textLivroTitulo.setText("" + this.emprestimo.getExemplar().getLivro().getTitulo());
+        textLivroAutor.setText("" + this.emprestimo.getExemplar().getLivro().getAutor());
+
+        // Dados do Empréstimo
+        String dataEmprestimo = Data.formatar(this.emprestimo.getDataEmprestimo(), "BR_DATA");
+        String dataDevPrev = Data.formatar(this.emprestimo.getDataDevolucaoPrevista(), "BR_DATA");
+        String dataDev = Data.formatar(Data.dataAtual(), "BR_DATA");
+
+        textDtEmprestimo.setText(dataEmprestimo);
+        textDtDevolucaoPrev.setText(dataDevPrev);
+        textDtDevolucao.setText(dataDev);
     }
 
     /**
@@ -37,186 +67,201 @@ public class EmprestimoDevolucaoView extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel3 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        panelLivro2 = new javax.swing.JPanel();
-        labelLivroId2 = new javax.swing.JLabel();
-        textLivroId2 = new javax.swing.JTextField();
-        labelLivroTitulo2 = new javax.swing.JLabel();
-        textLivroTitulo2 = new javax.swing.JTextField();
-        labelLivroAutor2 = new javax.swing.JLabel();
-        textLivroAutor2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        panelUsuario = new javax.swing.JPanel();
+        labelMatricula = new javax.swing.JLabel();
+        textMatricula = new javax.swing.JTextField();
+        labelTipo = new javax.swing.JLabel();
+        textTipo = new javax.swing.JTextField();
+        labelNome = new javax.swing.JLabel();
+        textNome = new javax.swing.JTextField();
+        panelLivro = new javax.swing.JPanel();
+        labelLivroId = new javax.swing.JLabel();
+        textLivroId = new javax.swing.JTextField();
+        labelLivroTitulo = new javax.swing.JLabel();
+        textLivroTitulo = new javax.swing.JTextField();
+        labelLivroAutor = new javax.swing.JLabel();
+        textLivroAutor = new javax.swing.JTextField();
+        panelEmprestimo = new javax.swing.JPanel();
+        labelDtEmprestimo = new javax.swing.JLabel();
+        textDtEmprestimo = new javax.swing.JTextField();
+        labelDtDevolucaoPrev = new javax.swing.JLabel();
+        textDtDevolucaoPrev = new javax.swing.JTextField();
+        labelDtDevolucao = new javax.swing.JLabel();
+        textDtDevolucao = new javax.swing.JTextField();
+        devolver = new javax.swing.JButton();
+        cancelar = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Realizar Devolução");
         setToolTipText("");
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Usuário"));
+        panelUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder("Usuário"));
 
-        jLabel1.setText("Matrícula:");
+        labelMatricula.setText("Matrícula:");
 
-        jTextField1.setEditable(false);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        textMatricula.setEditable(false);
+        textMatricula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                textMatriculaActionPerformed(evt);
             }
         });
 
-        jLabel2.setText("Nome:");
+        labelTipo.setText("Tipo:");
 
-        jTextField2.setEditable(false);
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
+        textTipo.setEditable(false);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        labelNome.setText("Nome:");
+
+        textNome.setEditable(false);
+
+        javax.swing.GroupLayout panelUsuarioLayout = new javax.swing.GroupLayout(panelUsuario);
+        panelUsuario.setLayout(panelUsuarioLayout);
+        panelUsuarioLayout.setHorizontalGroup(
+            panelUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelUsuarioLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
+                .addGroup(panelUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(labelNome)
+                    .addComponent(labelMatricula))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        panelLivro2.setBorder(javax.swing.BorderFactory.createTitledBorder("Livro"));
-
-        labelLivroId2.setText("ID:");
-
-        textLivroId2.setEditable(false);
-
-        labelLivroTitulo2.setText("Título:");
-
-        textLivroTitulo2.setEditable(false);
-
-        labelLivroAutor2.setText("Edição:");
-
-        textLivroAutor2.setEditable(false);
-
-        javax.swing.GroupLayout panelLivro2Layout = new javax.swing.GroupLayout(panelLivro2);
-        panelLivro2.setLayout(panelLivro2Layout);
-        panelLivro2Layout.setHorizontalGroup(
-            panelLivro2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelLivro2Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(panelLivro2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(labelLivroAutor2)
-                    .addComponent(labelLivroTitulo2)
-                    .addComponent(labelLivroId2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelLivro2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelLivro2Layout.createSequentialGroup()
-                        .addComponent(textLivroId2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(textLivroAutor2)
-                    .addComponent(textLivroTitulo2))
+                .addGroup(panelUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelUsuarioLayout.createSequentialGroup()
+                        .addComponent(textMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addComponent(labelTipo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(textTipo))
+                    .addGroup(panelUsuarioLayout.createSequentialGroup()
+                        .addComponent(textNome, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        panelLivro2Layout.setVerticalGroup(
-            panelLivro2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelLivro2Layout.createSequentialGroup()
-                .addGroup(panelLivro2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelLivroId2)
-                    .addComponent(textLivroId2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        panelUsuarioLayout.setVerticalGroup(
+            panelUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelUsuarioLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelMatricula)
+                    .addComponent(labelTipo)
+                    .addComponent(textTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelLivro2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textLivroTitulo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelLivroTitulo2))
+                .addGroup(panelUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelNome)
+                    .addComponent(textNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        panelLivro.setBorder(javax.swing.BorderFactory.createTitledBorder("Livro"));
+
+        labelLivroId.setText("ID:");
+
+        textLivroId.setEditable(false);
+
+        labelLivroTitulo.setText("Título:");
+
+        textLivroTitulo.setEditable(false);
+
+        labelLivroAutor.setText("Edição:");
+
+        textLivroAutor.setEditable(false);
+
+        javax.swing.GroupLayout panelLivroLayout = new javax.swing.GroupLayout(panelLivro);
+        panelLivro.setLayout(panelLivroLayout);
+        panelLivroLayout.setHorizontalGroup(
+            panelLivroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelLivroLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(panelLivroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(labelLivroAutor)
+                    .addComponent(labelLivroTitulo)
+                    .addComponent(labelLivroId))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelLivro2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textLivroAutor2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelLivroAutor2))
+                .addGroup(panelLivroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelLivroLayout.createSequentialGroup()
+                        .addComponent(textLivroId, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(textLivroAutor)
+                    .addComponent(textLivroTitulo))
+                .addContainerGap())
+        );
+        panelLivroLayout.setVerticalGroup(
+            panelLivroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelLivroLayout.createSequentialGroup()
+                .addGroup(panelLivroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelLivroId)
+                    .addComponent(textLivroId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelLivroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textLivroTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelLivroTitulo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelLivroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textLivroAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelLivroAutor))
                 .addGap(0, 8, Short.MAX_VALUE))
         );
 
-        jButton1.setText("Realizar Revolução");
+        panelEmprestimo.setBorder(javax.swing.BorderFactory.createTitledBorder("Datas do Empréstimo"));
 
-        jButton2.setText("Cancelar");
+        labelDtEmprestimo.setText("Data Emprestimo:");
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Datas do Empréstimo"));
+        textDtEmprestimo.setEditable(false);
 
-        jLabel3.setText("Data Emprestimo:");
+        labelDtDevolucaoPrev.setText("Data Previsão Devolução:");
 
-        jTextField3.setEditable(false);
+        textDtDevolucaoPrev.setEditable(false);
 
-        jLabel4.setText("Data Previsão Devolução:");
+        labelDtDevolucao.setText("Data Devolução:");
 
-        jTextField4.setEditable(false);
+        textDtDevolucao.setEditable(false);
 
-        jLabel5.setText("Data Emprestimo:");
-
-        jTextField5.setEditable(false);
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelEmprestimoLayout = new javax.swing.GroupLayout(panelEmprestimo);
+        panelEmprestimo.setLayout(panelEmprestimoLayout);
+        panelEmprestimoLayout.setHorizontalGroup(
+            panelEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelEmprestimoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                .addGroup(panelEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEmprestimoLayout.createSequentialGroup()
+                        .addComponent(labelDtEmprestimo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel4))
+                        .addComponent(textDtEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelEmprestimoLayout.createSequentialGroup()
+                        .addGroup(panelEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(labelDtDevolucao)
+                            .addComponent(labelDtDevolucaoPrev))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(panelEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textDtDevolucaoPrev, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textDtDevolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        panelEmprestimoLayout.setVerticalGroup(
+            panelEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelEmprestimoLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(panelEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelDtEmprestimo)
+                    .addComponent(textDtEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(panelEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelDtDevolucaoPrev)
+                    .addComponent(textDtDevolucaoPrev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)))
+                .addGroup(panelEmprestimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textDtDevolucao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelDtDevolucao)))
         );
+
+        devolver.setText("Realizar Devolução");
+        devolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                devolverActionPerformed(evt);
+            }
+        });
+
+        cancelar.setText("Cancelar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -225,68 +270,86 @@ public class EmprestimoDevolucaoView extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelLivro2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelEmprestimo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelLivro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(panelUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(75, 75, 75)
-                .addComponent(jButton1)
+                .addComponent(devolver)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(cancelar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelLivro2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(devolver)
+                    .addComponent(cancelar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void textMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textMatriculaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_textMatriculaActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    private void devolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_devolverActionPerformed
+        Object[] options = {"Sim", "Não"};
+        int retornoDevolver = JOptionPane.showOptionDialog(null, "Tem certeza que deseja realizar a devolção?", "Informação", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
+
+        if (retornoDevolver == JOptionPane.YES_OPTION) {
+
+            boolean retorno = this.emprestimoControl.devolver(this.emprestimo.getId());
+
+            if (retorno) {
+                EmprestimoLivroView.carregarTabela();
+                JOptionPane.showMessageDialog(null, "Exemplar devolvido com sucesso.");
+                this.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro ao devolver exemplar.");
+            }
+
+        }
+
+    }//GEN-LAST:event_devolverActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JLabel labelLivroAutor2;
-    private javax.swing.JLabel labelLivroId2;
-    private javax.swing.JLabel labelLivroTitulo2;
-    private javax.swing.JPanel panelLivro2;
-    private javax.swing.JTextField textLivroAutor2;
-    private javax.swing.JTextField textLivroId2;
-    private javax.swing.JTextField textLivroTitulo2;
+    private javax.swing.JButton cancelar;
+    private javax.swing.JButton devolver;
+    private javax.swing.JLabel labelDtDevolucao;
+    private javax.swing.JLabel labelDtDevolucaoPrev;
+    private javax.swing.JLabel labelDtEmprestimo;
+    private javax.swing.JLabel labelLivroAutor;
+    private javax.swing.JLabel labelLivroId;
+    private javax.swing.JLabel labelLivroTitulo;
+    private javax.swing.JLabel labelMatricula;
+    private javax.swing.JLabel labelNome;
+    private javax.swing.JLabel labelTipo;
+    private javax.swing.JPanel panelEmprestimo;
+    private javax.swing.JPanel panelLivro;
+    private javax.swing.JPanel panelUsuario;
+    private javax.swing.JTextField textDtDevolucao;
+    private javax.swing.JTextField textDtDevolucaoPrev;
+    private javax.swing.JTextField textDtEmprestimo;
+    private javax.swing.JTextField textLivroAutor;
+    private javax.swing.JTextField textLivroId;
+    private javax.swing.JTextField textLivroTitulo;
+    private javax.swing.JTextField textMatricula;
+    private javax.swing.JTextField textNome;
+    private javax.swing.JTextField textTipo;
     // End of variables declaration//GEN-END:variables
 }

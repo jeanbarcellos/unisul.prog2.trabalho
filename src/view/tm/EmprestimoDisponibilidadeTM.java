@@ -1,5 +1,6 @@
 package view.tm;
 
+import control.EmprestimoControl;
 import model.Exemplar;
 
 import java.util.ArrayList;
@@ -19,8 +20,10 @@ public class EmprestimoDisponibilidadeTM extends AbstractTableModel {
 
     private static final long serialVersionUID = 1L;
 
+    private EmprestimoControl empCtr = new EmprestimoControl();
+
     private List<Exemplar> linhas;
-    private String[] colunas = new String[]{"ID", "Título", "Autor", "Edição", "Localização"};
+    private String[] colunas = new String[]{"ID", "Título", "Autor", "Edição", "Localização", "Disponibilidade"};
 
     public EmprestimoDisponibilidadeTM() {
         linhas = new ArrayList<Exemplar>();
@@ -73,6 +76,12 @@ public class EmprestimoDisponibilidadeTM extends AbstractTableModel {
                 return f.getEdicao();
             case 4:
                 return f.getLocalizacao();
+            case 5:
+                String disp  = "Emprestado";
+                if (empCtr.getDisponibilidade(f.getId()) == 1) {
+                    disp = "Disponível";
+                }
+                return disp;
             default:
                 throw new IndexOutOfBoundsException("columnIndex out of bounds");
         }

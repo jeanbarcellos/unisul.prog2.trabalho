@@ -102,6 +102,11 @@ class ArquivoProfessorDao implements ProfessorDao {
         return this.persistArquivo.getLastId();
     }
 
+    private void carregarLista() {
+        this.professores = this.all();
+    }
+
+    
     @Override
     public List<Curso> getCursos(int idProfessor) {
         this.carregarLista();
@@ -114,9 +119,10 @@ class ArquivoProfessorDao implements ProfessorDao {
         Professor professor = this.load(idProfessor);
 
         professor.addCurso(curso);
+        System.out.println(professor);
 
         this.persistArquivo.serializar(this.professores);
-        
+
         this.carregarLista();
 
         return true;
@@ -128,7 +134,7 @@ class ArquivoProfessorDao implements ProfessorDao {
         professor.delCurso(cursoId);
 
         this.persistArquivo.serializar(this.professores);
-        
+
         this.carregarLista();
 
         return true;
@@ -157,14 +163,6 @@ class ArquivoProfessorDao implements ProfessorDao {
             }
         }
         return lista;
-    }
-
-    
-    /**
-     * Recarrega lista interna do Dao
-     */
-    private void carregarLista() {
-        this.professores = this.all();
     }
 
 }

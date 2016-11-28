@@ -26,7 +26,7 @@ public class CadastroProfessorView extends javax.swing.JInternalFrame {
 
         this.professorControl = new ProfessorControl();
 
-        this.carregarTabela();
+        carregarTabela();
     }
 
     /**
@@ -65,7 +65,6 @@ public class CadastroProfessorView extends javax.swing.JInternalFrame {
             return false;
         }
         return true;
-
     }
 
     /**

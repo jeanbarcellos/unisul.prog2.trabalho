@@ -23,7 +23,8 @@ final class ArquivoCursoDao implements CursoDao {
 
     public ArquivoCursoDao() {
         this.persistArquivo = new PersistenciaArquivo("cursos.bin", "curso_seq.txt");
-        this.cursos = this.all();
+        
+        this.carregarLista();
     }
 
     @Override
@@ -99,5 +100,8 @@ final class ArquivoCursoDao implements CursoDao {
     public int lastId() {        
         return this.persistArquivo.getLastId();
     }
-    
+        
+    private void carregarLista() {
+        this.cursos = this.all();
+    }
 }

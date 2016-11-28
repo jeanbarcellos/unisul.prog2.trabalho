@@ -1,8 +1,8 @@
 package model.dao;
 
+import java.util.Date;
 import java.util.List;
 import model.Emprestimo;
-import model.Exemplar;
 
 /**
  *
@@ -16,7 +16,24 @@ public interface EmprestimoDao {
      * @param emprestimo Objeto a ser inserido
      * @return Resultado da inserção
      */
-    public boolean insert(Emprestimo emprestimo);   
+    public boolean insert(Emprestimo emprestimo);
+
+    /**
+     * Realiza o emprestimo do livro
+     *
+     * @param emprestimo Obejto de emprestimo
+     * @return True/False
+     */
+    public boolean emprestar(Emprestimo emprestimo);
+
+    /**
+     * Realiza a devolução do emprestimo
+     *
+     * @param emprestimoId
+     * @param dataDevolucao
+     * @return
+     */
+    public boolean devolver(int emprestimoId, Date dataDevolucao);
 
     /**
      * Apagar livro da base de dados
@@ -48,12 +65,10 @@ public interface EmprestimoDao {
      * @return último ID cadastrado
      */
     public int lastId();
-    
-    public List<Emprestimo> listarAtivos();
-    
+
     /**
      * Mostra a lista de Exemplares pegos por um usuario
-     * 
+     *
      * @param usuarioId ID do usuário
      * @return Lista de Exeplares
      */

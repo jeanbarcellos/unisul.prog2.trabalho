@@ -46,6 +46,10 @@ public class ExemplarControl {
         return exemplares;
     }
 
+    public List<Exemplar> getExemplaresDisponiveis() {
+        return this.exemplarDao.disponiveis();
+    }
+
     /**
      * Seta a Lista de exemplares do controlador. Declaramos setExemplar() como
      * privado pois ninguem, além do próprio controlador, pode gerenciar a
@@ -189,14 +193,32 @@ public class ExemplarControl {
         return this.ultimoId() + 1;
     }
 
+    /**
+     * Buscar Exemplar através do Título
+     *
+     * @param titulo Título a ser pesquisado
+     * @return
+     */
     public List<Exemplar> buscarPeloTitulo(String titulo) {
         return this.exemplarDao.buscarPeloTitulo(titulo);
     }
 
+    /**
+     * Buscar Exemplar através do Nome do Autor
+     *
+     * @param autor Nome do Autor
+     * @return
+     */
     public List<Exemplar> buscarPeloAutor(String autor) {
         return this.exemplarDao.buscarPeloAutor(autor);
     }
 
+    /**
+     * BUscar Exemplar através da sua Edição
+     *
+     * @param edicao Edição do exemplar
+     * @return
+     */
     public List<Exemplar> buscarPelaEdicao(String edicao) {
         return this.exemplarDao.buscarPelaEdicao(edicao);
     }

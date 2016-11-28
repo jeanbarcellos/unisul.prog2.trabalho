@@ -80,4 +80,5 @@ public interface ExemplarDao {
     
     public List<Exemplar> buscarPelaEdicao(String edicao);
 
+    public List<Exemplar> disponiveis();
 }

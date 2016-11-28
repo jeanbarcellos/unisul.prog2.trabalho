@@ -1,12 +1,10 @@
 package view;
 
 import control.ExemplarControl;
-import control.LivroControl;
 import java.awt.Dimension;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.Exemplar;
-import static view.CadastroAlunoView.tableAlunoLista;
 import view.tm.EmprestimoDisponibilidadeTM;
 
 /**
@@ -18,7 +16,6 @@ public class EmprestimoEmprestarView extends javax.swing.JInternalFrame {
     private static final long serialVersionUID = -799537257491720564L;
 
     private ExemplarControl exemplarControl;
-    private EmprestimoDisponibilidadeTM disponvelTM;
 
     /**
      * Creates new form EmprestimoEmprestarView
@@ -42,7 +39,7 @@ public class EmprestimoEmprestarView extends javax.swing.JInternalFrame {
      * Popula a tabela com a lista de exemplares
      */
     public static void carregarTabela() {
-        List<Exemplar> lista = new ExemplarControl().getExemplares();
+        List<Exemplar> lista = new ExemplarControl().getExemplaresDisponiveis();
 
         EmprestimoDisponibilidadeTM exemplarTM = new EmprestimoDisponibilidadeTM(lista);
         tableListaExemplar.setModel(exemplarTM);
@@ -213,8 +210,8 @@ public class EmprestimoEmprestarView extends javax.swing.JInternalFrame {
         boolean retorno = this.validarBuscar();
 
         if (retorno) {
-            List<Exemplar> lista = null;
-
+            List<Exemplar> lista = null;            
+            
             switch (indice) {
                 case 1:
                     lista = exemplarControl.buscarPeloTitulo(chave);
@@ -250,7 +247,9 @@ public class EmprestimoEmprestarView extends javax.swing.JInternalFrame {
         if (linha < 0) {
             JOptionPane.showMessageDialog(null, "Você deve selecoinar o exemplar primeiro");
         } else {
-            EmprestimoEmprestarView2 inserirView = new EmprestimoEmprestarView2();
+            int idExemplar = (int) tableListaExemplar.getValueAt(linha, 0);
+            
+            EmprestimoEmprestarView2 inserirView = new EmprestimoEmprestarView2(idExemplar);
             Principal.desktop.add(inserirView);
             inserirView.getFont();
             inserirView.setPosicao();

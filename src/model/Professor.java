@@ -35,11 +35,11 @@ public class Professor extends Usuario {
         return true;
     }
 
-    public boolean delCurso(int cursoId) {
-        Curso curso = null;
+    public boolean delCurso(int cursoId) {       
         for (Curso cursoEx : this.cursos) {
             if (cursoEx.getId() == cursoId) {
-                this.cursos.remove(curso);
+                this.cursos.remove(cursoEx);
+                return true;
             }
         }
         return true;
@@ -54,5 +54,12 @@ public class Professor extends Usuario {
         }
         return retorno;
     }
+
+    @Override
+    public String toString() {
+        return "Aluno{" + "id=" + super.getId() + ", matricula=" + super.getMatricula() + ", nome=" + super.getNome() + ", cursos=" + cursos + "}";
+    }
+    
+    
 
 }

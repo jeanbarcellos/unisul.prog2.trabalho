@@ -22,7 +22,7 @@ public class EmprestimosAtivosTM extends AbstractTableModel {
     private static final long serialVersionUID = 1L;
 
     private List<Emprestimo> linhas;
-    private String[] colunas = new String[]{"ID", "Livro", "Edição", "Usuario", "Tipo", "Dt Emprestimo", "Dt Devolução"};
+    private String[] colunas = new String[]{"ID", "Livro", "Edição", "Usuário", "Tipo", "Dt Emprestimo", "Prvisão Devolução"};
 
     public EmprestimosAtivosTM() {
         linhas = new ArrayList<Emprestimo>();

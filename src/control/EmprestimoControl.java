@@ -41,9 +41,10 @@ public class EmprestimoControl {
         this.emprestimos = new ArrayList<Emprestimo>();
 
         // Carrega os emprestimos vindos da base de dados
-        this.setEmprestimos(this.carregarLista());
+        this.carregarLista();        
     }
 
+    
     /**
      * Retona a lista de Emprestimos do controlador
      *
@@ -63,7 +64,25 @@ public class EmprestimoControl {
     private void setEmprestimos(List<Emprestimo> emprestimos) {
         this.emprestimos = emprestimos;
     }
-
+    
+    /**
+     * Retorna a referência de um objeto da lista através de seu ID. Caso não o
+     * encontre retorna NULL.
+     *
+     * @param id ID do Emprestimo a ser buscado na lista
+     * @return Objeto Emprestimo
+     */
+    public Emprestimo getEmprestimo(int id) {
+        Emprestimo retorno = null;
+        for (Emprestimo emprestimoExt : this.getEmprestimos()) {
+            if (emprestimoExt.getId() == id) {
+                retorno = emprestimoExt;
+            }
+        }
+        return retorno;
+    }
+    
+    
     /**
      * Inserir um emprestimo
      *
@@ -99,6 +118,28 @@ public class EmprestimoControl {
     }
 
     /**
+     * Realiza devolução
+     *
+     * @param emprestimoId
+     * @return
+     */
+    public boolean devolver(int emprestimoId) {
+        Date dataAgora = Data.dataAtual();
+        boolean retorno;
+
+        retorno = emprestimoDao.devolver(emprestimoId, dataAgora);
+
+        if (retorno) {
+            this.carregarLista();
+            retorno = true;
+        } else {
+            retorno = false;
+        }
+
+        return retorno;
+    }
+
+    /**
      * Excluir um objeto da base de dados
      *
      * @param id ID do Objeto a ser excluido
@@ -122,30 +163,15 @@ public class EmprestimoControl {
         }
     }
 
-    /**
-     * Retorna a referência de um objeto da lista através de seu ID. Caso não o
-     * encontre retorna NULL.
-     *
-     * @param id ID do Emprestimo a ser buscado na lista
-     * @return Objeto Emprestimo
-     */
-    public Emprestimo getEmprestimo(int id) {
-        Emprestimo retorno = null;
-        for (Emprestimo emprestimoExt : this.getEmprestimos()) {
-            if (emprestimoExt.getId() == id) {
-                retorno = emprestimoExt;
-            }
-        }
-        return retorno;
-    }
+    
 
     /**
      * Carega a lista no controlador
      *
      * @return Lista com todos os Emprestimos
      */
-    private List<Emprestimo> carregarLista() {
-        return emprestimoDao.all();
+    private void carregarLista() {
+        this.setEmprestimos(emprestimoDao.all());        
     }
 
     /**
@@ -165,7 +191,15 @@ public class EmprestimoControl {
     private int autoId() {
         return this.ultimoId() + 1;
     }
+    
+    
 
+    /**
+     * Lista com todos os exemplares pegos por um usuário
+     *
+     * @param usuarioId ID do usuário
+     * @return Emprestimo filtrado
+     */
     public List<Emprestimo> getExemplaresPegos(int usuarioId) {
         return this.emprestimoDao.getEmprestimosPorUsuario(usuarioId);
     }
@@ -190,13 +224,19 @@ public class EmprestimoControl {
         return tipo;
     }
 
-    public String getDisponibilidade(int idExemplar) {
-        String situacao = "Disponível";
+    /**
+     * Verifica se o exemplar está disponível para empréstimo
+     *
+     * @param idExemplar ID do Exemplar
+     * @return
+     */
+    public int getDisponibilidade(int idExemplar) {
+        int situacao = 1;
 
         for (Emprestimo emprestimoExt : this.getEmprestimos()) {
-            if (emprestimoExt.getExemplar().getId() == idExemplar && emprestimoExt.getDataDevolucao() != null) {
-                situacao = "Emprestado";
-                System.out.println(emprestimoExt);
+            if (emprestimoExt.getExemplar().getId() == idExemplar
+                    && emprestimoExt.getDataDevolucao() == null) {
+                situacao = 0;
             }
         }
         return situacao;

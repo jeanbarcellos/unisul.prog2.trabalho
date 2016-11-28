@@ -27,10 +27,10 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="jPanel4" max="32767" attributes="0"/>
-                  <Component id="panelLivro2" alignment="0" max="32767" attributes="0"/>
+                  <Component id="panelEmprestimo" max="32767" attributes="0"/>
+                  <Component id="panelLivro" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
+                      <Component id="panelUsuario" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -38,9 +38,9 @@
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+              <Component id="devolver" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+              <Component id="cancelar" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -49,15 +49,15 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
+              <Component id="panelUsuario" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="panelLivro2" min="-2" max="-2" attributes="0"/>
+              <Component id="panelLivro" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
+              <Component id="panelEmprestimo" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="devolver" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cancelar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -65,7 +65,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="jPanel3">
+    <Container class="javax.swing.JPanel" name="panelUsuario">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -80,15 +80,24 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jLabel2" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelNome" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelMatricula" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jTextField1" alignment="0" min="-2" pref="70" max="-2" attributes="0"/>
-                      <Component id="jTextField2" alignment="0" min="-2" pref="292" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="textMatricula" min="-2" pref="70" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                          <Component id="labelTipo" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="textTipo" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="textNome" min="-2" pref="292" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -97,13 +106,15 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="textMatricula" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelMatricula" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelTipo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="textTipo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField2" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelNome" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="textNome" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -111,35 +122,42 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabel1">
+        <Component class="javax.swing.JLabel" name="labelMatricula">
           <Properties>
             <Property name="text" type="java.lang.String" value="Matr&#xed;cula:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField1">
+        <Component class="javax.swing.JTextField" name="textMatricula">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textMatriculaActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel2">
+        <Component class="javax.swing.JLabel" name="labelTipo">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Tipo:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="textTipo">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="labelNome">
           <Properties>
             <Property name="text" type="java.lang.String" value="Nome:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField2">
+        <Component class="javax.swing.JTextField" name="textNome">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField2ActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="panelLivro2">
+    <Container class="javax.swing.JPanel" name="panelLivro">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -154,18 +172,18 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="labelLivroAutor2" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="labelLivroTitulo2" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="labelLivroId2" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelLivroAutor" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelLivroTitulo" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelLivroId" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="textLivroId2" min="-2" pref="78" max="-2" attributes="0"/>
+                          <Component id="textLivroId" min="-2" pref="78" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="textLivroAutor2" alignment="0" max="32767" attributes="0"/>
-                      <Component id="textLivroTitulo2" alignment="0" max="32767" attributes="0"/>
+                      <Component id="textLivroAutor" alignment="0" max="32767" attributes="0"/>
+                      <Component id="textLivroTitulo" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -175,18 +193,18 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="labelLivroId2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="textLivroId2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelLivroId" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="textLivroId" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="textLivroTitulo2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="labelLivroTitulo2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="textLivroTitulo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelLivroTitulo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="textLivroAutor2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="labelLivroAutor2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="textLivroAutor" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelLivroAutor" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="0" pref="8" max="32767" attributes="0"/>
               </Group>
@@ -194,49 +212,39 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="labelLivroId2">
+        <Component class="javax.swing.JLabel" name="labelLivroId">
           <Properties>
             <Property name="text" type="java.lang.String" value="ID:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="textLivroId2">
+        <Component class="javax.swing.JTextField" name="textLivroId">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="labelLivroTitulo2">
+        <Component class="javax.swing.JLabel" name="labelLivroTitulo">
           <Properties>
             <Property name="text" type="java.lang.String" value="T&#xed;tulo:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="textLivroTitulo2">
+        <Component class="javax.swing.JTextField" name="textLivroTitulo">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="labelLivroAutor2">
+        <Component class="javax.swing.JLabel" name="labelLivroAutor">
           <Properties>
             <Property name="text" type="java.lang.String" value="Edi&#xe7;&#xe3;o:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="textLivroAutor2">
+        <Component class="javax.swing.JTextField" name="textLivroAutor">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
           </Properties>
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="jButton1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Realizar Revolu&#xe7;&#xe3;o"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Cancelar"/>
-      </Properties>
-    </Component>
-    <Container class="javax.swing.JPanel" name="jPanel4">
+    <Container class="javax.swing.JPanel" name="panelEmprestimo">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -252,19 +260,19 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelDtEmprestimo" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jTextField3" min="-2" pref="89" max="-2" attributes="0"/>
+                          <Component id="textDtEmprestimo" min="-2" pref="89" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelDtDevolucao" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelDtDevolucaoPrev" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jTextField4" min="-2" pref="89" max="-2" attributes="0"/>
-                              <Component id="jTextField5" min="-2" pref="89" max="-2" attributes="0"/>
+                              <Component id="textDtDevolucaoPrev" min="-2" pref="89" max="-2" attributes="0"/>
+                              <Component id="textDtDevolucao" min="-2" pref="89" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -277,55 +285,68 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelDtEmprestimo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="textDtEmprestimo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelDtDevolucaoPrev" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="textDtDevolucaoPrev" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jTextField5" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="textDtDevolucao" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelDtDevolucao" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabel3">
+        <Component class="javax.swing.JLabel" name="labelDtEmprestimo">
           <Properties>
             <Property name="text" type="java.lang.String" value="Data Emprestimo:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField3">
+        <Component class="javax.swing.JTextField" name="textDtEmprestimo">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel4">
+        <Component class="javax.swing.JLabel" name="labelDtDevolucaoPrev">
           <Properties>
             <Property name="text" type="java.lang.String" value="Data Previs&#xe3;o Devolu&#xe7;&#xe3;o:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField4">
+        <Component class="javax.swing.JTextField" name="textDtDevolucaoPrev">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel5">
+        <Component class="javax.swing.JLabel" name="labelDtDevolucao">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Data Emprestimo:"/>
+            <Property name="text" type="java.lang.String" value="Data Devolu&#xe7;&#xe3;o:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField5">
+        <Component class="javax.swing.JTextField" name="textDtDevolucao">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
           </Properties>
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JButton" name="devolver">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Realizar Devolu&#xe7;&#xe3;o"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="devolverActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="cancelar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cancelar"/>
+      </Properties>
+    </Component>
   </SubComponents>
 </Form>

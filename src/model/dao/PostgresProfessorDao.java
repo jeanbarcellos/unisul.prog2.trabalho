@@ -47,10 +47,6 @@ class PostgresProfessorDao implements ProfessorDao {
 
             int retorno1 = ps.executeUpdate();
 
-//            ps2 = conn.prepareStatement("INSERT INTO professor (usuario_id, matricula, data_inicio, data_fim) VALUES (?, ?, ?, ?)");
-//            ps2.setInt(1, professor.getId());
-//            int retorno2 = ps2.executeUpdate();
-//            return retorno1 == 1 && retorno2 == 1;
             return retorno1 == 1;
 
         } catch (SQLException ex) {
@@ -327,6 +323,7 @@ class PostgresProfessorDao implements ProfessorDao {
         return cursos;
     }
 
+    @Override
     public boolean addCurso(int idProfessor, Curso curso){
         Connection conn = null;
         PreparedStatement ps = null;

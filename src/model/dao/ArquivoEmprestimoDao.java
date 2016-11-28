@@ -3,6 +3,7 @@ package model.dao;
 import model.Emprestimo;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import util.PersistenciaArquivo;
@@ -81,9 +82,8 @@ class ArquivoEmprestimoDao implements EmprestimoDao {
         return this.persistArquivo.getLastId();
     }
 
-    @Override
-    public List<Emprestimo> listarAtivos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void carregarLista() {
+        this.emprestimos = this.all();
     }
 
     @Override
@@ -103,11 +103,14 @@ class ArquivoEmprestimoDao implements EmprestimoDao {
         return lista;
     }
 
-    /**
-     * Recarrega lista interna do Dao
-     */
-    private void carregarLista() {
-        this.emprestimos = this.all();
+    @Override
+    public boolean emprestar(Emprestimo emprestimo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean devolver(int emprestimoId, Date dataDevolucao) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

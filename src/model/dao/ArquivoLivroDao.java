@@ -23,6 +23,7 @@ final class ArquivoLivroDao implements LivroDao {
 
     public ArquivoLivroDao() {
         this.persistArquivo = new PersistenciaArquivo("livros.bin", "livro_seq.txt");
+        
         this.carregarLista();
     }
 

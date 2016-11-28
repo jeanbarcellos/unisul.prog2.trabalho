@@ -43,7 +43,6 @@ public class AlunoControl {
      * @return Lista de Alunos
      */
     public List<Aluno> getAlunos() {
-//        this.setAlunos(this.carregarLista());
         return alunos;
     }
 
@@ -143,6 +142,22 @@ public class AlunoControl {
     }
 
     /**
+     * Pegar aluno por matricula
+     *
+     * @param matricula
+     * @return
+     */
+    public Aluno getAlunoMatricula(int matricula) {
+        Aluno retorno = null;
+        for (Aluno alunoExt : this.getAlunos()) {
+            if (alunoExt.getMatricula() == matricula) {
+                retorno = alunoExt;
+            }
+        }
+        return retorno;
+    }
+
+    /**
      * Carrega a lista no controlador
      *
      * @return Lista com todos os Alunos
@@ -169,15 +184,12 @@ public class AlunoControl {
         return this.ultimoId() + 1;
     }
 
-    
-    
     public List<Aluno> buscarPeloNome(String nome) {
         return alunoDao.buscarPeloNome(nome);
     }
-    
+
     public List<Aluno> buscarPelaMatricula(int matricula) {
         return alunoDao.buscarPelaMatricula(matricula);
     }
-
 
 }

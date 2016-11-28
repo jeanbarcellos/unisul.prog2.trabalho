@@ -23,7 +23,8 @@ class ArquivoAlunoDao implements AlunoDao {
 
     public ArquivoAlunoDao() {
         this.persistArquivo = new PersistenciaArquivo("alunos.bin", "usuario_seq.txt");
-        this.alunos = this.all();
+        
+        this.carregarLista();
     }
 
     @Override
@@ -99,6 +100,11 @@ class ArquivoAlunoDao implements AlunoDao {
     public int lastId() {
         return this.persistArquivo.getLastId();
     }
+
+    private void carregarLista() {
+        this.alunos = this.all();
+    }
+    
 
     @Override
     public List<Aluno> buscarPeloNome(String nome) {
