@@ -1,4 +1,4 @@
-package model.dao;
+package model.dao.postgre;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -1,9 +1,10 @@
-package model.dao;
+package model.dao.arquivo;
 
 import model.Livro;
 
 import java.util.List;
 import java.util.ArrayList;
+import model.dao.LivroDao;
 
 import util.PersistenciaArquivo;
 
@@ -16,7 +17,7 @@ import util.PersistenciaArquivo;
  * @package model.dao
  *
  */
-final class ArquivoLivroDao implements LivroDao {
+final public class ArquivoLivroDao implements LivroDao {
 
     private List<Livro> livros = new ArrayList<Livro>();
     private PersistenciaArquivo persistArquivo;

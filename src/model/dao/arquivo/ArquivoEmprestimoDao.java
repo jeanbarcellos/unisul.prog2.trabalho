@@ -1,10 +1,11 @@
-package model.dao;
+package model.dao.arquivo;
 
 import model.Emprestimo;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import model.dao.EmprestimoDao;
 
 import util.PersistenciaArquivo;
 
@@ -17,7 +18,7 @@ import util.PersistenciaArquivo;
  * @package model.dao
  *
  */
-class ArquivoEmprestimoDao implements EmprestimoDao {
+final public class ArquivoEmprestimoDao implements EmprestimoDao {
 
     private List<Emprestimo> emprestimos = new ArrayList<Emprestimo>();
     private PersistenciaArquivo persistArquivo;
@@ -39,6 +40,24 @@ class ArquivoEmprestimoDao implements EmprestimoDao {
 
         // Sequenciar arquivo
         this.persistArquivo.sequenciar();
+
+        return true;
+    }
+
+    @Override
+    public boolean emprestar(Emprestimo emprestimo) {
+        return this.insert(emprestimo);
+    }
+
+    @Override
+    public boolean devolver(int emprestimoId, Date dataDevolucao) {
+        this.carregarLista();       
+
+        for (Emprestimo emprestimo : this.emprestimos) {
+            if (emprestimo.getId() == emprestimoId) {
+                //
+            }
+        }
 
         return true;
     }
@@ -97,20 +116,9 @@ class ArquivoEmprestimoDao implements EmprestimoDao {
                     && (emprestimo.getDataDevolucao() == null)) {
                 lista.add(emprestimo);
             }
-            System.out.println(emprestimo);
         }
 
         return lista;
-    }
-
-    @Override
-    public boolean emprestar(Emprestimo emprestimo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean devolver(int emprestimoId, Date dataDevolucao) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

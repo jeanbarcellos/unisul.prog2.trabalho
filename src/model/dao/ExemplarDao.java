@@ -69,16 +69,38 @@ public interface ExemplarDao {
      * Lista todos os exemplares ativos de um livro
      *
      * @param livroId ID O Livro
-     * @return
+     * @return Lista de Exemplares
      */
     public List<Exemplar> listar(int livroId);
-    
-    
+
+    /**
+     * Buscar Exemplares através de um Título informado
+     *
+     * @param titulo Título a ser pesquisado
+     * @return Lista de Exemplares
+     */
     public List<Exemplar> buscarPeloTitulo(String titulo);
-    
+
+    /**
+     * Buscar Exemplares através de um auto informado
+     *
+     * @param autor Autor a ser pesquisado
+     * @return Lista de Exemplares
+     */
     public List<Exemplar> buscarPeloAutor(String autor);
-    
+
+    /**
+     * Buscar Exemplares através de uma edição informada
+     *
+     * @param edicao Edição a ser pesquisada
+     * @return Lista de Exemplares
+     */
     public List<Exemplar> buscarPelaEdicao(String edicao);
 
+    /**
+     * Exemplares disponíveis (ou seja, que não estão emprestados)
+     *
+     * @return Lista de Exemplares disponíveis
+     */
     public List<Exemplar> disponiveis();
 }

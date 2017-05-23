@@ -1,4 +1,4 @@
-package model.dao;
+package model.dao.postgre;
 
 import model.Curso;
 
@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import model.dao.CursoDao;
+import model.dao.PostgresDaoFactory;
 
 import util.Log;
 

@@ -1,30 +1,32 @@
-package model.dao;
+package model.dao.postgre;
 
-import model.Professor;
+import model.Aluno;
+import model.Curso;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-import model.Curso;
+import model.dao.AlunoDao;
+import model.dao.PostgresDaoFactory;
 import util.Log;
 
 /**
- * Classe PostgresProfessorDao
+ * Classe PostgresAlunoDao
  *
  * @author Jean Barcellos <jeanbarcellos@hotmail.com>
- * @date 15/11/2016
+ * @date 16/11/2016
  *
  * @package model.dao
  *
  */
-class PostgresProfessorDao implements ProfessorDao {
+public class PostgresAlunoDao implements AlunoDao {
 
     @Override
-    public boolean insert(Professor professor) {
+    public boolean insert(Aluno aluno) {
         Connection conn = null;
         PreparedStatement ps = null;
         PreparedStatement ps2 = null;
@@ -37,17 +39,24 @@ class PostgresProfessorDao implements ProfessorDao {
             String sql1 = "";
             sql1 += "INSERT INTO usuario (id, nome, tipo, matricula, data_inicio, data_fim) ";
             sql1 += "VALUES (?, ?, ?, ?, ?, ?);";
+            
             ps = conn.prepareStatement(sql1);
-            ps.setInt(1, professor.getId());
-            ps.setString(2, professor.getNome());
-            ps.setInt(3, 2);
-            ps.setInt(4, professor.getMatricula());
+            ps.setInt(1, aluno.getId());
+            ps.setString(2, aluno.getNome());
+            ps.setInt(3, 1);
+            ps.setInt(4, aluno.getMatricula());
             ps.setDate(5, dataAgora);
             ps.setDate(6, null);
 
             int retorno1 = ps.executeUpdate();
 
-            return retorno1 == 1;
+            ps2 = conn.prepareStatement("INSERT INTO aluno (usuario_id, curso_id) VALUES (?, ?)");
+            ps2.setInt(1, aluno.getId());
+            ps2.setInt(2, aluno.getCurso().getId());
+
+            int retorno2 = ps2.executeUpdate();
+
+            return retorno1 == 1 && retorno2 == 1;
 
         } catch (SQLException ex) {
             Log.write(ex.getErrorCode() + " - " + ex.getMessage());
@@ -67,7 +76,7 @@ class PostgresProfessorDao implements ProfessorDao {
     }
 
     @Override
-    public boolean update(Professor professor) {
+    public boolean update(Aluno aluno) {
         Connection conn = null;
         PreparedStatement ps = null;
         PreparedStatement ps2 = null;
@@ -75,14 +84,24 @@ class PostgresProfessorDao implements ProfessorDao {
         try {
             conn = PostgresDaoFactory.openConnection();
 
-            ps = conn.prepareStatement("UPDATE usuario SET nome = ?, matricula = ? WHERE id = ? ;");
-            ps.setString(1, professor.getNome());
-            ps.setInt(2, professor.getMatricula());
-            ps.setInt(3, professor.getId());
+            String sql1 = "";
+            sql1 += "UPDATE usuario ";
+            sql1 += "SET nome = ?, matricula = ?";
+            sql1 += "WHERE id = ? ;";
+            ps = conn.prepareStatement(sql1);
+            ps.setString(1, aluno.getNome());
+            ps.setInt(2, aluno.getMatricula());
+            ps.setInt(3, aluno.getId());
 
             int retorno1 = ps.executeUpdate();
 
-            return retorno1 == 1;
+            ps2 = conn.prepareStatement("UPDATE aluno SET curso_id = ? WHERE usuario_id = ? ;");
+            ps2.setInt(1, aluno.getCurso().getId());
+            ps2.setInt(2, aluno.getId());
+
+            int retorno2 = ps2.executeUpdate();
+
+            return retorno1 == 1 && retorno2 == 1;
 
         } catch (SQLException ex) {
             Log.write(ex.getErrorCode() + " - " + ex.getMessage());
@@ -135,8 +154,8 @@ class PostgresProfessorDao implements ProfessorDao {
     }
 
     @Override
-    public Professor load(int id) {
-        Professor professor = null;
+    public Aluno load(int id) {
+        Aluno aluno = null;
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -145,10 +164,19 @@ class PostgresProfessorDao implements ProfessorDao {
             conn = PostgresDaoFactory.openConnection();
 
             String sql = "";
-            sql += "SELECT u.id, u.nome, u.matricula ";
-            sql += "  FROM usuario u ";
+            sql += "SELECT ";
+            sql += "    u.id, ";
+            sql += "    u.nome, ";
+            sql += "    u.matricula, ";
+            sql += "    a.curso_id, ";
+            sql += "      c.nome AS curso_nome ";
+            sql += "  FROM aluno a ";
+            sql += "  LEFT JOIN usuario u ";
+            sql += "    ON a.usuario_id = u.id ";
+            sql += "  LEFT JOIN curso c ";
+            sql += "    ON a.curso_id = c.id ";
             sql += " WHERE u.id = ? ";
-            sql += "   AND u.tipo = 2 ";
+            sql += "   AND u.tipo = 1 ";
             sql += " LIMIT 1 ;";
 
             ps = conn.prepareStatement(sql);
@@ -157,10 +185,11 @@ class PostgresProfessorDao implements ProfessorDao {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                professor = new Professor();
-                professor.setId(rs.getInt("id"));
-                professor.setNome(rs.getString("nome"));
-                professor.setMatricula(rs.getInt("matricula"));
+                aluno = new Aluno();
+                aluno.setId(rs.getInt("id"));
+                aluno.setCurso(new Curso(rs.getInt("curso_id"), rs.getString("curso_nome")));
+                aluno.setNome(rs.getString("nome"));
+                aluno.setMatricula(rs.getInt("matricula"));
             }
 
         } catch (SQLException ex) {
@@ -181,36 +210,46 @@ class PostgresProfessorDao implements ProfessorDao {
             }
         }
 
-        return professor;
+        return aluno;
     }
 
     @Override
-    public List<Professor> all() {
-        List<Professor> professores = new ArrayList<Professor>();
+    public List<Aluno> all() {
+        List<Aluno> alunos = new ArrayList<Aluno>();
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
 
         try {
             conn = PostgresDaoFactory.openConnection();
-            String sql = "";
 
-            sql += "SELECT u.id, u.nome, u.matricula ";
-            sql += "FROM usuario u ";
-            sql += "WHERE u.data_fim IS NULL ";
-            sql += "  AND u.tipo = 2 ";
-            sql += "ORDER BY u.id ASC";
+            String sql = "";
+            sql += "SELECT ";
+            sql += "    u.id, ";
+            sql += "    u.nome, ";
+            sql += "    u.matricula, ";
+            sql += "    a.curso_id, ";
+            sql += "      c.nome AS curso_nome ";
+            sql += "  FROM usuario u ";
+            sql += "  LEFT JOIN aluno a ";
+            sql += "    ON u.id = a.usuario_id";
+            sql += "  LEFT JOIN curso c ";
+            sql += "    ON a.curso_id = c.id ";
+            sql += " WHERE u.data_fim IS NULL ";
+            sql += "   AND u.tipo = 1 ";
+            sql += " ORDER BY a.usuario_id ASC ;";
 
             ps = conn.prepareStatement(sql);
 
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                Professor professor = new Professor();
-                professor.setId(rs.getInt("id"));
-                professor.setNome(rs.getString("nome"));
-                professor.setMatricula(rs.getInt("matricula"));
-                professores.add(professor);
+                Aluno aluno = new Aluno();
+                aluno.setId(rs.getInt("id"));
+                aluno.setCurso(new Curso(rs.getInt("curso_id"), rs.getString("curso_nome")));
+                aluno.setNome(rs.getString("nome"));
+                aluno.setMatricula(rs.getInt("matricula"));
+                alunos.add(aluno);
             }
 
         } catch (SQLException ex) {
@@ -231,7 +270,7 @@ class PostgresProfessorDao implements ProfessorDao {
             }
         }
 
-        return professores;
+        return alunos;
     }
 
     @Override
@@ -272,126 +311,9 @@ class PostgresProfessorDao implements ProfessorDao {
         return lastId;
     }
 
-    
     @Override
-    public List<Curso> getCursos(int idProfessor) {
-        List<Curso> cursos = new ArrayList<Curso>();
-        Connection conn = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-
-        try {
-            conn = PostgresDaoFactory.openConnection();
-            String sql = "";
-
-            sql += "SELECT c.id, c.nome ";
-            sql += "  FROM curso c ";
-            sql += "  LEFT JOIN professor_curso pc ";
-            sql += "    ON c.id = pc.curso_id ";
-            sql += " WHERE pc.professor_id = ? ";
-
-            ps = conn.prepareStatement(sql);
-            ps.setInt(1, idProfessor);
-
-            rs = ps.executeQuery();
-            
-            while (rs.next()) {
-                Curso curso = new Curso();
-                curso.setId(rs.getInt("id"));
-                curso.setNome(rs.getString("nome"));
-                cursos.add(curso);
-            }
-
-        } catch (SQLException ex) {
-            Log.write(ex.getErrorCode() + " - " + ex.getMessage());
-        } finally {
-            try {
-                if (ps != null) {
-                    ps.close();
-                }
-                if (rs != null) {
-                    rs.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (Exception e) {
-
-            }
-        }
-
-        return cursos;
-    }
-
-    @Override
-    public boolean addCurso(int idProfessor, Curso curso){
-        Connection conn = null;
-        PreparedStatement ps = null;
-
-        try {
-            conn = PostgresDaoFactory.openConnection();
-
-            ps = conn.prepareStatement("INSERT INTO professor_curso (professor_id, curso_id) VALUES (?, ?)");            
-            ps.setInt(1, idProfessor);
-            ps.setInt(2, curso.getId());
-
-            int retorno = ps.executeUpdate();
-
-            return retorno == 1;
-
-        } catch (SQLException ex) {
-            Log.write(ex.getErrorCode() + " - " + ex.getMessage());
-            return false;
-        } finally {
-            try {
-                if (ps != null) {
-                    ps.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (Exception e) {
-
-            }
-        }
-    }
-        
-    @Override
-    public boolean delCurso(int idProfessor, int idCurso) {
-        Connection conn = null;
-        PreparedStatement ps = null;
-
-        try {
-            conn = PostgresDaoFactory.openConnection();
-
-            ps = conn.prepareStatement("DELETE FROM professor_curso WHERE professor_id = ? AND curso_id = ?;");
-            ps.setInt(1, idProfessor);
-            ps.setInt(2, idCurso);
-
-            int retorno = ps.executeUpdate();
-
-            return retorno == 1;
-
-        } catch (SQLException ex) {
-            Log.write(ex.getErrorCode() + " - " + ex.getMessage());
-            return false;
-        } finally {
-            try {
-                if (ps != null) {
-                    ps.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (Exception e) {
-
-            }
-        }
-    }
-    
-    @Override
-    public List<Professor> buscarPeloNome(String nome) {
-        List<Professor> professores = new ArrayList<Professor>();
+    public List<Aluno> buscarPeloNome(String nome) {
+        List<Aluno> alunos = new ArrayList<Aluno>();
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -403,24 +325,31 @@ class PostgresProfessorDao implements ProfessorDao {
             sql += "SELECT ";
             sql += "    u.id, ";
             sql += "    u.nome, ";
-            sql += "    u.matricula ";
+            sql += "    u.matricula, ";
+            sql += "    a.curso_id, ";
+            sql += "      c.nome AS curso_nome ";
             sql += "  FROM usuario u ";
+            sql += "  LEFT JOIN aluno a ";
+            sql += "    ON u.id  = a.usuario_id";
+            sql += "  LEFT JOIN curso c ";
+            sql += "    ON a.curso_id = c.id ";
             sql += " WHERE u.data_fim IS NULL ";
-            sql += "   AND u.tipo = 2 ";
+            sql += "   AND u.tipo = 1 ";
             sql += "   AND u.nome LIKE ?";
             sql += " ORDER BY u.id ASC ;";
 
             ps = conn.prepareStatement(sql);
             ps.setString(1, "%" + nome + "%");
-
+            
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                Professor professor = new Professor();
-                professor.setId(rs.getInt("id"));
-                professor.setNome(rs.getString("nome"));
-                professor.setMatricula(rs.getInt("matricula"));
-                professores.add(professor);
+                Aluno aluno = new Aluno();
+                aluno.setId(rs.getInt("id"));
+                aluno.setCurso(new Curso(rs.getInt("curso_id"), rs.getString("curso_nome")));
+                aluno.setNome(rs.getString("nome"));
+                aluno.setMatricula(rs.getInt("matricula"));
+                alunos.add(aluno);
             }
 
         } catch (SQLException ex) {
@@ -441,12 +370,12 @@ class PostgresProfessorDao implements ProfessorDao {
             }
         }
 
-        return professores;
+        return alunos;
     }
 
     @Override
-    public List<Professor> buscarPelaMatricula(int matricula) {
-        List<Professor> professores = new ArrayList<Professor>();
+    public List<Aluno> buscarPelaMatricula(int matricula) {
+        List<Aluno> alunos = new ArrayList<Aluno>();
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -458,24 +387,31 @@ class PostgresProfessorDao implements ProfessorDao {
             sql += "SELECT ";
             sql += "    u.id, ";
             sql += "    u.nome, ";
-            sql += "    u.matricula ";
+            sql += "    u.matricula, ";
+            sql += "    a.curso_id, ";
+            sql += "      c.nome AS curso_nome ";
             sql += "  FROM usuario u ";
+            sql += "  LEFT JOIN aluno a ";
+            sql += "    ON u.id  = a.usuario_id";
+            sql += "  LEFT JOIN curso c ";
+            sql += "    ON a.curso_id = c.id ";
             sql += " WHERE u.data_fim IS NULL ";
-            sql += "   AND u.tipo = 2 ";
+            sql += "   AND u.tipo = 1 ";
             sql += "   AND u.matricula = ?";
             sql += " ORDER BY u.id ASC ;";
 
             ps = conn.prepareStatement(sql);
             ps.setInt(1, matricula);
-
+            
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                Professor professor = new Professor();
-                professor.setId(rs.getInt("id"));
-                professor.setNome(rs.getString("nome"));
-                professor.setMatricula(rs.getInt("matricula"));
-                professores.add(professor);
+                Aluno aluno = new Aluno();
+                aluno.setId(rs.getInt("id"));
+                aluno.setCurso(new Curso(rs.getInt("curso_id"), rs.getString("curso_nome")));
+                aluno.setNome(rs.getString("nome"));
+                aluno.setMatricula(rs.getInt("matricula"));
+                alunos.add(aluno);
             }
 
         } catch (SQLException ex) {
@@ -496,7 +432,7 @@ class PostgresProfessorDao implements ProfessorDao {
             }
         }
 
-        return professores;
+        return alunos;
     }
 
 }

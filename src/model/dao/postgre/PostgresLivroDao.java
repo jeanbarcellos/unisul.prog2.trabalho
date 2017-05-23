@@ -1,4 +1,4 @@
-package model.dao;
+package model.dao.postgre;
 
 import model.Livro;
 
@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import model.dao.LivroDao;
+import model.dao.PostgresDaoFactory;
 import util.Log;
 
 /**
@@ -20,7 +22,7 @@ import util.Log;
  * @package model.dao
  *
  */
-class PostgresLivroDao implements LivroDao {
+public class PostgresLivroDao implements LivroDao {
 
     @Override
     public boolean insert(Livro livro) {

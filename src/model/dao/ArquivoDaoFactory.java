@@ -1,5 +1,13 @@
 package model.dao;
 
+import model.dao.arquivo.ArquivoAlunoDao;
+import model.dao.arquivo.ArquivoCursoDao;
+import model.dao.arquivo.ArquivoLivroDao;
+import model.dao.arquivo.ArquivoEmprestimoDao;
+import model.dao.arquivo.ArquivoUsuarioDao;
+import model.dao.arquivo.ArquivoProfessorDao;
+import model.dao.arquivo.ArquivoExemplarDao;
+
 /**
  * Classe ArquivoDaoFactory
  *
@@ -38,7 +46,7 @@ class ArquivoDaoFactory extends DaoFactory {
 
     @Override
     public UsuarioDao getUsuarioDao() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new ArquivoUsuarioDao();
     }
 
     @Override

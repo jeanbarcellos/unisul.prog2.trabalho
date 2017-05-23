@@ -1,4 +1,4 @@
-package model.dao;
+package model.dao.postgre;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.Usuario;
+import model.dao.PostgresDaoFactory;
+import model.dao.UsuarioDao;
 import util.Log;
 
 /**
@@ -18,7 +20,7 @@ import util.Log;
  * @package model.dao
  *
  */
-class PostgresUsuarioDao implements UsuarioDao {
+public class PostgresUsuarioDao implements UsuarioDao {
 
     public PostgresUsuarioDao() {
     }

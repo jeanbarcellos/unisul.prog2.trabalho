@@ -1,4 +1,4 @@
-package model.dao;
+package model.dao.postgre;
 
 import util.Data;
 
@@ -15,6 +15,8 @@ import model.Exemplar;
 import model.Livro;
 import model.Professor;
 import model.Usuario;
+import model.dao.EmprestimoDao;
+import model.dao.PostgresDaoFactory;
 import util.Log;
 
 /**
@@ -75,34 +77,7 @@ public class PostgresEmprestimoDao implements EmprestimoDao {
 
     @Override
     public boolean emprestar(Emprestimo emprestimo) {
-        Connection conn = null;
-        PreparedStatement ps = null;
-
-        try {
-            conn = PostgresDaoFactory.openConnection();
-
-            ps = conn.prepareStatement("UPDATE emprestimo set data_devolucao = ? WHERE id = ? ;");
-//            ps.setInt(1, id);
-
-            int retorno = ps.executeUpdate();
-
-            return retorno == 1;
-
-        } catch (SQLException ex) {
-            Log.write(ex.getErrorCode() + " - " + ex.getMessage());
-            return false;
-        } finally {
-            try {
-                if (ps != null) {
-                    ps.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (Exception e) {
-
-            }
-        }
+        return this.insert(emprestimo);
     }
 
     @Override
