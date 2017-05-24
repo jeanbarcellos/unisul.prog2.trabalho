@@ -141,11 +141,17 @@ public class ProfessorControl {
         }
         return retorno;
     }
-    
-        public Professor getProfessorMatricula(int matricula) {
+
+    /**
+     * Pegar professor por matricula
+     *
+     * @param matricula Matrícula a ser pesquisada
+     * @return
+     */
+    public Professor getProfessorMatricula(int matricula) {
         Professor retorno = null;
         for (Professor profExt : this.getProfessores()) {
-            if (profExt.getMatricula()== matricula) {
+            if (profExt.getMatricula() == matricula) {
                 retorno = profExt;
             }
         }

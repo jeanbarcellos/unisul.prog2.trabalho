@@ -41,10 +41,9 @@ public class EmprestimoControl {
         this.emprestimos = new ArrayList<Emprestimo>();
 
         // Carrega os emprestimos vindos da base de dados
-        this.carregarLista();        
+        this.carregarLista();
     }
 
-    
     /**
      * Retona a lista de Emprestimos do controlador
      *
@@ -64,7 +63,7 @@ public class EmprestimoControl {
     private void setEmprestimos(List<Emprestimo> emprestimos) {
         this.emprestimos = emprestimos;
     }
-    
+
     /**
      * Retorna a referência de um objeto da lista através de seu ID. Caso não o
      * encontre retorna NULL.
@@ -81,8 +80,7 @@ public class EmprestimoControl {
         }
         return retorno;
     }
-    
-    
+
     /**
      * Inserir um emprestimo
      *
@@ -105,7 +103,7 @@ public class EmprestimoControl {
         this.emprestimos.add(emprestimo);
 
         // Persistir
-        boolean db = emprestimoDao.insert(emprestimo);
+        boolean db = this.emprestimoDao.insert(emprestimo);
 
         // Verifica o exito da persistência e mantêm sincronização local
         if (db) {
@@ -127,7 +125,7 @@ public class EmprestimoControl {
         Date dataAgora = Data.dataAtual();
         boolean retorno;
 
-        retorno = emprestimoDao.devolver(emprestimoId, dataAgora);
+        retorno = this.emprestimoDao.devolver(emprestimoId, dataAgora);
 
         if (retorno) {
             this.carregarLista();
@@ -155,7 +153,7 @@ public class EmprestimoControl {
             // Remove da listas
             this.emprestimos.remove(emprestimoRef);
 
-            boolean retorno = emprestimoDao.delete(id);
+            boolean retorno = this.emprestimoDao.delete(id);
 
             return retorno;
         } else {
@@ -163,15 +161,13 @@ public class EmprestimoControl {
         }
     }
 
-    
-
     /**
      * Carega a lista no controlador
      *
      * @return Lista com todos os Emprestimos
      */
     private void carregarLista() {
-        this.setEmprestimos(emprestimoDao.all());        
+        this.setEmprestimos(this.emprestimoDao.all());
     }
 
     /**
@@ -180,7 +176,7 @@ public class EmprestimoControl {
      * @return Último ID cadastrado
      */
     private int ultimoId() {
-        return emprestimoDao.lastId();
+        return this.emprestimoDao.lastId();
     }
 
     /**
@@ -191,8 +187,6 @@ public class EmprestimoControl {
     private int autoId() {
         return this.ultimoId() + 1;
     }
-    
-    
 
     /**
      * Lista com todos os exemplares pegos por um usuário

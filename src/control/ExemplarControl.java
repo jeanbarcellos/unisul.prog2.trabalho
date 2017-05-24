@@ -46,6 +46,11 @@ public class ExemplarControl {
         return exemplares;
     }
 
+    /**
+     * Retorna a lista de exemplares disponíveis
+     *
+     * @return Lista de Exemplares
+     */
     public List<Exemplar> getExemplaresDisponiveis() {
         return this.exemplarDao.disponiveis();
     }

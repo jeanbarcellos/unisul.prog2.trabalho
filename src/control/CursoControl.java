@@ -29,7 +29,6 @@ public final class CursoControl {
      */
     private final CursoDao cursoDao = DaoFactory.getDaoFactory().getCursoDao();
 
-    
     /**
      * Construtor
      *
@@ -42,7 +41,6 @@ public final class CursoControl {
         this.setCursos(this.carregarLista());
     }
 
-    
     /**
      * Retona a lista de Cursos do controlador
      *
@@ -61,8 +59,7 @@ public final class CursoControl {
     private void setCursos(List<Curso> cursos) {
         this.cursos = cursos;
     }
-   
-    
+
     /**
      * Inserir um curso
      *
@@ -139,7 +136,6 @@ public final class CursoControl {
         }
     }
 
-    
     /**
      * Retorna a referência de um objeto da lista através de seu ID. Caso não o
      * encontre retorna NULL.
@@ -156,9 +152,7 @@ public final class CursoControl {
         }
         return retorno;
     }
-    
 
-    
     /**
      * Carega a lista no controlador
      *

@@ -184,10 +184,22 @@ public class AlunoControl {
         return this.ultimoId() + 1;
     }
 
+    /**
+     * Buscar aluno através de seu nome
+     *
+     * @param nome Nome
+     * @return
+     */
     public List<Aluno> buscarPeloNome(String nome) {
         return alunoDao.buscarPeloNome(nome);
     }
 
+    /**
+     * Buscar aluno através da sua matrícula
+     *
+     * @param matricula Matricula
+     * @return
+     */
     public List<Aluno> buscarPelaMatricula(int matricula) {
         return alunoDao.buscarPelaMatricula(matricula);
     }
