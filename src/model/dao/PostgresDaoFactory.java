@@ -1,13 +1,13 @@
 package model.dao;
 
-import model.dao.postgre.PostgresProfessorDao;
-import model.dao.postgre.PostgresLivroDao;
-import model.dao.postgre.PostgresCursoDao;
-import model.dao.postgre.PostgresUsuarioDao;
-import model.dao.postgre.PostgresExemplarDao;
-import model.dao.postgre.PostgresAlunoDao;
-import model.dao.postgre.PostgresConnection;
-import model.dao.postgre.PostgresEmprestimoDao;
+import model.dao.postgres.PostgresProfessorDao;
+import model.dao.postgres.PostgresLivroDao;
+import model.dao.postgres.PostgresCursoDao;
+import model.dao.postgres.PostgresUsuarioDao;
+import model.dao.postgres.PostgresExemplarDao;
+import model.dao.postgres.PostgresAlunoDao;
+import model.dao.postgres.PostgresConnection;
+import model.dao.postgres.PostgresEmprestimoDao;
 import java.sql.Connection;
 
 /**
