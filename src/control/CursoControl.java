@@ -20,11 +20,6 @@ import java.util.List;
 public final class CursoControl {
 
     /**
-     * Lista com todos os cursos sincronizados com a base de dados
-     */
-    private List<Curso> cursos;
-
-    /**
      * Instância do DaoFactory de Cursos
      */
     private final CursoDao cursoDao = DaoFactory.getDaoFactory().getCursoDao();
@@ -35,10 +30,10 @@ public final class CursoControl {
      * Carrega a lista de cursos armazanados na base de dados
      */
     public CursoControl() {
-        this.cursos = new ArrayList<Curso>();
+//        this.cursos = new ArrayList<Curso>();
 
         // Carrega os cursos vindos da base de dados
-        this.setCursos(this.carregarLista());
+//        this.setCursos(this.carregarLista());
     }
 
     /**
@@ -47,17 +42,7 @@ public final class CursoControl {
      * @return Lista de Cursos
      */
     public List<Curso> getCursos() {
-        return this.cursos;
-    }
-
-    /**
-     * Seta a Lista de cursos do controlador Declaramos seCursos() como privado
-     * pois ninguem além do próprio controlador pode gerenciar a lista.
-     *
-     * @param cursos Cursos a serem setados na lista.
-     */
-    private void setCursos(List<Curso> cursos) {
-        this.cursos = cursos;
+        return this.cursoDao.all();
     }
 
     /**
@@ -71,19 +56,20 @@ public final class CursoControl {
         // Gerar automaticamente o ID e definir no novo Objeto
         curso.setId(autoId());
 
-        // Inserir em memória
-        this.cursos.add(curso);
-
-        // Persistir
-        boolean db = cursoDao.insert(curso);
-
-        // Verifica o exito da persistência e mantêm sincronização local
-        if (db) {
-            return true;
-        } else {
-            this.cursos.remove(curso);
-            return false;
-        }
+        return this.cursoDao.insert(curso);
+//        // Inserir em memória
+//        this.cursos.add(curso);
+//
+//        // Persistir
+//        boolean db = cursoDao.insert(curso);
+//
+//        // Verifica o exito da persistência e mantêm sincronização local
+//        if (db) {
+//            return true;
+//        } else {
+//            this.cursos.remove(curso);
+//            return false;
+//        }
     }
 
     /**
@@ -93,22 +79,24 @@ public final class CursoControl {
      * @return Booleando
      */
     public boolean alterar(Curso curso) {
-
-        // Referencia o Objeto a ser alterado na memória
-        Curso cursoRef = this.getCurso(curso.getId());
-
-        // Verifica se o objeto existe
-        if (cursoRef != null) {
-
-            // Altera somente o nome
-            cursoRef.setNome(curso.getNome());
-
-            boolean retorno = cursoDao.update(curso);
-
-            return retorno;
-        } else {
-            return false;
-        }
+        System.out.println(curso);
+        return this.cursoDao.update(curso);
+//
+//        // Referencia o Objeto a ser alterado na memória
+//        Curso cursoRef = this.getCurso(curso.getId());
+//
+//        // Verifica se o objeto existe
+//        if (cursoRef != null) {
+//
+//            // Altera somente o nome
+//            cursoRef.setNome(curso.getNome());
+//
+//            boolean retorno = cursoDao.update(curso);
+//
+//            return retorno;
+//        } else {
+//            return false;
+//        }
 
     }
 
@@ -119,21 +107,21 @@ public final class CursoControl {
      * @return true ou false
      */
     public boolean excluir(int id) {
-
-        // Carrega o Objeto
-        Curso cursoRef = this.getCurso(id);
-
-        if (cursoRef != null) {
-
-            // Remove da listas
-            this.cursos.remove(cursoRef);
-
-            boolean retorno = cursoDao.delete(id);
-
-            return retorno;
-        } else {
-            return false;
-        }
+        return this.cursoDao.delete(id);
+//        // Carrega o Objeto
+//        Curso cursoRef = this.getCurso(id);
+//
+//        if (cursoRef != null) {
+//
+//            // Remove da listas
+//            this.cursos.remove(cursoRef);
+//
+//            boolean retorno = cursoDao.delete(id);
+//
+//            return retorno;
+//        } else {
+//            return false;
+//        }
     }
 
     /**
@@ -144,22 +132,14 @@ public final class CursoControl {
      * @return Objeto Curso
      */
     public Curso getCurso(int id) {
-        Curso retorno = null;
-        for (Curso cursoExt : this.getCursos()) {
-            if (cursoExt.getId() == id) {
-                retorno = cursoExt;
-            }
-        }
-        return retorno;
-    }
-
-    /**
-     * Carega a lista no controlador
-     *
-     * @return Lista com todos os Cursos
-     */
-    private List<Curso> carregarLista() {
-        return cursoDao.all();
+        return this.cursoDao.load(id);
+//        Curso retorno = null;
+//        for (Curso cursoExt : this.getCursos()) {
+//            if (cursoExt.getId() == id) {
+//                retorno = cursoExt;
+//            }
+//        }
+//        return retorno;
     }
 
     /**

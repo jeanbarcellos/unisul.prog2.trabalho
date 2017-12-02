@@ -324,6 +324,8 @@ public class CadastroCursoView extends javax.swing.JInternalFrame {
                 retorno = this.cursoControl.alterar(curso);
 
                 if (retorno) {
+                    this.carregarTabela();
+                    
                     JOptionPane.showMessageDialog(null, "Curso alterado com sucesso.");
                 } else {
                     JOptionPane.showMessageDialog(null, "Erro ao Tentar alterar informações do curso.");
