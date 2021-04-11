@@ -73,3 +73,8 @@ Prova 2 (Threds) da disciplina de Tópicos Avançados de Programação (Programa
     - Arquivo de texto comum;
     - Arquivo estilo properties;
     - Arquivo XML.
+
+## Resultado / Feedback
+
+- O trabalho recebeu nota `9.5` de `10` pelo professor.
+- O desconto de `0,5` ponto se deu porque não implementei o Empréstimo de Exemplar de Livro (_esta implementação continua ausente. :D_).
